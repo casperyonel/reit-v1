@@ -10,6 +10,8 @@ express
 axios
 cors
 sequelize
+pg
+
 
 ### `react runs on localhost/3000`
 
