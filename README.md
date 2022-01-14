@@ -4,13 +4,15 @@ This project uses React for it's JS framework. Heroku for database hosting, Axio
 
 ## Setup
 
-NPM I:
+### NPM I:
 dotenv
 express
 axios
 cors
 sequelize
 pg
+useState
+react-router-dom
 
 
 ### `react runs on localhost/3000`
@@ -19,4 +21,4 @@ pg
 
 ### `server runs on localhost/3001`
 
-Be sure to make adjustment to proxy in package.json when deploying. 
+Be sure to make server adjustment to proxy in package.json when deploying. 
