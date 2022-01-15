@@ -13,6 +13,9 @@ sequelize
 pg
 useState
 react-router-dom
+react-icons
+sass
+styled-components
 
 
 ### `react runs on localhost/3000`

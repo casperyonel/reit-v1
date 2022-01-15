@@ -5,6 +5,7 @@ import Homepage from './pages/homepage/Homepage'
 import IDOWhitelist from './pages/IDOWhitelist/IDOWhitelist'
 import Leaderboards from './pages/leaderboards/Leaderboards'
 import Errorpage from './pages/errorpage/Errorpage'
+import Howtoplay from './pages/howtoplay/Howtoplay'
 
 const Main = () => {
     return (
@@ -17,6 +18,7 @@ const Main = () => {
                     <Route path='/' exact element={<Homepage />} />
                     <Route path='/ido' element={<IDOWhitelist />} />
                     <Route path='/leaderboards' element={<Leaderboards />} />
+                    <Route path='/howtoplay' element={<Howtoplay />} />
                     <Route path="*" element={<Errorpage />} />
                 </Routes>
 

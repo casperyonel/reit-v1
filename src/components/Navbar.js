@@ -1,23 +1,34 @@
-import { Link } from "react-router-dom"
+ 
 import logo from "../assets/reit-visuals/monopoly-man-color-2.png"
+import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements'
+import navbar from './navbar.scss'
 
 // import component home pages from /pages folder
 
 const Navbar = () => {
+    
+    
+    // NEED TO CHANGE HOW TO PLAY, BLOG, AND DISCORD TO STRAIGHT LINKS!
+    
     return (
-        <div className="header-full">
-            <div className="header-left">
-                <img src={logo} alt="" />
-            </div>
-            <div className="header-right">
-                <nav>
-                {/* dYdX has Link -> Button -> p tag */}
-                    <Link to='/'></Link>
-                    <Link to='/ido'>IDOWhitelist</Link>
-                    <Link to='/leaderboards'>Leaderboards</Link>
-                </nav>
-            </div>
-        </div>
+        <>
+            <Nav>
+                <NavLink to='/'>
+                    {/* <img src={logo} alt="" /> */}
+                    <h1>logo</h1>
+                </NavLink>
+                <Bars />
+                <NavMenu>
+                 <NavLink to='/leaderboards' activeStyle>Leaderboards</NavLink>
+                   <NavLink to='/howtoplay' activeStyle>How To Play</NavLink>
+                   <a className='external-nav-element' href="https://medium.com/@REITDAO" target='_blank' rel="noopener noreferrer">Blog</a>
+                   <a className='external-nav-element' href="https://medium.com/@REITDAO" target='_blank' rel="noopener noreferrer">Discord</a>
+                </NavMenu>
+                <NavBtn>
+                    <NavBtnLink to='/ido'>IDO Whitelist</NavBtnLink>
+                </NavBtn>
+            </Nav>
+        </>
     )
 }
 
