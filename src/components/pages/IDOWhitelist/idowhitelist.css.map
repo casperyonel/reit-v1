@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,IAAI,CAAC;EACD,KAAK,EAAE,KAAK;EACZ,WAAW,EAAE,uBAAuB;EACpC,SAAS,EAAE,KAAK;CACnB",
+    "sources": [
+        "idowhitelist.scss"
+    ],
+    "names": [],
+    "file": "idowhitelist.css"
+}
