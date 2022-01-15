@@ -8,7 +8,8 @@ import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements'
 const Navbar = () => {
     
     return (
-        <>
+        <div className="y">
+           
             <Nav>
                 <NavLink to='/'>
                     <img id='logo' src={logo} alt="logo" />
@@ -22,7 +23,8 @@ const Navbar = () => {
                    <NavBtnLink to='/ido'>IDO Whitelist</NavBtnLink>
                 </NavMenu>
             </Nav>
-        </>
+            
+        </div>
     )
 }
 
