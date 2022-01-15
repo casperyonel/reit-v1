@@ -11,9 +11,7 @@ const Main = () => {
     return (
         <>
             <Router>
-               
                 <Navbar />
-                
                 <Routes>
                     <Route path='/' exact element={<Homepage />} />
                     <Route path='/ido' element={<IDOWhitelist />} />
@@ -21,7 +19,6 @@ const Main = () => {
                     <Route path='/howtoplay' element={<Howtoplay />} />
                     <Route path="*" element={<Errorpage />} />
                 </Routes>
-
                 <Footer />
             </Router>
         </>

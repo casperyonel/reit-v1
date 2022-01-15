@@ -7,15 +7,11 @@ import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements'
 
 const Navbar = () => {
     
-    
-    // NEED TO CHANGE HOW TO PLAY, BLOG, AND DISCORD TO STRAIGHT LINKS!
-    
     return (
         <>
             <Nav>
                 <NavLink to='/'>
                     <img id='logo' src={logo} alt="logo" />
-                    {/* <h1>logo</h1> */}
                 </NavLink>
                 <Bars />
                 <NavMenu>
@@ -25,9 +21,6 @@ const Navbar = () => {
                    <a className='external-nav-element' href="https://medium.com/@REITDAO" target='_blank' rel="noopener noreferrer">Discord</a>
                    <NavBtnLink to='/ido'>IDO Whitelist</NavBtnLink>
                 </NavMenu>
-                {/* <NavBtn>
-                    <NavBtnLink to='/ido'>IDO Whitelist</NavBtnLink>
-                </NavBtn> */}
             </Nav>
         </>
     )
