@@ -1,4 +1,5 @@
 import Navbar from './Navbar'
+import Footer from './Footer'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Homepage from './pages/homepage/Homepage'
 import IDOWhitelist from './pages/IDOWhitelist/IDOWhitelist'
@@ -18,8 +19,8 @@ const Main = () => {
                     <Route path='/leaderboards' element={<Leaderboards />} />
                     <Route path="*" element={<Errorpage />} />
                 </Routes>
-                
-                <div>Footer Goes Here, link it. Everything in between nvbar and footer changes though.</div>
+
+                <Footer />
             </Router>
         </>
     )
