@@ -1,9 +1,17 @@
-
+import howtoplay from './howtoplay.scss'
 
 const Howtoplay = () => {
     return (
         <div>
-            <h1>HOW TO PLAY!</h1>
+            <div className="test">
+                <div className="test-right">
+
+                </div>
+
+                <div className="test-left">
+
+                </div>
+            </div>
         </div>
     )
 }

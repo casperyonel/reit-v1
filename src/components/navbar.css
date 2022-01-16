@@ -12,4 +12,20 @@
   height: 100%;
   cursor: pointer;
 }
+
+#logo {
+  height: 72px;
+}
+
+.bg {
+  height: 95px;
+  width: 100vw;
+  position: inherit;
+  background-color: #121223;
+}
+
+.y {
+  background-color: #121223;
+  height: 100vh;
+}
 /*# sourceMappingURL=navbar.css.map */

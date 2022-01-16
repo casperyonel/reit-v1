@@ -8,17 +8,17 @@
     // position: relative;
     // top: 0;
     // height: 120vh;
-    width: 100vw;
     background-color: rgb(18, 18, 35);
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .box-left-1 {
     position: relative;
     height: 120vh;
-    width: 50%;
+    width: 480px;
     background-color: green;
     display: flex;
     justify-content: center;
@@ -29,7 +29,7 @@
     position: absolute;
     top: 20%;
     background-color: black;
-    width: 600px;
+    width: 450px;
     height: 600px;
     transform: translate(0, 0px);
     display: flex;
@@ -53,8 +53,8 @@
 .box-right-1 { 
     position: relative;
     height: 120vh;
-    width: 50%;
-    background-color: darkcyan;
+    width: 480px;
+    background-color: darkblue;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +63,7 @@
 .box-right-2 {
     position: absolute;
     top: 5%;
-    width: 600px;
+    width: 450px;
     height: 80vh;
     background-color: black;
     display: flex;

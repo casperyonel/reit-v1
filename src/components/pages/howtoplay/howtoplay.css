@@ -1,4 +1,4 @@
-.houter {
+.test {
   background-color: #121223;
   position: relative;
   display: -webkit-box;
@@ -11,15 +11,15 @@
       flex-wrap: wrap;
 }
 
-.hbox-right-1 {
+.test-right {
   width: 480px;
   height: 100vh;
   background-color: green;
 }
 
-.hbox-left-1 {
+.test-left {
   width: 480px;
   height: 100vh;
   background-color: darkblue;
 }
-/*# sourceMappingURL=Homepage.css.map */
+/*# sourceMappingURL=howtoplay.css.map */
