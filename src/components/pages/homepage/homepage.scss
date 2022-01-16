@@ -1,4 +1,52 @@
-.home-header-txt {
-    color: red;
-}
+.mouter {
+    background-color: yellow;
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    justify-content: center;
     
+}
+
+.mbox-left-1 {
+    position: relative;
+    height: 120vh;
+    width: 50%;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.mbox-left-2 {
+    position: absolute;
+    top: 20%;
+    background-color: black;
+    width: 600px;
+    height: 600px;
+    transform: translate(0, 0px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mbox-right-1 { 
+    position: relative;
+    height: 120vh;
+    width: 50%;
+    background-color: rgb(11, 0, 172);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-right-2 {
+    position: absolute;
+    top: 5%;
+    width: 600px;
+    height: 80vh;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
