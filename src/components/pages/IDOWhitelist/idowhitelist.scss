@@ -30,16 +30,51 @@
 
 .box-left-3 {
     background-color: grey;
-    width: 95%;
-    height: 95%;
+    width: 90%;
+    height: 90%;
 }
 
-.box-left-4 {
-    background-color: rgb(43, 255, 0);
-    width: 80%;
-    transform: translate(0, 50px);
-    height: 30%;
+.box-left-4a {
+    background-color: gold;
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    
 }
+
+.box-left-4b {
+    background-color: rgb(18, 223, 161);
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-4a {
+    background-color: aqua;
+    width: 100%;
+    height: 25%;
+}
+
+.middle1-4a {
+    background-color: rgb(98, 15, 119);
+    width: 100%;
+    height: 25%;
+}
+
+.middle2-4a {
+    background-color: rgb(49, 175, 175);
+    width: 100%;
+    height: 25%;
+}
+
+.bottom-4a {
+    background-color: rgb(72, 163, 19);
+    width: 100%;
+    height: 25%;
+}
+
 
 .box-right-1 { 
     width: 480px;
