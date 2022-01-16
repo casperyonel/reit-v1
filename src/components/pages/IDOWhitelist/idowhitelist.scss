@@ -5,9 +5,9 @@
 // }
 
 .outer {
-    position: relative;
-    top: 0;
-    height: 120vh;
+    // position: relative;
+    // top: 0;
+    // height: 120vh;
     width: 100vw;
     background-color: rgb(18, 18, 35);
     display: flex;
@@ -15,7 +15,7 @@
     justify-content: center;
 }
 
-.left {
+.box-left-1 {
     position: relative;
     height: 120vh;
     width: 50%;
@@ -27,7 +27,9 @@
     align-items: center;
 }
 
-.box-left {
+.box-left-2 {
+    position: absolute;
+    top: 20%;
     background-color: black;
     width: 600px;
     height: 600px;
@@ -37,8 +39,14 @@
     align-items: center;
 }
 
-.box-left-1 {
+.box-left-3 {
     background-color: grey;
+    width: 50%;
+    height: 50%;
+}
+
+.box-left-4 {
+    background-color: blue;
     width: 50%;
     height: 50%;
 }
