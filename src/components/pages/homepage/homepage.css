@@ -1,9 +1,11 @@
 .houter {
   background-color: #121223;
-  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -11,27 +13,47 @@
       flex-wrap: wrap;
 }
 
-.hbox-right-1 {
-  width: 480px;
-  height: 700px;
-  background-color: green;
-}
-
-.hbox-right-2 {
-  width: 450px;
-  height: 450px;
-  background-color: black;
-}
-
 .hbox-left-1 {
   width: 480px;
   height: 700px;
   background-color: darkblue;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .hbox-left-2 {
   width: 450px;
   height: 450px;
   background-color: black;
+  top: 130px;
+}
+
+.hbox-right-1 {
+  width: 480px;
+  height: 700px;
+  background-color: green;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.hbox-right-2 {
+  width: 450px;
+  height: 450px;
+  background-color: black;
+  top: 130px;
 }
 /*# sourceMappingURL=Homepage.css.map */
