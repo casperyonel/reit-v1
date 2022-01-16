@@ -7,8 +7,6 @@ import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements'
 const Navbar = () => {
     
     return (
-        
-           
             <Nav>
                 <NavLink to='/'>
                     <img id='logo' src={logo} alt="logo" />
@@ -22,8 +20,6 @@ const Navbar = () => {
                    <NavBtnLink to='/ido'>IDO Whitelist</NavBtnLink>
                 </NavMenu>
             </Nav>
-            
-        
     )
 }
 
