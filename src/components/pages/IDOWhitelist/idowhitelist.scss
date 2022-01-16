@@ -5,21 +5,48 @@
 // }
 
 .outer {
-    position: absolute;
+    position: relative;
     top: 0;
     height: 120vh;
     width: 100vw;
     background-color: rgb(18, 18, 35);
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .left {
-    position: absolute;
+    position: relative;
     height: 120vh;
+    width: 50%;
     background-color: green;
     color: white;
     font-size: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-left {
+    background-color: black;
+    width: 600px;
+    height: 600px;
+    transform: translate(0, 0px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-left-1 {
+    background-color: grey;
+    width: 50%;
+    height: 50%;
+}
+
+.right { 
+    width: 50%;
+    height: 120vh;
+    background-color: darkcyan;
 }
 
 h1 {

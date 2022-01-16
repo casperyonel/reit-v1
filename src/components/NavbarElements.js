@@ -23,7 +23,6 @@ export const NavLink = styled(Link)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-
   &.active {
     color: #15cdfc;
   }
@@ -32,7 +31,6 @@ export const NavLink = styled(Link)`
 export const Bars = styled(FaBars)`
   display: none;
   color: #fff;
-
   @media screen and (max-width: 768px) {
     display: block;
     position: absolute;
@@ -65,7 +63,6 @@ export const NavBtnLink = styled(Link)`
   transition: all 0.2s ease-in-out;
   text-decoration: none;
   margin-left: 24px;
-
   &:hover {
     transition: all 0.2s ease-in-out;
     background: #fff;

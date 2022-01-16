@@ -1,4 +1,3 @@
- 
 import navbar from './navbar.scss'
 import logo from "../assets/reit-visuals/monopoly-man-color-2.png"
 import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements'
@@ -8,7 +7,7 @@ import {Nav, NavLink, Bars, NavMenu, NavBtn, NavBtnLink} from './NavbarElements'
 const Navbar = () => {
     
     return (
-        <div className="y">
+        
            
             <Nav>
                 <NavLink to='/'>
@@ -24,7 +23,7 @@ const Navbar = () => {
                 </NavMenu>
             </Nav>
             
-        </div>
+        
     )
 }
 

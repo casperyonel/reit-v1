@@ -11,6 +11,7 @@ const Main = () => {
     return (
         <>
             <Router>
+            <div className="y">
                 <Navbar />
                 <Routes>
                     <Route path='/' exact element={<Homepage />} />
@@ -20,6 +21,7 @@ const Main = () => {
                     <Route path="*" element={<Errorpage />} />
                 </Routes>
                 <Footer />
+                </div>
             </Router>
         </>
     )

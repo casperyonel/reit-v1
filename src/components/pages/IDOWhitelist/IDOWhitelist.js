@@ -3,8 +3,11 @@ import idowhitelist from "./idowhitelist.scss"
 const IDOWhitelist = () => {
     return (
         <div className="outer">
-            <h1>Hello</h1>
-              <div className="left">Left</div>
+              <div className="left">
+                  <div className="box-left">
+                      <div className="box-left-1"></div>
+                  </div>
+              </div>
               <div className="right">Right</div>
               
         </div>
