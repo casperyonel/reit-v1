@@ -3,12 +3,12 @@ import howtoplay from './howtoplay.scss'
 const Howtoplay = () => {
     return (
         <div>
-            <div className="test">
-                <div className="test-right">
+            <div className="xouter">
+                <div className="xbox-right-1">
 
                 </div>
 
-                <div className="test-left">
+                <div className="xbox-left-1">
 
                 </div>
             </div>

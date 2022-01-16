@@ -1,4 +1,4 @@
-.test {
+.xouter {
     background-color: rgb(18, 18, 35);
     position: relative;
     display: flex;
@@ -6,13 +6,13 @@
     flex-wrap: wrap;
 }
 
-.test-right {
+.xbox-right-1 {
     width: 480px;
     height: 100vh;
     background-color: green;
 }
 
-.test-left {
+.xbox-left-1 {
     width: 480px;
     height: 100vh;
     background-color: darkblue;
