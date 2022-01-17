@@ -42,7 +42,10 @@ const IDOWhitelist = () => {
 
                                     
                                 </div>
-                                <div className="bottom-4a"></div>
+                                <div className="bottom-4a">
+                                    <p id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your amount spent (either 500 or 1,000 DAI) will remain the same, but you will be airdropped more $REIT tokens. 
+                                    <br /> Read more about how to lower your IDO price here.</p>
+                                </div> 
                           </div>
                           <div className="box-left-4b">
                                     
