@@ -19,10 +19,12 @@ module.exports = {
         wallet_address varchar(64) UNIQUE NOT NULL,
         bond_class varchar(1), 
         link varchar(200) UNIQUE,
-        referral_counter int);
+        click_counter int,
+        conversion_counter int
+        );
         
-        INSERT INTO wallets (wallet_address, bond_class, link, referral_counter)
-        values ('0xB1f0e758951A02B24D04dd211d0424445Ae04c5C', 'A', 'linkgoeshere.com', 1)
+        INSERT INTO wallets (wallet_address, bond_class, link, click_counter, conversion_counter)
+        values ('0xB1f0e758951A02B24D04dd211d0424445Ae04c5C', 'A', 'linkgoeshere.com', 0, 0)
         `).then(() => {
             console.log('Seed successful')
             res.sendStatus(200)

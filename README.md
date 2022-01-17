@@ -16,6 +16,9 @@ react-router-dom
 react-icons
 sass
 styled-components
+react-use-effect
+useLocation from router-dom
+query-string
 
 
 ### `react runs on localhost/3000`

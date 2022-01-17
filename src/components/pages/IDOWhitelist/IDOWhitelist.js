@@ -1,6 +1,42 @@
+import axios from "axios"
 import idowhitelist from "./idowhitelist.scss"
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 
 const IDOWhitelist = () => {
+    
+    
+    
+    
+    // const baseURL = 'http://localhost:3001/ido'
+    // Change after deployment
+
+    
+    // const updateClickCounter = (id) => {    
+    //      axios.get(`${baseURL}/clickCounter/?referrer=${id}`)
+    //     .then(response => {
+    //         console.log(response.data)
+    //     })
+    //     .catch(err => console.log(err))
+    // }
+
+    // useEffect((req, res) => {
+    //     updateClickCounter(req.query)
+    // })
+
+
+        const { search } = useLocation()
+        // Pulls query string from URL. 
+        const {referrer } = queryString.parse(search)
+        // Parse id off query. 
+        console.log(search, referrer)
+        // axios.put('/clickCounter', referrer)
+        // .then(response => console.log(response.data))
+        // .catch(error => console.log(error))
+
+
+    
     return (
         <div className="outer">
               <div className="box-left-1">
@@ -11,7 +47,7 @@ const IDOWhitelist = () => {
                                 <div className="top-4a">
                                     <span id='select-amount'>Select Purchase Amount:</span>
                                     
-                                    <span class='exchange-time-container'>
+                                    <span className='exchange-time-container'>
                                         <span id='refresh'>Refreshes in 8 seconds</span>
                                         <span id='exchange-rate'>20 DAI = 1 REIT</span>
                                     </span>
@@ -21,10 +57,10 @@ const IDOWhitelist = () => {
                                 <div className="middle1-4a">
 
                                 <form action="click">
-                                    <span class='btn-class-a'>
-                                        <label class='class-label'htmlFor="class-a">Class A:</label>
-                                        <label class='class-label'htmlFor="class-a">500</label>
-                                        <label class='class-label'htmlFor="class-a">DAI</label>
+                                    <span className='btn-class-a'>
+                                        <label className='class-label'htmlFor="class-a">Class A:</label>
+                                        <label className='class-label'htmlFor="class-a">500</label>
+                                        <label className='class-label'htmlFor="class-a">DAI</label>
                                     </span>
                                 </form>
 
@@ -33,10 +69,10 @@ const IDOWhitelist = () => {
                                 <div className="middle2-4a">
 
                                 <form action="click">
-                                    <span class='btn-class-b'> 
-                                        <label class='class-label'htmlFor="class-a">Class B:</label>
-                                        <label class='class-label'htmlFor="class-a">1,000</label>
-                                        <label class='class-label'htmlFor="class-a">DAI</label>
+                                    <span className='btn-class-b'> 
+                                        <label className='class-label'htmlFor="class-a">Class B:</label>
+                                        <label className='class-label'htmlFor="class-a">1,000</label>
+                                        <label className='class-label'htmlFor="class-a">DAI</label>
                                     </span>
                                 </form>
 
