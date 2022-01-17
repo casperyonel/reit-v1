@@ -10,7 +10,12 @@ const IDOWhitelist = () => {
                                 
                                 <div className="top-4a">
                                     <span id='select-amount'>Select Purchase Amount:</span>
-                                    <span id='exchange-rate'>essssss</span>
+                                    
+                                    <span class='exchange-time-container'>
+                                        <span id='refresh'>Refreshes in 8 seconds</span>
+                                        <span id='exchange-rate'>20 DAI = 1 REIT</span>
+                                    </span>
+
                                 </div>
                                 
                                 <div className="middle1-4a">
