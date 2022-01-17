@@ -44,7 +44,7 @@
 }
 
 .box-left-4b {
-    background-color: rgb(18, 223, 161);
+    background-color: rgb(223, 18, 18);
     width: 100%;
     height: 50%;
     display: flex;
@@ -52,28 +52,81 @@
 }
 
 .top-4a {
-    background-color: aqua;
+    background-color: rgb(204, 255, 255);
     width: 100%;
     height: 25%;
 }
 
 .middle1-4a {
-    background-color: rgb(98, 15, 119);
+    background-color: rgb(65, 233, 18);
     width: 100%;
     height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-class-a
+{
+    background-color: rgb(109, 109, 109);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    height: 50.63px;
+    width: 405px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.class-label {
+    display: flex;
+
 }
 
 .middle2-4a {
     background-color: rgb(49, 175, 175);
     width: 100%;
     height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.btn-class-b
+{
+    background-color: rgb(176, 137, 10);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 2px 12px 3px 12px;
+    height: 100%;
+    width: 100%;
+}
+
+
 
 .bottom-4a {
     background-color: rgb(72, 163, 19);
     width: 100%;
     height: 25%;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .box-right-1 { 

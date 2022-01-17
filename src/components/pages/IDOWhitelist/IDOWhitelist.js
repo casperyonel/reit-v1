@@ -10,13 +10,32 @@ const IDOWhitelist = () => {
                                 <div className="top-4a">
                                     <p>Select Purchase Amount:</p>
                                 </div>
-                                <div className="middle1-4a"></div>
-                                <div className="middle2-4a"></div>
+                                <div className="middle1-4a">
+
+                                <form action="click">
+                                    <span class='btn-class-a'>
+                                        <label class='class-label'htmlFor="class-a">Class A:</label>
+                                        <label class='class-label'htmlFor="class-a">500</label>
+                                        <label class='class-label'htmlFor="class-a">DAI</label>
+                                    </span>
+                                    </form>
+                                 </div>
+                                <div className="middle2-4a">
+
+                                <form action="click">
+                                <span class='btn-class-b'>Class B: 500 DAI</span>
+                                    
+                                </form>
+
+                                    
+                                </div>
                                 <div className="bottom-4a"></div>
                           </div>
                           <div className="box-left-4b">
                                     
                                 </div>
+
+                                
                       </div>
                   </div>
               </div>
