@@ -7,9 +7,12 @@ const IDOWhitelist = () => {
                   <div className="box-left-2">
                       <div className="box-left-3">
                           <div className="box-left-4a">
+                                
                                 <div className="top-4a">
-                                    <p>Select Purchase Amount:</p>
+                                    <span id='select-amount'>Select Purchase Amount:</span>
+                                    <span id='exchange-rate'>essssss</span>
                                 </div>
+                                
                                 <div className="middle1-4a">
 
                                 <form action="click">
@@ -18,13 +21,18 @@ const IDOWhitelist = () => {
                                         <label class='class-label'htmlFor="class-a">500</label>
                                         <label class='class-label'htmlFor="class-a">DAI</label>
                                     </span>
-                                    </form>
-                                 </div>
+                                </form>
+
+                                </div>
+                                
                                 <div className="middle2-4a">
 
                                 <form action="click">
-                                <span class='btn-class-b'>Class B: 500 DAI</span>
-                                    
+                                    <span class='btn-class-b'> 
+                                        <label class='class-label'htmlFor="class-a">Class B:</label>
+                                        <label class='class-label'htmlFor="class-a">1,000</label>
+                                        <label class='class-label'htmlFor="class-a">DAI</label>
+                                    </span>
                                 </form>
 
                                     
