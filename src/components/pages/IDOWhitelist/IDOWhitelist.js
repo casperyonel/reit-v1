@@ -37,7 +37,7 @@ const IDOWhitelist = () => {
             try {
                 let wallet_address = await requestAccount()
                 // WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
-                axios.post('/addWallet', { bond_class: order, wallet_address: wallet_address })
+                axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
                     .then(res => console.log(res))
                     .catch(err => console.log(err))
             } catch {
