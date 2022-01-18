@@ -3,19 +3,28 @@ import idowhitelist from "./idowhitelist.scss"
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
+import { ethers } from 'ethers'
+
 
 const IDOWhitelist = () => {
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
     
     useEffect(() => {
-        axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
-       .then(response => console.log(response.data)) // Await?
-       .catch(error => console.log(error))
+        if (referrer) {
+            axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
+           .then(response => console.log(response.data)) // Await?
+           .catch(error => console.log(error))
+        }
+
+        requestAccount()
+
     }, [])
     
     const [order, setOrder] = useState('')
     console.log(order)
+
+    
 
     const submit = (order) => {
         if (order !== 'A' || 'B') {
@@ -27,8 +36,16 @@ const IDOWhitelist = () => {
         }
     }
 
-            
-            
+    async function requestAccount() {
+        const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) 
+        let wallet_address = account[0]
+        console.log(wallet_address)
+        return wallet_address
+        
+    } 
+    // Prompts user to sign into metamask and stores wallet address in [account]
+ 
+     
             
             // here we do an axios call with bond class to back end, and wallet address, and 
             // do async await to figure out referral link for this new wallet addres by axios.get('/wallet_id)
