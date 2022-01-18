@@ -36,21 +36,29 @@ const IDOWhitelist = () => {
         if (window.ethereum) {
             try {
                 let wallet_address = await requestAccount()
-                // WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
-                axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
-                    .then(res => console.log(res))
-                    .catch(err => console.log(err))
+                await axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
+                    .then(async res => {
+                        if (res.data[0][0].exists) { // True if wallet is already in DB. 
+                            return
+                        } else {
+                            await axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
+                            .then(res => console.log(res))
+                            .catch(err => console.log(err))
+                        //     Else complete transaction and add wallet in DB. 
+                        //     const provider = new ethers.providers.Web3Provider(window.ethereum)
+                        //     const signer = provider.getSigner()
+                        //     const contract = new ethers.Contract(contractName, contractName.abi, signer)
+                        //     const transaction = await contract.function(order)
+                        //     setOrder('')
+                        //     await transaction.wait()
+                        //     WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
+                        } setOrder('')
+                    }).catch(err => console.log(err))
+                
             } catch {
                 await requestAccount()
             }
-        }
-        //     const provider = new ethers.providers.Web3Provider(window.ethereum)
-        //     const signer = provider.getSigner()
-        //     // const contract = new ethers.Contract(contractName, contractName.abi, signer)
-        //     // const transaction = await contract.function(order)
-        //     setOrder('')
-        //     // await transaction.wait()
-        // }
+        }  
     }
 
    

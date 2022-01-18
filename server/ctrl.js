@@ -20,10 +20,24 @@ module.exports = {
             UPDATE wallets
             SET click_counter = click_counter + 1
             WHERE wallet_id = ${referrer};
-        `).then((response) => {
+        `)
+        .then((response) => {
             res.status(200).send(response)
         }).catch(err => console.log(err))
     }, 
+    confirmNewWallet: (req, res) => {
+        let { wallet_address } = req.body
+        try {
+            sequelize.query(`
+                SELECT exists (SELECT 1 FROM wallets WHERE wallet_address = '${wallet_address}' LIMIT 1);
+            `)
+            .then(response => {
+                res.status(200).send(response)
+            }).catch(err => console.log(err))    
+        } catch (error) {
+            res.status(404).send("404 ERROR FAILED TO CONFIRM IF NEW WALLET")
+        }
+    },
     addWallet: async (req, res) => {
         console.log(req.body)
         let { bond_class, wallet_address } = req.body

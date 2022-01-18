@@ -7,7 +7,7 @@ const { seed } = require('./seed')
 app.use(express.json())
 app.use(cors())
 
-const { updateClickCounter, addWallet } = require('./ctrl')
+const { updateClickCounter, confirmNewWallet, addWallet } = require('./ctrl')
 
 // Seed:
 app.post('/seed', seed)
@@ -15,7 +15,11 @@ app.post('/seed', seed)
 // Increment click_counter for existing wallet:
 app.put('/clickCounter', updateClickCounter)
 
-// Add wallet
+// Confirm new wallet before purchasing:
+app.put('/confirmNewWallet', confirmNewWallet)
+
+
+// Add wallet:
 app.post('/addWallet', addWallet)
 
 
