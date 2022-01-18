@@ -11,16 +11,32 @@ const sequelize = new Sequelize(CONNECTION_STRING, {
     }
 })
 
+const baseURL = 'http://localhost:3001/ido?referrer='
+
 module.exports = { 
     updateClickCounter: (req, res) => {
-        console.log(req.body.referrer)
         let { referrer } = req.body
         sequelize.query(`
             UPDATE wallets
             SET click_counter = click_counter + 1
             WHERE wallet_id = ${referrer};
-    `).then((response) => {
-        res.status(200).send(response)
-    }).catch(err => console.log(err))
+        `).then((response) => {
+            res.status(200).send(response)
+        }).catch(err => console.log(err))
+    }, 
+    addWallet: (req, res) => {
+        console.log(req.body)
+        let { bond_class } = req.body
+        sequelize.query(`
+            INSERT INTO wallets (wallet_address, bond_class, link, click_counter, conversion_counter)
+            values ('0xB1f0e758951A02B24D04dd211d0424445Ae04c5D', '${bond_class}', 'linkgoeshere.com', 0, 0);
+
+            UPDATE wallets
+            SET link = ''${baseURL}'newID'
+            WHERE wallet_id = :newID
+
+        
+        `)
+        
     }
 }

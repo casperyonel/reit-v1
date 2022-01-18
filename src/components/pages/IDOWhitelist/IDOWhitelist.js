@@ -8,10 +8,9 @@ const IDOWhitelist = () => {
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
     // // Pulls query string from URL and then parses id off query. 
-    console.log(search, referrer)
     
     useEffect(() => {
-        axios.put('http://localhost:3000/clickCounter', { referrer: referrer })
+        axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
        .then(response => console.log(response.data))
        .catch(error => console.log(error))
     }, [])
@@ -21,9 +20,32 @@ const IDOWhitelist = () => {
     
     
     const [order, setOrder] = useState('')
+    console.log(order)
+
+    const submit = (order) => {
+        if (order !== 'A' || 'B') {
+            alert('Please select a class to mint!')
+        }  else {
+                axios.post('/addWallet', { bond_class: order })
+                .then(response => console.log(response.data))
+                .catch(error => console.log(error))
+        }
+
+            
+            
+            
+            // here we do an axios call with bond class to back end, and wallet address, and 
+            // do async await to figure out referral link for this new wallet addres by axios.get('/wallet_id)
+            // then need to display that you have successfully minted X number of REIT! 
+            // Here is your referral link
+        // }
+    }
 
 
-
+    // 1. Update state when clicked, then submit that state when submit is clicked (problem here is that 
+        // they could submit a state of nothing, need to catch this error (just make sure something is in state, otherwise tell them
+        // to please select an option!)
+    // 2.  Better route is to tie the span buttons in a form to the submit button?
 
 
 
@@ -57,7 +79,7 @@ const IDOWhitelist = () => {
                                  
 
                                 <form action="click">
-                                    <span className='btn-class-a'>
+                                    <span className='btn-class-a' onClick={e => setOrder('A')}>
                                         <label className='class-label'htmlFor="class-a">Class A:</label>
                                         <label className='class-label'htmlFor="class-a">500</label>
                                         <label className='class-label'htmlFor="class-a">DAI</label>
@@ -69,7 +91,7 @@ const IDOWhitelist = () => {
                                 <div className="middle2-4a">
 
                                 <form action="click">
-                                    <span className='btn-class-b'> 
+                                    <span className='btn-class-b' onClick={e => setOrder('B')}> 
                                         <label className='class-label'htmlFor="class-a">Class B:</label>
                                         <label className='class-label'htmlFor="class-a">1,000</label>
                                         <label className='class-label'htmlFor="class-a">DAI</label>
@@ -97,7 +119,9 @@ const IDOWhitelist = () => {
                           </div>
                           <div className="box-left-4b">
                                 <div className="top-4b">
-                                    <button id='submit-btn'>Submit Order</button>
+                                    
+                                    <button id='submit-btn' onClick={submit}>Submit Order</button>
+                                
                                 </div>
                                 <div className="middle1-4b">
                                  
