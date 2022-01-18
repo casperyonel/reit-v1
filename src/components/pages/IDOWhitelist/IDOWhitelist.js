@@ -5,56 +5,52 @@ import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { ethers } from 'ethers'
 
-
 const IDOWhitelist = () => {
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
-    
-    
-
-    useEffect(() => {
-        requestAccount()
-        
-        if (referrer) {
-            axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
-           .then(response => console.log(response.data)) // Await?
-           .catch(error => console.log(error))
-        }
-  }, [])
-
-    
     const [order, setOrder] = useState('')
     console.log(order)
-
-
-    const wallet_address = ''
-    console.log(wallet_address)
+        
     async function requestAccount() {
-        const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
-        let wallet_address = account[0]
-        console.log(wallet_address)
-        return wallet_address
-    } 
-
-    const submit = async order => {
-        if (!order) return 
         if (typeof window.ethereum !== 'undefined') {
-            await requestAccount() 
-            const provider = new ethers.providers.Web3Provider(window.ethereum)
-            const signer = provider.getSigner()
-            // const contract = new ethers.Contract(contractName, contractName.abi, signer)
-            // const transaction = await contract.function(order)
-            setOrder('')
-            // await transaction.wait()
-        }
+            const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
+            return account[0]
+        } 
+    }
 
-        if (wallet_address && (order === 'A' || order === 'B')) {
-            axios.post('/addWallet', { bond_class: order, wallet_address: wallet_address })
-                .then(response => console.log(response.data))
-                .catch(error => console.log(error))
-        }  else {
-                alert('Please select a class to mint!')
+    useEffect(() => {
+        if (referrer) {
+            axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
+            .then(response => console.log(response.data)) // Await?
+            .catch(error => console.log(error))
         }
+           
+        requestAccount()
+  }, [])
+
+    const submit = async () => {
+        if (!order) {
+            alert('You are trying to mint $REIT but havent selected a class!')
+            return
+        } 
+        if (window.ethereum) {
+            try {
+                let wallet_address = await requestAccount()
+                // WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
+                axios.post('/addWallet', { bond_class: order, wallet_address: wallet_address })
+                    .then(res => console.log(res))
+                    .catch(err => console.log(err))
+            } catch {
+                await requestAccount()
+            }
+        }
+        //     const provider = new ethers.providers.Web3Provider(window.ethereum)
+        //     const signer = provider.getSigner()
+        //     // const contract = new ethers.Contract(contractName, contractName.abi, signer)
+        //     // const transaction = await contract.function(order)
+        //     setOrder('')
+        //     // await transaction.wait()
+        // }
     }
 
    
@@ -67,7 +63,7 @@ const IDOWhitelist = () => {
 
 
 
-    
+
             
             // here we do an axios call with bond class to back end, and wallet address, and 
             // do async await to figure out referral link for this new wallet addres by axios.get('/wallet_id)
@@ -113,7 +109,7 @@ const IDOWhitelist = () => {
                                  
 
                                 <form action="click">
-                                    <span className='btn-class-a' onClick={e => setOrder('A')}>
+                                    <span className='btn-class-a' onClick={() => setOrder('A')}>
                                         <label className='class-label'htmlFor="class-a">Class A:</label>
                                         <label className='class-label'htmlFor="class-a">500</label>
                                         <label className='class-label'htmlFor="class-a">DAI</label>
@@ -125,7 +121,7 @@ const IDOWhitelist = () => {
                                 <div className="middle2-4a">
 
                                 <form action="click">
-                                    <span className='btn-class-b' onClick={e => setOrder('B')}> 
+                                    <span className='btn-class-b' onClick={() => setOrder('B')}> 
                                         <label className='class-label'htmlFor="class-a">Class B:</label>
                                         <label className='class-label'htmlFor="class-a">1,000</label>
                                         <label className='class-label'htmlFor="class-a">DAI</label>
