@@ -7,17 +7,12 @@ import queryString from "query-string";
 const IDOWhitelist = () => {
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
-    // // Pulls query string from URL and then parses id off query. 
     
     useEffect(() => {
         axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
-       .then(response => console.log(response.data))
+       .then(response => console.log(response.data)) // Await?
        .catch(error => console.log(error))
     }, [])
-    // Change axios.put before deploying. Consider a seperate Heroku for just axios calls.
-    // Async await?
-    
-    
     
     const [order, setOrder] = useState('')
     console.log(order)
@@ -30,6 +25,7 @@ const IDOWhitelist = () => {
                 .then(response => console.log(response.data))
                 .catch(error => console.log(error))
         }
+    }
 
             
             
@@ -39,7 +35,6 @@ const IDOWhitelist = () => {
             // then need to display that you have successfully minted X number of REIT! 
             // Here is your referral link
         // }
-    }
 
 
     // 1. Update state when clicked, then submit that state when submit is clicked (problem here is that 
@@ -98,19 +93,7 @@ const IDOWhitelist = () => {
                                     </span>
                                      
                                 </form>
-                                
-
-                                
-                                    
-                                
-
-
-
-
-
-
-
-                                    
+                               
                                 </div>
                                 <div className="bottom-4a">
                                     <p id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your amount spent (either 500 or 1,000 DAI) will remain the same, but you will be airdropped more $REIT tokens. 

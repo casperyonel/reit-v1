@@ -26,14 +26,16 @@ module.exports = {
     }, 
     addWallet: (req, res) => {
         console.log(req.body)
-        let { bond_class } = req.body
+        let { bond_class, wallet_address } = req.body
         sequelize.query(`
             INSERT INTO wallets (wallet_address, bond_class, link, click_counter, conversion_counter)
             values ('0xB1f0e758951A02B24D04dd211d0424445Ae04c5D', '${bond_class}', '${baseURL}'wallets.wallet_id, 0, 0);
 
             UPDATE wallets
-            SET link = ''${baseURL}'newID'
-            WHERE wallet_id = :newID
+            WHERE wallet_address = '${wallet_address}'
+            SET link = ''${baseURL}'newID'????
+            generate the link on the frontend and then send that to the backend?
+            
 
         
         `)
