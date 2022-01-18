@@ -24,24 +24,35 @@ module.exports = {
             res.status(200).send(response)
         }).catch(err => console.log(err))
     }, 
-    addWallet: (req, res) => {
+    addWallet: async (req, res) => {
         console.log(req.body)
         let { bond_class, wallet_address } = req.body
-        sequelize.query(`
-            INSERT INTO wallets (wallet_address, bond_class, link, click_counter, conversion_counter)
-            values ('0xB1f0e758951A02B24D04dd211d0424445Ae04c5D', '${bond_class}', '${baseURL}'wallets.wallet_id, 0, 0);
-
-            UPDATE wallets
-            WHERE wallet_address = '${wallet_address}'
-            SET link = ''${baseURL}'newID'????
-            generate the link on the frontend and then send that to the backend?
-            
-
-        
+        await sequelize.query(`
+            INSERT INTO wallets (wallet_address, bond_class, click_counter, conversion_counter)
+            values ('${wallet_address}', '${bond_class}', 0, 0);
         `)
-        
+        let walletID = await sequelize.query(`
+            SELECT wallet_id FROM wallets
+            WHERE wallet_address = '${wallet_address}';
+        `)
+        const letUpdate = await sequelize.query(`
+            UPDATE wallets
+            SET link = '${baseURL}${walletID[0][0].wallet_id}'
+            WHERE wallet_address = '${wallet_address}';
+        `)
+        console.log(walletID)
+        // .then((res) => {
+            res.status(200).send('test')
+        // }).catch((err) => console.log(err))
     }
 }
+
+
+
+
+
+
+
 
 // I need to first submit the new wallet address so it generates a new ID via serial primary key
 // Then I need to use that ID to insert a new link
@@ -49,3 +60,5 @@ module.exports = {
 // I think we create another file create a const callback that returns window.ethereum.address. And when they click submit we call this
 // Above keeps everything in main component but uses external components to handle those functions, which we export. 
 // That way everything is in one request, we can make it so we wait to wallet address before doing axios.post(/addWallet)
+
+
