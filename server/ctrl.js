@@ -35,15 +35,14 @@ module.exports = {
             SELECT wallet_id FROM wallets
             WHERE wallet_address = '${wallet_address}';
         `)
-        const letUpdate = await sequelize.query(`
+        await sequelize.query(`
             UPDATE wallets
             SET link = '${baseURL}${walletID[0][0].wallet_id}'
             WHERE wallet_address = '${wallet_address}';
         `)
-        console.log(walletID)
-        // .then((res) => {
-            res.status(200).send('test')
-        // }).catch((err) => console.log(err))
+        .then((response) => {
+            res.status(200).send(response)
+        }).catch((err) => console.log(err))
     }
 }
 
