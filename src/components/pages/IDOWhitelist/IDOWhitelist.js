@@ -1,15 +1,16 @@
 import axios from "axios"
-import idowhitelist from "./idowhitelist.scss"
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import queryString from "query-string";
 import { ethers } from 'ethers'
+import queryString from "query-string";
+import { useEffect, useState } from "react";
+import idowhitelist from "./idowhitelist.scss"
+import { useLocation } from "react-router-dom";
+import Referralinfo from "./Referralinfo";
 
 const IDOWhitelist = () => {
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
     const [order, setOrder] = useState('')
-    console.log(order)
+    const [showReferralInfo, setShowReferralInfo] = useState(true)
         
     async function requestAccount() {
         if (typeof window.ethereum !== 'undefined') {
@@ -51,112 +52,71 @@ const IDOWhitelist = () => {
                         //     const transaction = await contract.function(order)
                         //     setOrder('')
                         //     await transaction.wait()
+                        //     Set new state (true) of showReferralLink after successful transaction here. 
                         //     WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
                         } setOrder('')
                     }).catch(err => console.log(err))
-                
             } catch {
                 await requestAccount()
             }
         }  
     }
 
-   
-     
-
-
-
-
-
-
-
-
-
-            
-            // here we do an axios call with bond class to back end, and wallet address, and 
-            // do async await to figure out referral link for this new wallet addres by axios.get('/wallet_id)
-            // then need to display that you have successfully minted X number of REIT! 
-            // Here is your referral link
-        // }
-
-
-    // 1. Update state when clicked, then submit that state when submit is clicked (problem here is that 
-        // they could submit a state of nothing, need to catch this error (just make sure something is in state, otherwise tell them
-        // to please select an option!)
-    // 2.  Better route is to tie the span buttons in a form to the submit button?
 
 
 
     
-    
-    // Upon click of submit, if referrer id is empty, then insert into DB with new wallet_id and 
-    // address, and class bonded.
-    
-    
-    // Upon click of submit, update the conversion_counter of the query id to conversion_counter. 
-
     return (
         <div className="outer">
               <div className="box-left-1">
                   <div className="box-left-2">
                       <div className="box-left-3">
                           <div className="box-left-4a">
-                                
                                 <div className="top-4a">
-                                    <span id='select-amount'>Select Purchase Amount:</span>
-                                    
+                                    <span id='select-amount'>Secure your spot:</span>
                                     <span className='exchange-time-container'>
                                         <span id='refresh'>Refreshes in 8 seconds</span>
                                         <span id='exchange-rate'>20 DAI = 1 REIT</span>
                                     </span>
-
                                 </div>
-                                
                                 <div className="middle1-4a">
-
-                                 
-
-                                <form action="click">
-                                    <span className='btn-class-a' onClick={() => setOrder('A')}>
-                                        <label className='class-label'htmlFor="class-a">Class A:</label>
-                                        <label className='class-label'htmlFor="class-a">500</label>
-                                        <label className='class-label'htmlFor="class-a">DAI</label>
-                                    </span>
-                                </form>
-                                
+                                    <form action="click">
+                                        <span className='btn-class-a' onClick={() => setOrder('A')}>
+                                            <label className='class-label'htmlFor="class-a">Class A:</label>
+                                            <label className='class-label'htmlFor="class-a">500</label>
+                                            <label className='class-label'htmlFor="class-a">DAI</label>
+                                        </span>
+                                    </form>
                                 </div>
-                                
                                 <div className="middle2-4a">
-
-                                <form action="click">
-                                    <span className='btn-class-b' onClick={() => setOrder('B')}> 
-                                        <label className='class-label'htmlFor="class-a">Class B:</label>
-                                        <label className='class-label'htmlFor="class-a">1,000</label>
-                                        <label className='class-label'htmlFor="class-a">DAI</label>
-                                    </span>
-                                     
-                                </form>
-                               
+                                    <form action="click">
+                                        <span className='btn-class-b' onClick={() => setOrder('B')}> 
+                                            <label className='class-label'htmlFor="class-a">Class B:</label>
+                                            <label className='class-label'htmlFor="class-a">1,000</label>
+                                            <label className='class-label'htmlFor="class-a">DAI</label>
+                                        </span>   
+                                    </form>
                                 </div>
                                 <div className="bottom-4a">
                                     <p id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your amount spent (either 500 or 1,000 DAI) will remain the same, but you will be airdropped more $REIT tokens. 
                                     <br /> Read more about how to lower your IDO price here.</p>
                                 </div> 
                           </div>
-                          <div className="box-left-4b">
+                          <div className="box-left-4b" >
                                 <div className="top-4b">
-                                    
-                                    <button id='submit-btn' onClick={submit}>Submit Order</button>
-                                
+                                    <button id='submit-btn' onClick={submit}>Submit order</button>
                                 </div>
-                                <div className="middle1-4b">
-                                 
-                                </div>
-                                <div className="middle2-4b"></div>
-                                <div className="bottom-4b"></div>       
-                         </div>
+                            {showReferralInfo? <Referralinfo /> : null}
+
+                               {/* once posted, we set referralInfo = true
+                               this component here will only show when prop in it (referralInfo = true)
+                               So we control the process of showing the div or not in here with true = referralInfo
+                               But whats actually shown is all in another component.  */}
 
                                 
+                                
+                                    
+                            </div>
                       </div>
                   </div>
               </div>
@@ -185,7 +145,6 @@ const IDOWhitelist = () => {
                       </div>
                   </div>
               </div>
-              
         </div>
     )
 }
