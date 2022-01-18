@@ -43,20 +43,11 @@
     
 }
 
-.box-left-4b {
-    background-color: rgb(223, 18, 18);
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-}
-
 .top-4a {
-    background-color: rgb(204, 255, 255);
+    background-color: rgb(0, 255, 255);
     width: 100%;
     height: 25%;
     display: flex;
-     
 }
 
 .exchange-time-container {
@@ -105,7 +96,7 @@
 
 .btn-class-a
 {
-    background-color: rgb(109, 109, 109);
+    background-color: rgb(243, 0, 0);
     color: rgb(0, 0, 0);
     cursor: pointer;
     height: 50.63px;
@@ -154,6 +145,49 @@
     padding: 1px;
 }
 
+.box-left-4b {
+    background-color: rgb(255, 87, 87);
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-4b {
+    background-color: rgb(27, 27, 27);
+    width: 100%;
+    height: 25%;
+    display: flex;
+}
+
+.middle-4b {
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.middle2-4b {
+    background-color: rgb(255, 251, 0);
+    width: 100%;
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-4b {
+    background-color: rgb(105, 0, 82);
+    width: 100%;
+    height: 25%;
+}
+
+#submit-btn {
+    width: 100%;
+    border-radius: 8px;
+}
 
 
 
