@@ -106,17 +106,8 @@ const IDOWhitelist = () => {
                                 <div className="top-4b">
                                     <button id='submit-btn' onClick={submit}>Submit order</button>
                                 </div>
-                            {showReferralInfo? <Referralinfo /> : null}
-
-                               {/* once posted, we set referralInfo = true
-                               this component here will only show when prop in it (referralInfo = true)
-                               So we control the process of showing the div or not in here with true = referralInfo
-                               But whats actually shown is all in another component.  */}
-
-                                
-                                
-                                    
-                            </div>
+                            {showReferralInfo? <Referralinfo /> : null}        
+                        </div>
                       </div>
                   </div>
               </div>
