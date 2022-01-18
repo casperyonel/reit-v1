@@ -6,37 +6,20 @@ import queryString from "query-string";
 
 const IDOWhitelist = () => {
     
+    const { search } = useLocation()
+    // Pulls query string from URL. 
+    const { referrer } = queryString.parse(search)
+    // Parse id off query. 
+    console.log(search, referrer)
+    
+    useEffect(() => {
+        axios.put('http://localhost:3000/clickCounter', { referrer: referrer })
+       .then(response => console.log(response.data))
+       .catch(error => console.log(error))
+    }, [])
     
     
-    
-    // const baseURL = 'http://localhost:3001/ido'
-    // Change after deployment
 
-    
-    // const updateClickCounter = (id) => {    
-    //      axios.get(`${baseURL}/clickCounter/?referrer=${id}`)
-    //     .then(response => {
-    //         console.log(response.data)
-    //     })
-    //     .catch(err => console.log(err))
-    // }
-
-    // useEffect((req, res) => {
-    //     updateClickCounter(req.query)
-    // })
-
-
-        const { search } = useLocation()
-        // Pulls query string from URL. 
-        const {referrer } = queryString.parse(search)
-        // Parse id off query. 
-        console.log(search, referrer)
-        // axios.put('/clickCounter', referrer)
-        // .then(response => console.log(response.data))
-        // .catch(error => console.log(error))
-
-
-    
     return (
         <div className="outer">
               <div className="box-left-1">

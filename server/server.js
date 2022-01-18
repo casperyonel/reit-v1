@@ -12,6 +12,7 @@ app.use(cors())
 app.post('/seed', seed)
 
 // click_counter:
-app.get('/clickCounter', updateClickCounter)
+app.put('/clickCounter', updateClickCounter)
+
 
 app.listen(SERVER_PORT, () => console.log(`Listening on Port ${SERVER_PORT}`))

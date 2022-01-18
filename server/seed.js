@@ -29,5 +29,6 @@ module.exports = {
             console.log('Seed successful')
             res.sendStatus(200)
         }).catch(err => console.log('Error while seeding', err))
-    }
+    },
+    
 }
