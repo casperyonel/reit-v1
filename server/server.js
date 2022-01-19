@@ -7,7 +7,7 @@ const { seed } = require('./seed')
 app.use(express.json())
 app.use(cors())
 
-const { updateClickCounter, confirmNewWallet, addWallet } = require('./ctrl')
+const { updateClickCounter, confirmNewWallet, addWallet, updateStats } = require('./ctrl')
 
 // Seed:
 app.post('/seed', seed)
@@ -18,9 +18,11 @@ app.put('/clickCounter', updateClickCounter)
 // Confirm new wallet before purchasing:
 app.put('/confirmNewWallet', confirmNewWallet)
 
-
 // Add wallet:
 app.post('/addWallet', addWallet)
+
+// Update wallet stats for previous buyer at initial page load:
+app.put('/updateStats', updateStats)
 
 
 app.listen(SERVER_PORT, () => console.log(`Listening on Port ${SERVER_PORT}`))

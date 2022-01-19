@@ -6,6 +6,7 @@ import idowhitelist from "./idowhitelist.scss"
 import { useLocation } from "react-router-dom";
 import Referralinfo from "./Referralinfo";
  
+ 
 
 const IDOWhitelist = () => {
     const { search } = useLocation()
@@ -22,28 +23,57 @@ const IDOWhitelist = () => {
         console.log("it made it to this line! write the code about axios.get(if in database, update info)")
     }
 
+    async function updateStats() {
+        let wallet_address = await requestAccount()
+        axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
+        .then(async res => {    
+            console.log(res.data[0][0].exists)
+            if (res.data[0][0].exists) {
+                await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
+                .then(response => {
+                    // IF USER SWITCHES WALLETS WE NEED TO HANDLE THAT, THIS NEEDS TO UDPATE!
+                    let stats = {
+                        click_counter: response.data[0][0].click_counter,
+                        conversion_counter: response.data[0][0].conversion_counter,
+                        link: response.data[0][0].link
+                    }
+                    console.log(stats)
+                    setReferralLink(stats.link)
+                    // UPDATE REFERRAL LINK STATE TO POPULATE, ALSO SEND ALL STATS AS OBJECT HERE. 
+                    // We need: Their unique link, click_counter, and conversion_counter.
+                })
+                .catch(err => console.log(err))
+            } else {
+                return // They haven't purchased IDO before, so just proceed
+            }
+            
+        }).catch(err => console.log(err)) 
+
+    }
+
     useEffect(() => {
         if (referrer) { // Updates referral_counter for referralLink owner
             axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
             .then(response => console.log(response.data)) // Await?
             .catch(error => console.log(error))
         }
+
+        updateStats()
+
+
         
-        let wallet_address = requestAccount() // Get wallet IDO data of already purchased user
-        axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
-            .then(async res => {    
-                if (res.data[0][0].exists) {
-                    await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
-                    .then(response => {
-                        console.log(response)
-                        // UPDATE REFERRAL LINK STATE TO POPULATE, ALSO SEND ALL STATS AS OBJECT HERE. 
-                    })
-                    .catch(err => console.log(err))
-                } else {
-                    return // They haven't purchased IDO before, so just proceed
-                }
-                
-            }).catch(err => console.log(err)) 
+         // Get wallet IDO data of already purchased user
+        // if (wallet_address === '[object Object]') {
+        //     console.log('THIS IS CORRECT SYNTAX')
+        //     // I think object Object shows up when my wallet IS connected but its not IN the DB!
+        //     // Somehow wallet_address is passing in '[object Object]'
+        // }
+       
+
+
+
+
+
   }, [])
 
   

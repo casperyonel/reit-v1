@@ -58,18 +58,15 @@ module.exports = {
         .then((response) => {
             res.status(200).send({ response: response, referralLink: referralLink })
         }).catch((err) => console.log(err))
+    },
+    updateStats: (req, res) => {
+        let { wallet_address } = req.body
+        sequelize.query(`
+            SELECT link, click_counter, conversion_counter FROM wallets
+            WHERE wallet_address = '${wallet_address}';
+        `)
+        .then(response => {
+            res.status(200).send(response)
+        }).catch(err => console.log(err))
     }
 }
-
-
-
-
-
-// I need to first submit the new wallet address so it generates a new ID via serial primary key
-// Then I need to use that ID to insert a new link
-
-// I think we create another file create a const callback that returns window.ethereum.address. And when they click submit we call this
-// Above keeps everything in main component but uses external components to handle those functions, which we export. 
-// That way everything is in one request, we can make it so we wait to wallet address before doing axios.post(/addWallet)
-
-
