@@ -1,6 +1,7 @@
  
 
-const Referralinfo = (referralLink) => {
+const Referralinfo = ({referralLink}) => {
+    
     return (
         <>
             <div className="middle1-4b">
@@ -13,7 +14,7 @@ const Referralinfo = (referralLink) => {
                 </div>
                 <div className="bottom-middle2-4b">
                     <span id='refer-others-box'>
-                        <span id='refer-others-link'>{referralLink}reitdao.xyz/refferer=342
+                        <span id='refer-others-link'>{referralLink}
                             <span id='refer-others-copy'>Copy</span>
                         </span>
                     </span>

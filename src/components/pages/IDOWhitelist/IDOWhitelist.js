@@ -10,7 +10,7 @@ const IDOWhitelist = () => {
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
     const [order, setOrder] = useState('')
-    const [showReferralInfo, setShowReferralInfo] = useState(true)
+    const [referralLink, setReferralLink] = useState('')
         
     async function requestAccount() {
         if (typeof window.ethereum !== 'undefined') {
@@ -43,7 +43,10 @@ const IDOWhitelist = () => {
                             return
                         } else {
                             await axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
-                            .then(res => console.log(res))
+                            .then(async res => {
+                                console.log(typeof res.data.referralLink)
+                                setReferralLink(res.data.referralLink)
+                            })
                             .catch(err => console.log(err))
                         //     Else complete transaction and add wallet in DB. 
                         //     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -106,7 +109,7 @@ const IDOWhitelist = () => {
                                 <div className="top-4b">
                                     <button id='submit-btn' onClick={submit}>Submit order</button>
                                 </div>
-                            {showReferralInfo? <Referralinfo /> : null}        
+                            {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
                         </div>
                       </div>
                   </div>
