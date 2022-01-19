@@ -20,9 +20,7 @@ const IDOWhitelist = () => {
         if (typeof window.ethereum !== 'undefined') {
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
             return account[0]
-        } 
-        axios.get()
-        console.log("it made it to this line! write the code about axios.get(if in database, update info)")
+        }
     }
 
     // Called at page load if they are an existing buyer:
