@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import idowhitelist from "./idowhitelist.scss"
 import { useLocation } from "react-router-dom";
 import Referralinfo from "./Referralinfo";
+ 
 
 const IDOWhitelist = () => {
     const { search } = useLocation()
@@ -17,17 +18,35 @@ const IDOWhitelist = () => {
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
             return account[0]
         } 
+        axios.get()
+        console.log("it made it to this line! write the code about axios.get(if in database, update info)")
     }
 
     useEffect(() => {
-        if (referrer) {
+        if (referrer) { // Updates referral_counter for referralLink owner
             axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
             .then(response => console.log(response.data)) // Await?
             .catch(error => console.log(error))
         }
-           
-        requestAccount()
+        
+        let wallet_address = requestAccount() // Get wallet IDO data of already purchased user
+        axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
+            .then(async res => {    
+                if (res.data[0][0].exists) {
+                    await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
+                    .then(response => {
+                        console.log(response)
+                        // UPDATE REFERRAL LINK STATE TO POPULATE, ALSO SEND ALL STATS AS OBJECT HERE. 
+                    })
+                    .catch(err => console.log(err))
+                } else {
+                    return // They haven't purchased IDO before, so just proceed
+                }
+                
+            }).catch(err => console.log(err)) 
   }, [])
+
+  
 
     const submit = async () => {
         if (!order) {
@@ -39,8 +58,8 @@ const IDOWhitelist = () => {
                 let wallet_address = await requestAccount()
                 await axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
                     .then(async res => {
-                        if (res.data[0][0].exists) { // True if wallet is already in DB. 
-                            return
+                        if (res.data[0][0].exists) { // If wallet is already in DB column wallet_address, don't proceed. 
+                            return 
                         } else {
                             await axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
                             .then(async res => {
