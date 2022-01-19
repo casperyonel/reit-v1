@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import idowhitelist from "./idowhitelist.scss"
 import { useLocation } from "react-router-dom";
 import Referralinfo from "./Referralinfo";
- 
+import Pricingbox from "./Pricingbox"; 
  
 
 const IDOWhitelist = () => {
@@ -91,7 +91,8 @@ const IDOWhitelist = () => {
                 await axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
                     .then(async res => {
                         if (res.data[0][0].exists) { // If wallet is already in DB column wallet_address, don't proceed. 
-                            return 
+                            alert('YOU ALREADY PURCHASED IN THE IDO') // MAKE THIS A POP OUT BOX. 
+                            return
                         } else {
                             await axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
                             .then(async res => {
@@ -116,9 +117,6 @@ const IDOWhitelist = () => {
                                     .catch(error => console.log(error))
                             }
                         } setOrder('')
-
-
-
                     }).catch(err => console.log(err))
             } catch {
                 await requestAccount()
@@ -126,10 +124,6 @@ const IDOWhitelist = () => {
         }  
     }
 
-
-
-
-    
     return (
         <div className="outer">
               <div className="box-left-1">
@@ -172,6 +166,9 @@ const IDOWhitelist = () => {
                                 </div>
                             {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
                         </div>
+                        
+                            {referralLink === ''? null : <Pricingbox />}
+                      
                       </div>
                   </div>
               </div>
