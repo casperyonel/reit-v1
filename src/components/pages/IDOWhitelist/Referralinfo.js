@@ -1,6 +1,6 @@
  
 
-const Referralinfo = ({referralLink}) => {
+const Referralinfo = ({ referralLink }) => {
     
     return (
         <>

@@ -13,6 +13,7 @@ const IDOWhitelist = () => {
     const { referrer } = queryString.parse(search)
     const [order, setOrder] = useState('') // For bond class
     const [referralLink, setReferralLink] = useState('') // For showing referralLink info
+    const [stats, setStats] = useState('') // For showing stats for existing users
     
     // Connect metamask:
     async function requestAccount() {
@@ -34,13 +35,15 @@ const IDOWhitelist = () => {
                 await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
                 .then(response => {
                     // IF USER SWITCHES WALLETS WE NEED TO HANDLE THAT, THIS NEEDS TO UDPATE!
-                    let stats = {
+                    let statsObject = {
                         click_counter: response.data[0][0].click_counter,
                         conversion_counter: response.data[0][0].conversion_counter,
-                        link: response.data[0][0].link
+                        link: response.data[0][0].link,
+                        wallet_address: wallet_address
                     }
                     console.log(stats)
-                    setReferralLink(stats.link)
+                    setReferralLink(statsObject.link)
+                    setStats(statsObject)
                     // UPDATE REFERRAL LINK STATE TO POPULATE, ALSO SEND ALL STATS AS OBJECT HERE.
                 })
                 .catch(err => console.log(err))
@@ -132,9 +135,9 @@ const IDOWhitelist = () => {
                           <div className="box-left-4a">
                                 <div className="top-4a">
                                     <span id='select-amount'>Secure your spot:</span>
-                                    <span className='exchange-time-container'>
-                                        <span id='refresh'>Refreshes in 8 seconds</span>
-                                        <span id='exchange-rate'>20 DAI = 1 REIT</span>
+                                    <span className='exchange-rate-container'>
+                                         
+                                        <span>20 DAI = 1 REIT</span>
                                     </span>
                                 </div>
                                 <div className="middle1-4a">
@@ -167,7 +170,7 @@ const IDOWhitelist = () => {
                             {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
                         </div>
                         
-                            {referralLink === ''? null : <Pricingbox />}
+                            {referralLink === ''? null : <Pricingbox stats={stats} />}
                       
                       </div>
                   </div>

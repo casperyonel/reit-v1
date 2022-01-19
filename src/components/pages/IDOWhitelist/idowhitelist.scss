@@ -48,41 +48,41 @@
     width: 100%;
     height: 25%;
     display: flex;
-}
-
-.exchange-time-container {
-    background-color: yellow;
-    display: flex;
-    flex-direction: column;
     justify-content: space-between;
-    align-items: flex-end;
-    padding-top: 1.2%;
-    padding-bottom: 1.2%;
-    transform: translate(54px, 0px);
-    font-size: 13px;
 }
 
-#select-amount {
+.exchange-rate-container {
+    font-size: 13px;
     background-color: grey;
-    
     padding: 10px;
     border-radius: 8px;
     display: flex;
     align-items: flex-end;
+    
+    
+    
+    
+    
+    
+    
+    
+     
+    
+     
+     
+    // transform: translate(54px, 0px);
+    
+     
+     
+     
 }
 
-#exchange-rate {
-    // display: flex;
-    // align-items: flex-end;
+#select-amount {
     background-color: grey;
-    padding: 5px 5px;
+    padding: 10px;
     border-radius: 8px;
-    // padding: 10px;
-    // border-radius: 8px;
-}
-
-#refresh {
-    transform: translate(0px, -2px);
+    display: flex;
+    align-items: flex-end;
 }
 
 .middle1-4a {
