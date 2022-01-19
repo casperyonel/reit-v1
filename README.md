@@ -1,15 +1,36 @@
-# Basic Sample Hardhat Project
+# Welcome to REIT v1
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This project uses React for it's JS framework. Heroku for database hosting, Axios, and Express for backend functionality. PostgreSQL is also used. 
 
-Try running some of the following tasks:
+## Setup
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+### NPM I:
+dotenv
+express
+axios
+cors
+sequelize
+pg
+useState
+react-router-dom
+react-icons
+sass
+styled-components
+react-use-effect
+useLocation from router-dom
+query-string
+
+hardhat
+ethers
+ethereum-waffle
+chai
+
+
+
+    ### `react runs on localhost/3000`
+
+.
+
+### `server runs on localhost/3001`
+
+Be sure to make server adjustment to proxy in package.json when deploying. 

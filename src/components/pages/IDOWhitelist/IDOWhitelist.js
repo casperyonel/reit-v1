@@ -11,9 +11,10 @@ import Referralinfo from "./Referralinfo";
 const IDOWhitelist = () => {
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
-    const [order, setOrder] = useState('')
-    const [referralLink, setReferralLink] = useState('')
-        
+    const [order, setOrder] = useState('') // For bond class
+    const [referralLink, setReferralLink] = useState('') // For showing referralLink info
+    
+    // Connect metamask:
     async function requestAccount() {
         if (typeof window.ethereum !== 'undefined') {
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
@@ -23,6 +24,7 @@ const IDOWhitelist = () => {
         console.log("it made it to this line! write the code about axios.get(if in database, update info)")
     }
 
+    // Called at page load if they are an existing buyer:
     async function updateStats() {
         let wallet_address = await requestAccount()
         axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
@@ -39,8 +41,7 @@ const IDOWhitelist = () => {
                     }
                     console.log(stats)
                     setReferralLink(stats.link)
-                    // UPDATE REFERRAL LINK STATE TO POPULATE, ALSO SEND ALL STATS AS OBJECT HERE. 
-                    // We need: Their unique link, click_counter, and conversion_counter.
+                    // UPDATE REFERRAL LINK STATE TO POPULATE, ALSO SEND ALL STATS AS OBJECT HERE.
                 })
                 .catch(err => console.log(err))
             } else {
@@ -53,9 +54,10 @@ const IDOWhitelist = () => {
 
     useEffect(() => {
         if (referrer) { // Updates referral_counter for referralLink owner
-            axios.put('http://localhost:3000/clickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
+            axios.put('http://localhost:3000/updateClickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
             .then(response => console.log(response.data)) // Await?
             .catch(error => console.log(error))
+            // WRITE AN AND STATEMENT HERE TO GET RID OF SPAMS / PAGE RELOADS!
         }
 
         updateStats()
@@ -77,7 +79,7 @@ const IDOWhitelist = () => {
   }, [])
 
   
-
+    // Upon purchase of IDO, make sure new wallet then add wallet:
     const submit = async () => {
         if (!order) {
             alert('You are trying to mint $REIT but havent selected a class!')
@@ -97,16 +99,26 @@ const IDOWhitelist = () => {
                                 setReferralLink(res.data.referralLink)
                             })
                             .catch(err => console.log(err))
-                        //     Else complete transaction and add wallet in DB. 
-                        //     const provider = new ethers.providers.Web3Provider(window.ethereum)
-                        //     const signer = provider.getSigner()
-                        //     const contract = new ethers.Contract(contractName, contractName.abi, signer)
-                        //     const transaction = await contract.function(order)
-                        //     setOrder('')
-                        //     await transaction.wait()
-                        //     Set new state (true) of showReferralLink after successful transaction here. 
-                        //     WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
+                            //     Else complete transaction and add wallet in DB. 
+                            //     const provider = new ethers.providers.Web3Provider(window.ethereum)
+                            //     const signer = provider.getSigner()
+                            //     const contract = new ethers.Contract(contractName, contractName.abi, signer)
+                            //     const transaction = await contract.function(order)
+                            //     setOrder('')
+                            //     await transaction.wait()
+                            //     Set new state (true) of showReferralLink after successful transaction here. 
+                            //     WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
+
+                            // Lastly, give credit to successful referral by incrementing conversion_counter in DB with referrer from query:
+                            if (referrer) {
+                                axios.put('http://localhost:3000/updateConversionCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
+                                    .then(response => console.log(response.data)) 
+                                    .catch(error => console.log(error))
+                            }
                         } setOrder('')
+
+
+
                     }).catch(err => console.log(err))
             } catch {
                 await requestAccount()

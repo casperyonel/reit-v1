@@ -68,5 +68,16 @@ module.exports = {
         .then(response => {
             res.status(200).send(response)
         }).catch(err => console.log(err))
+    }, 
+    updateConversionCounter: (req, res) => {
+        let { referrer } = req.body
+        sequelize.query(`
+            UPDATE wallets
+            SET conversion_counter = conversion_counter + 1
+            WHERE wallet_id = '${referrer}';
+        `)
+        .then(response => {
+            res.status(200).send(response)
+        }).catch(err => console.log(err))
     }
 }

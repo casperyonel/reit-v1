@@ -6,6 +6,7 @@ const Referralinfo = ({referralLink}) => {
         <>
             <div className="middle1-4b">
                 <span>Your initial IDO price is $20. Want to lower your price?</span>
+                {/* THIS SHOULDN'T SHOW UP WHEN YOU LOG BACK IN THOUGH */}
             </div>
 
             <div className="middle2-4b">
