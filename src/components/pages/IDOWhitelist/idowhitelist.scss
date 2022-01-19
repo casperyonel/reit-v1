@@ -247,33 +247,57 @@
 }
 
 .pricing-box-1 {
-    background-color: rgb(232, 232, 232);
     width: 100%;
-    height: 150px;
+    height: 125px;
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+    
 }
 
 .pricing-box-1-top {
     background-color: rgb(154, 154, 154);
     width: 100%;
-    height: 25%;
+    height: 40%;
+    flex-direction: column;
+    display: flex;
+    justify-content: space-around;
 }
+
+.pricing-box-1-top-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.pricing-box-1-top-text {
+    display: flex;
+    justify-content: space-between;
+}
+
 .pricing-box-1-middle1 {
     background-color: rgb(55, 55, 55);
     width: 100%;
     height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .pricing-box-1-middle2 {
     background-color: rgb(181, 12, 12);
     width: 100%;
     height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .pricing-box-1-bottom {
     background-color: rgb(25, 136, 120);
     width: 100%;
     height: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
