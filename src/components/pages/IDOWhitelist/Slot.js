@@ -1,21 +1,17 @@
+import { useEffect, useState } from "react"
 
-
-const Slot = ({ details, signedInWallet }) => {
+const Slot = ({ details }) => {
   
-    let signedInWallet = signedInWallet
-
-    const { click_counter, conversion_counter, wallet_address } = details
+    const { wallet_address, ido_price } = details
     // This pulls the response data for each wallet off of details, which has the response axios object
-    // Also need to rank these somehow, maybe we do that in the mappping
-    // First calculate price, then map?
-    // Make another div that has an if statement for each mapped 
     // wallet to check if signed in address = wallet address of that index position. 
+    // Need to calc price relative to $20 for column
   
     return ( 
-    <div>
-        <div>{click_counter}</div>
-        <div>{conversion_counter}</div>
-    </div>
+        <div>
+            <div>{wallet_address}</div>
+            <div>{ido_price}</div>
+        </div>
     )
 }
 

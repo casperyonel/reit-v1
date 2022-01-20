@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 import Referralinfo from "./Referralinfo";
 import Pricingbox from "./Pricingbox"; 
 import Leaderboards from "./Leaderboards";
- import Slot from "./Slot";
  
 const IDOWhitelist = () => {
     const { search } = useLocation()
@@ -47,9 +46,7 @@ const IDOWhitelist = () => {
             } else {
                 return // They haven't purchased IDO before, so just proceed
             }
-            
         }).catch(err => console.log(err)) 
-
     }
 
     useEffect(() => {
@@ -60,6 +57,7 @@ const IDOWhitelist = () => {
             // WRITE AN AND STATEMENT HERE TO GET RID OF SPAMS / PAGE RELOADS!
         }
         updateStats()
+        console.log("FIRRRREEEDDDDD")
     }, [])
        
     // Upon purchase of IDO, make sure new wallet then add wallet:
@@ -70,6 +68,7 @@ const IDOWhitelist = () => {
         } 
         if (window.ethereum) {
             try {
+                // Sign into wallet and confirm wallet doesn't already exist:
                 let wallet_address = await requestAccount()
                 await axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
                     .then(async res => {
@@ -77,9 +76,10 @@ const IDOWhitelist = () => {
                             alert('YOU ALREADY PURCHASED IN THE IDO') // MAKE THIS A POP OUT BOX. 
                             return
                         } else {
+                            // Add wallet to DB and generate new referral link:
                             await axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
                             .then(res => {
-                                setReferralLink(res.data.referralLink)
+                                console.log(res.data)
                             })
                             .catch(err => console.log(err))
                             //     Else complete transaction and add wallet in DB. 
@@ -91,13 +91,27 @@ const IDOWhitelist = () => {
                             //     await transaction.wait()
                             //     Set new state (true) of showReferralLink after successful transaction here. 
                             //     WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
-
+                            
                             // Lastly, give credit to successful referral by incrementing conversion_counter in DB with referrer from query:
                             if (referrer) {
                                 axios.put('http://localhost:3000/updateConversionCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
                                     .then(response => console.log(response.data)) 
                                     .catch(error => console.log(error))
                             }
+                            // Update Pricingbox stats with referral and current IDO price from DB:
+                            await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
+                            .then(response => {
+                                // IF USER SWITCHES WALLETS WE NEED TO HANDLE THAT, THIS NEEDS TO UDPATE!
+                                setReferralLink(response.data[0][0].link)
+                                setStats({
+                                    click_counter: response.data[0][0].click_counter,
+                                    conversion_counter: response.data[0][0].conversion_counter,
+                                    link: response.data[0][0].link,
+                                    wallet_address: wallet_address,
+                                    ido_price: (20 - (Math.floor(response.data[0][0].click_counter) * 0.01) - (Math.floor(response.data[0][0].conversion_counter) * 1)).toFixed(2)
+                                })
+                            })
+                            .catch(err => console.log(err))
                         } setOrder('')
                     }).catch(err => console.log(err))
             } catch {
@@ -154,8 +168,8 @@ const IDOWhitelist = () => {
               </div>
               <div className="box-right-1">
                     <div className="box-right-2">
-                        {/* <Leaderboards stats={stats} /> */}
-                        <div className="slot"></div>
+                        <Leaderboards stats={stats} />
+                        {/* <div>hello</div> */}
                     </div>
                 
               </div>

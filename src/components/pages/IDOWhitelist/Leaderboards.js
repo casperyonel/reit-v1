@@ -5,26 +5,26 @@ import Slot from "./Slot";
 const Leaderboards = ({ stats }) => {
 
     let [arrayOfWallets, setArrayOfWallets] = useState([]) // Store DB array of wallets
-    let signedInWallet = stats.wallet_address // Use this to highlight the user's wallet in rankings
+    // let [highlightedWallet, setHighlightedWallet] = useState('') // Current user's wallet to highlight
 
     useEffect(() => {
         axios.get('http://localhost:3000/walletRankings')
             .then(response => {
                 console.log(response.data)
-                // setArrayOfWallets(response.data)
-            }).catch(error => console.log (error))
+                setArrayOfWallets(response.data)
+            }).catch(error => console.log(error))
+        // setHighlightedWallet(stats.wallet_address) // Not sure I want to highlight the user's wallet actually
     }, [])
 
-    const walletsMapped = arrayOfWallets.map(wallet => { // Rank here?
-        return ( 
-            <div key={wallet.index}>
-                <Slot details={wallet} signedInWallet={signedInWallet}/>
-            </div>
-        )
+    const walletsMapped = arrayOfWallets.map(wallet => {
+        return <div key={wallet.wallet_address}>
+                    <Slot details={wallet} />
+                    {/* {highlightedWallet === wallet.wallet_address ? <div>THIS IS THE GOLDEN WALLET</div> : null} */}
+                </div>
     })
 
     return (
-            <div id='main-container'>
+            <div className="wallets-mapped">
                 {walletsMapped}
             </div>
     ) 

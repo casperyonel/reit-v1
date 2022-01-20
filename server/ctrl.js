@@ -21,25 +21,16 @@ module.exports = {
             SET click_counter = click_counter + 1
             WHERE wallet_id = ${referrer};
         `)
-        .then((response) => {
-            res.status(200).send(response)
-        }).catch(err => console.log(err))
+        .then(response => res.status(200).send(response)).catch(err => console.log(err))
     }, 
-    confirmNewWallet: (req, res) => {
+    confirmNewWallet: (req, res) => { // Checks if wallet exists already in DB
         let { wallet_address } = req.body
-        // try {
             sequelize.query(`
                 SELECT exists (SELECT 1 FROM wallets WHERE wallet_address = '${wallet_address}' LIMIT 1);
             `)
-            .then(response => {
-                res.status(200).send(response)
-            }).catch(err => console.log(err))    
-        // } catch (error) {
-            // res.status(404).send("404 ERROR FAILED TO CONFIRM IF NEW WALLET")
-        // }
+            .then(response => res.status(200).send(response)).catch(err => console.log(err))
     },
     addWallet: async (req, res) => {
-        console.log(req.body)
         let { bond_class, wallet_address } = req.body
         await sequelize.query(`
             INSERT INTO wallets (wallet_address, bond_class, click_counter, conversion_counter)
@@ -49,15 +40,15 @@ module.exports = {
             SELECT wallet_id FROM wallets
             WHERE wallet_address = '${wallet_address}';
         `)
-        let referralLink = baseURL + walletID[0][0].wallet_id
+        // let referralLink = baseURL + walletID[0][0].wallet_id
         await sequelize.query(`
             UPDATE wallets
             SET link = '${baseURL}${walletID[0][0].wallet_id}'
             WHERE wallet_address = '${wallet_address}';
         `)
-        .then((response) => {
-            res.status(200).send({ response: response, referralLink: referralLink })
-        }).catch((err) => console.log(err))
+        .then(response => res.status(200).send(response)).catch(err => console.log(err))
+            // res.status(200).send({ response: response, referralLink: referralLink })    
+        // ).catch(err => console.log(err))
     },
     updateStats: (req, res) => {
         let { wallet_address } = req.body
@@ -65,9 +56,7 @@ module.exports = {
             SELECT link, click_counter, conversion_counter, wallet_address FROM wallets
             WHERE wallet_address = '${wallet_address}';
         `)
-        .then(response => {
-            res.status(200).send(response)
-        }).catch(err => console.log(err))
+        .then(response => res.status(200).send(response)).catch(err => console.log(err))
     }, 
     updateConversionCounter: (req, res) => {
         let { referrer } = req.body
@@ -76,18 +65,14 @@ module.exports = {
             SET conversion_counter = conversion_counter + 1
             WHERE wallet_id = '${referrer}';
         `)
-        .then(response => {
-            res.status(200).send(response)
-        }).catch(err => console.log(err))
+        .then(response => res.status(200).send(response)).catch(err => console.log(err))
     },
     walletRankings: (req, res) => {
         sequelize.query(`
-            SELECT (20 - (wallets.click_counter * 0.01) - (wallets.conversion_counter)) AS rank
+            SELECT wallet_address, (20 - (click_counter * 0.01) - (conversion_counter)) AS ido_price
             FROM wallets
-            ORDER BY rank DESC;
+            ORDER BY ido_price ASC;
         `)
-        .then(response => {
-            res.status(200).send(response.data)
-        }).catch(err => console.log(err))
+        .then(response => res.status(200).send(response[0])).catch(err => console.log(err))
     }
 }
