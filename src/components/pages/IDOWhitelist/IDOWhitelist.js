@@ -35,16 +35,13 @@ const IDOWhitelist = () => {
                 .then(response => {
                     // IF USER SWITCHES WALLETS WE NEED TO HANDLE THAT, THIS NEEDS TO UDPATE!
                     setReferralLink(response.data[0][0].link)
-                    setStats( {
+                    setStats({
                         click_counter: response.data[0][0].click_counter,
                         conversion_counter: response.data[0][0].conversion_counter,
                         link: response.data[0][0].link,
-                        wallet_address: wallet_address
-                    } )
-                    console.log(stats)
-                    
-                    
-                    // UPDATE REFERRAL LINK STATE TO POPULATE, ALSO SEND ALL STATS AS OBJECT HERE.
+                        wallet_address: wallet_address,
+                        ido_price: (20 - (Math.floor(response.data[0][0].click_counter) * 0.01) - (Math.floor(response.data[0][0].conversion_counter) * 1)).toFixed(2)
+                    })
                 })
                 .catch(err => console.log(err))
             } else {
@@ -56,19 +53,13 @@ const IDOWhitelist = () => {
     }
 
     useEffect(() => {
-        if (referrer) { // Updates referral_counter for referralLink owner
+        if (referrer) { // Checks if URL has a referrer and updates referral_counter for referralLink owner
             axios.put('http://localhost:3000/updateClickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
             .then(response => console.log(response.data)) // Await?
             .catch(error => console.log(error))
             // WRITE AN AND STATEMENT HERE TO GET RID OF SPAMS / PAGE RELOADS!
         }
         updateStats()
-         // Get wallet IDO data of already purchased user
-        // if (wallet_address === '[object Object]') {
-        //     console.log('THIS IS CORRECT SYNTAX')
-        //     // I think object Object shows up when my wallet IS connected but its not IN the DB!
-        //     // Somehow wallet_address is passing in '[object Object]'
-        // }
     }, [])
        
     // Upon purchase of IDO, make sure new wallet then add wallet:
@@ -87,8 +78,7 @@ const IDOWhitelist = () => {
                             return
                         } else {
                             await axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
-                            .then(async res => {
-                                console.log(typeof res.data.referralLink)
+                            .then(res => {
                                 setReferralLink(res.data.referralLink)
                             })
                             .catch(err => console.log(err))
@@ -158,55 +148,15 @@ const IDOWhitelist = () => {
                                 </div>
                             {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
                         </div>
-                        
                             {referralLink === ''? null : <Pricingbox stats={stats} setStats={setStats} />}
-                            {/* {referralLink === ''? null : <Stats stats={stats} setStats={setStats} />} */}
-                      
                       </div>
                   </div>
               </div>
               <div className="box-right-1">
-                      <div className="box-right-2">
-                          {/* <Slot /> */}
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          <div className="slot"></div>
-                          
-                    
-                      
-                           
-                      </div>
+                    <div className="box-right-2">
+                        {/* <Slot /> */}
+                        <div className="slot"></div>
+                    </div>
                 
               </div>
         </div>
