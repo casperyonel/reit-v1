@@ -62,7 +62,7 @@ module.exports = {
     updateStats: (req, res) => {
         let { wallet_address } = req.body
         sequelize.query(`
-            SELECT link, click_counter, conversion_counter FROM wallets
+            SELECT link, click_counter, conversion_counter, wallet_address FROM wallets
             WHERE wallet_address = '${wallet_address}';
         `)
         .then(response => {

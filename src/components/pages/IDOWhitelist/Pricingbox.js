@@ -1,21 +1,22 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-const Pricingbox = ({ stats }) => {
+const Pricingbox = ({ stats, setStats }) => {
+
+
  
-    let newStats = { ...stats }
-    setInterval(updateNewStats, 8000)
+    localStorage.setItem("wallet_address", stats.wallet_address)
 
     function updateNewStats() {
-        axios.put('http://localhost:3000/updateStats', ({ wallet_address: newStats.wallet_address }))
+        axios.put('http://localhost:3000/updateStats', ({ wallet_address: localStorage.getItem('wallet_address') }))
             .then(response => {
-                newStats = {
+                console.log(response)
+                setStats( {
                     click_counter: response.data[0][0].click_counter,
                     conversion_counter: response.data[0][0].conversion_counter,
                     link: response.data[0][0].link,
-                    wallet_address: newStats.wallet_address
-                }
-                console.log(newStats)
+                    wallet_address: response.data[0][0].wallet_address
+                } )
             }).catch(err => console.log(err))
     }
     
@@ -24,10 +25,17 @@ const Pricingbox = ({ stats }) => {
 
     useEffect(() => {
         function updateCurrentIDOPrice() {
-            setCurrentIDOPrice((20 - (Number(newStats.click_counter) * 0.01) - (Number(newStats.conversion_counter) * 1)))
+            setCurrentIDOPrice((20 - (Number(stats.click_counter) * 0.01) - (Number(stats.conversion_counter) * 1)))
         }
         updateCurrentIDOPrice()
     }, [currentIDOPrice])
+
+    useEffect(() => {
+        const interval = setInterval(updateNewStats, 8000)
+        return () => {
+            clearInterval(interval)
+        }
+    }, []) 
     
     return (
         <div className="pricing-box-1">
@@ -45,11 +53,11 @@ const Pricingbox = ({ stats }) => {
             </div>           
             <div className="pricing-box-1-middle1">
                 <span>Succesful Referrals</span>
-                <span>{newStats.conversion_counter}</span>
+                <span>{stats.conversion_counter}</span>
             </div>           
             <div className="pricing-box-1-middle2">
                 <span>Link Shares</span>
-                <span>{newStats.click_counter}</span>
+                <span>{stats.click_counter}</span>
             </div>           
             <div className="pricing-box-1-bottom">
                 <span>Your current IDO price</span>

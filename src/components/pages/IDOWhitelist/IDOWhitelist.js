@@ -33,15 +33,16 @@ const IDOWhitelist = () => {
                 await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
                 .then(response => {
                     // IF USER SWITCHES WALLETS WE NEED TO HANDLE THAT, THIS NEEDS TO UDPATE!
-                    let statsObject = {
+                    setReferralLink(response.data[0][0].link)
+                    setStats( {
                         click_counter: response.data[0][0].click_counter,
                         conversion_counter: response.data[0][0].conversion_counter,
                         link: response.data[0][0].link,
                         wallet_address: wallet_address
-                    }
+                    } )
                     console.log(stats)
-                    setReferralLink(statsObject.link)
-                    setStats(statsObject)
+                    
+                    
                     // UPDATE REFERRAL LINK STATE TO POPULATE, ALSO SEND ALL STATS AS OBJECT HERE.
                 })
                 .catch(err => console.log(err))
@@ -168,7 +169,7 @@ const IDOWhitelist = () => {
                             {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
                         </div>
                         
-                            {referralLink === ''? null : <Pricingbox stats={stats} />}
+                            {referralLink === ''? null : <Pricingbox stats={stats} setStats={setStats} />}
                       
                       </div>
                   </div>
