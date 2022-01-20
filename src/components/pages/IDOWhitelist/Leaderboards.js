@@ -10,23 +10,22 @@ const Leaderboards = ({ stats }) => {
     useEffect(() => {
         axios.get('http://localhost:3000/walletRankings')
             .then(response => {
-                console.log(response.data)
                 setArrayOfWallets(response.data)
             }).catch(error => console.log(error))
         // setHighlightedWallet(stats.wallet_address) // Not sure I want to highlight the user's wallet actually
     }, [])
 
     const walletsMapped = arrayOfWallets.map(wallet => {
-        return <div key={wallet.wallet_address}>
+        return <div className="leaderboard-slot" key={wallet.wallet_address}>
                     <Slot details={wallet} />
                     {/* {highlightedWallet === wallet.wallet_address ? <div>THIS IS THE GOLDEN WALLET</div> : null} */}
                 </div>
     })
 
     return (
-            <div className="wallets-mapped">
+            <>
                 {walletsMapped}
-            </div>
+            </>
     ) 
 };
 

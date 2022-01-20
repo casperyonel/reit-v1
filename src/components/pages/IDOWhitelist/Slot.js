@@ -8,10 +8,10 @@ const Slot = ({ details }) => {
     // Need to calc price relative to $20 for column
   
     return ( 
-        <div>
+        <>
             <div>{wallet_address}</div>
             <div>{ido_price}</div>
-        </div>
+        </>
     )
 }
 

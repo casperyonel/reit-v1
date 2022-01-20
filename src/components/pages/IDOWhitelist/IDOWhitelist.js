@@ -169,7 +169,6 @@ const IDOWhitelist = () => {
               <div className="box-right-1">
                     <div className="box-right-2">
                         <Leaderboards stats={stats} />
-                        {/* <div>hello</div> */}
                     </div>
                 
               </div>
