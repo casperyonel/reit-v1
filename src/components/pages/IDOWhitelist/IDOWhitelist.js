@@ -6,6 +6,7 @@ import idowhitelist from "./idowhitelist.scss"
 import { useLocation } from "react-router-dom";
 import Referralinfo from "./Referralinfo";
 import Pricingbox from "./Pricingbox"; 
+// import Slot from "./Slot";
  
 
 const IDOWhitelist = () => {
@@ -61,26 +62,15 @@ const IDOWhitelist = () => {
             .catch(error => console.log(error))
             // WRITE AN AND STATEMENT HERE TO GET RID OF SPAMS / PAGE RELOADS!
         }
-
         updateStats()
-
-
-        
          // Get wallet IDO data of already purchased user
         // if (wallet_address === '[object Object]') {
         //     console.log('THIS IS CORRECT SYNTAX')
         //     // I think object Object shows up when my wallet IS connected but its not IN the DB!
         //     // Somehow wallet_address is passing in '[object Object]'
         // }
+    }, [])
        
-
-
-
-
-
-  }, [])
-
-  
     // Upon purchase of IDO, make sure new wallet then add wallet:
     const submit = async () => {
         if (!order) {
@@ -170,15 +160,14 @@ const IDOWhitelist = () => {
                         </div>
                         
                             {referralLink === ''? null : <Pricingbox stats={stats} setStats={setStats} />}
+                            {/* {referralLink === ''? null : <Stats stats={stats} setStats={setStats} />} */}
                       
                       </div>
                   </div>
               </div>
               <div className="box-right-1">
-                  <div className="box-right-2">
-                      <div className="box-right-3">
-                          <div className="slot"></div>
-                          {/* Make this a seperate component */}
+                      <div className="box-right-2">
+                          {/* <Slot /> */}
                           <div className="slot"></div>
                           <div className="slot"></div>
                           <div className="slot"></div>
@@ -196,8 +185,29 @@ const IDOWhitelist = () => {
                           <div className="slot"></div>
                           <div className="slot"></div>
                           <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          <div className="slot"></div>
+                          
+                    
+                      
+                           
                       </div>
-                  </div>
+                
               </div>
         </div>
     )
