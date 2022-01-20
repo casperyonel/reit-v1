@@ -6,9 +6,9 @@ import idowhitelist from "./idowhitelist.scss"
 import { useLocation } from "react-router-dom";
 import Referralinfo from "./Referralinfo";
 import Pricingbox from "./Pricingbox"; 
-// import Slot from "./Slot";
+import Leaderboards from "./Leaderboards";
+ import Slot from "./Slot";
  
-
 const IDOWhitelist = () => {
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
@@ -154,7 +154,7 @@ const IDOWhitelist = () => {
               </div>
               <div className="box-right-1">
                     <div className="box-right-2">
-                        {/* <Slot /> */}
+                        {/* <Leaderboards stats={stats} /> */}
                         <div className="slot"></div>
                     </div>
                 
