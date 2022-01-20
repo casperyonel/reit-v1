@@ -15,10 +15,10 @@ const Leaderboards = ({ stats }) => {
             }).catch(error => console.log (error))
     }, [])
 
-    const walletsMapped = arrayOfWallets.map(wallet => {
+    const walletsMapped = arrayOfWallets.map(wallet => { // Rank here?
         return ( 
             <div key={wallet.index}>
-                <Slot details={wallet}/>
+                <Slot details={wallet} signedInWallet={signedInWallet}/>
             </div>
         )
     })

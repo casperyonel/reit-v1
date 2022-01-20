@@ -79,5 +79,15 @@ module.exports = {
         .then(response => {
             res.status(200).send(response)
         }).catch(err => console.log(err))
+    },
+    walletRankings: (req, res) => {
+        sequelize.query(`
+            SELECT (20 - (wallets.click_counter * 0.01) - (wallets.conversion_counter)) AS rank
+            FROM wallets
+            ORDER BY rank DESC;
+        `)
+        .then(response => {
+            res.status(200).send(response.data)
+        }).catch(err => console.log(err))
     }
 }

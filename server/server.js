@@ -7,7 +7,7 @@ const { seed } = require('./seed')
 app.use(express.json())
 app.use(cors())
 
-const { updateClickCounter, confirmNewWallet, addWallet, updateStats, updateConversionCounter } = require('./ctrl')
+const { updateClickCounter, confirmNewWallet, addWallet, updateStats, updateConversionCounter, walletRankings } = require('./ctrl')
 
 // Seed:
 app.post('/seed', seed)
@@ -24,7 +24,10 @@ app.post('/addWallet', addWallet)
 // Update wallet stats for previous buyer at initial page load:
 app.put('/updateStats', updateStats)
 
-// Update conversion_counter for referral that resulted in this purchase.
+// Update conversion_counter for referral that resulted in this purchase:
 app.put('/updateConversionCounter', updateConversionCounter)
+
+// Get all wallets with click_counter and conversion_counter for leaderboards:
+app.get('/walletRankings', walletRankings)
 
 app.listen(SERVER_PORT, () => console.log(`Listening on Port ${SERVER_PORT}`))
