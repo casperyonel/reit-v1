@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 
 const Slot = ({ details }) => {
   
@@ -9,8 +8,9 @@ const Slot = ({ details }) => {
   
     return ( 
         <>
-            <div>{wallet_address}</div>
-            <div>{ido_price}</div>
+            <td>{wallet_address}</td>
+            <td>{ido_price}</td>
+            <td>45.23%</td>
         </>
     )
 }

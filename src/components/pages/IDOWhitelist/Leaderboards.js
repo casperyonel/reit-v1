@@ -16,17 +16,27 @@ const Leaderboards = ({ stats }) => {
     }, [])
 
     const walletsMapped = arrayOfWallets.map(wallet => {
-        return <div className="leaderboard-slot" key={wallet.wallet_address}>
+        return <tr className="leaderboard-row" key={wallet.wallet_address}>
                     <Slot details={wallet} />
                     {/* {highlightedWallet === wallet.wallet_address ? <div>THIS IS THE GOLDEN WALLET</div> : null} */}
-                </div>
+               </tr>  
     })
 
     return (
-            <>
-                {walletsMapped}
-            </>
-    ) 
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Wallet</th>
+                        <th>% Change</th>
+                        <th>IDO Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {walletsMapped}
+                </tbody>
+            </table>
+    )
 };
 
 export default Leaderboards;
