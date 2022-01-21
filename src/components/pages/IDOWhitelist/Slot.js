@@ -6,6 +6,9 @@ const Slot = ({ details }) => {
     // wallet to check if signed in address = wallet address of that index position. 
     // Need to calc price relative to $20 for column
   
+
+
+
     return ( 
         <>
             <td>{wallet_address}</td>
