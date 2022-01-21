@@ -168,7 +168,15 @@ const IDOWhitelist = () => {
               </div>
               <div className="box-right-1">
                     <div className="box-right-2">
+                    <div className="box-right-2-top">
+                        <div className="box-right-2-left">
+                            <h2 className="leaderboards-header-leaderboards">Leaderboards
+                                <span className="leaderboards-header-in-progress">NOT STARTED</span> <br />
+                                <h3 className="leaderboards-header-time">Dec 9, 18:00 UTC - Dec 16, 18:00 UTC</h3>
+                            </h2>
+                        </div>
                         <Leaderboards stats={stats} />
+                    </div>
                     </div>
                 
               </div>

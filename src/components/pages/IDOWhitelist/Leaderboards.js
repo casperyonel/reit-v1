@@ -23,7 +23,7 @@ const Leaderboards = ({ stats }) => {
     })
 
     return (
-            <table>
+            <table className="rankings-table">
                 <thead>
                     <tr>
                         <th>Rank</th>

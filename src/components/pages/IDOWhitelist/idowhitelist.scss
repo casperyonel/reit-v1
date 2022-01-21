@@ -1,5 +1,15 @@
+$primaryColor : rgb(18, 18, 35);
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
 .outer {
-    background-color: rgb(18, 18, 35);
+    background-color: $primaryColor;
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -10,10 +20,8 @@
     width: 480px;
     height: 700px;
     position: relative;
-    background-color: green;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background-color: rgb(67, 42, 42);
+    @include flexCenter();
 }
 
 .box-left-2 {
@@ -23,9 +31,7 @@
     width: 450px;
     height: 450px;
     transform: translate(0, 0px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flexCenter();
 }
 
 .box-left-3 {
@@ -87,10 +93,15 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
+    &:hover {
+        border-color: goldenrod;
+        background-color: green;
+    }
 }
 
 .class-label {
-     padding: 0px 15px;
+    padding: 0px 15px;
+    cursor: pointer;
 }
 
 .middle2-4a {
@@ -303,9 +314,10 @@
 
 
 
+
+
 .box-right-1 { 
     width: 480px;
-    // height: 1100px;
     position: relative;
     background-color: rgb(156, 156, 253);
     display: flex;
@@ -316,23 +328,49 @@
     background-color: rgb(99, 99, 99);
     width: 95%;
     height: 80%;
-    top: 62.5px;
+    // top: 62.5px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.slot {
-    position: relative;
-    width: 440px;
-    height: 45px;
-    background-color: rgb(28, 0, 187);
-    margin-top: 1%;
+.box-right-2-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    // height: 10px;
 }
 
-.highlighted-wallet {
-    height: 100px;
-    width: 100px;
-    background-color: red;
+.rankings-table {
+    background-color: darkblue;
+    position: relative;
+}
+
+.box-right-2-left {
+    background-color: green;
+    // height:px;
+    width: 70%;
+    padding: 20px 24px;
+}
+
+.leaderboards-header-leaderboards {
+    font-size: 20px;
+}
+
+.leaderboards-header-in-progress {
+    font-size: 10px;
+}
+
+.leaderboards-header-time {
+    font-size: 14px;
+}
+
+.box-right-2-left {
+    background-color: green;
+}
+
+.leaderboard-row {
+    background-color: grey;
 }
