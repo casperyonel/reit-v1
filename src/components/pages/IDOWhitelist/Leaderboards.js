@@ -16,8 +16,6 @@ const Leaderboards = ({ stats }) => {
     }, [])
 
     const walletsMapped = arrayOfWallets.map(wallet => {
-        
-        
         return <tr className="leaderboard-row" key={wallet.wallet_address}>
                     <td>{arrayOfWallets.indexOf(wallet) + 1}</td>
                     <Slot details={wallet} />
