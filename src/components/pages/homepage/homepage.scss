@@ -1,3 +1,6 @@
+@import "../../../assets/fonts/fonts.scss";
+
+
 .houter {
     background-color: rgb(18, 18, 35);
     display: flex;
@@ -18,7 +21,7 @@
 .hbox-left-2 {
     width: 450px;
     height: 450px;
-    background-color: black;
+    background-color: rgb(249, 249, 249);
     top: 130px;
 }
 
@@ -34,7 +37,13 @@
 .hbox-right-2 {
     width: 450px;
     height: 450px;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     top: 130px;
+}
+
+#come-on {
+    // font-family: Montserrat Bold;
+    font-family: Montserrat SemiBold;
+    color: rgb(247, 247, 247);
 }
 

@@ -1,12 +1,25 @@
-$primaryColor : rgb(18, 18, 35);
+$primaryColor: rgb(28, 28, 39);
+$secondaryColor: rgb(23, 23, 33);
+$classBtnColor: rgb(48, 48, 66);
+$buttonColor: rgb(94, 114, 245);
+$primaryFontColor: rgb(247, 247, 247);
+$secondaryFontColor: rgb(111, 110, 130);
+$primaryBtnColor: rgb(195, 194, 210);
+$bigFontSize: 20px;
+$smallFontSize: 14px; 
+$noteFontSize: 10px;
+$classFontSize: $bigFontSize - 4px;
+$classSubmitFontSize: $classFontSize + 2px;
+$leaderboardsHeaderFontSize: $classFontSize - 3px;
+$leaderboardsRowFontSize: $classFontSize - 2px;
+$borderColor: rgb(195, 194, 212);
 @mixin flexCenter {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-
-
+@import "../../../assets/fonts/fonts.scss";
 
 .outer {
     background-color: $primaryColor;
@@ -20,14 +33,13 @@ $primaryColor : rgb(18, 18, 35);
     width: 480px;
     height: 700px;
     position: relative;
-    background-color: rgb(67, 42, 42);
+    // background-color: rgb(67, 42, 42);
     @include flexCenter();
 }
 
 .box-left-2 {
     position: absolute;
     top: 40px;
-    // background-color: black;
     width: 450px;
     height: 450px;
     transform: translate(0, 0px);
@@ -35,21 +47,23 @@ $primaryColor : rgb(18, 18, 35);
 }
 
 .box-left-3 {
-    background-color: grey;
+    // background-color: grey;
     width: 90%;
     height: 90%;
 }
 
 .box-left-4a {
-    background-color: gold;
+    background-color: $secondaryColor;
     width: 100%;
     height: 50%;
     display: flex;
     flex-direction: column;
+    border-radius: 8px;
 }
 
 .top-4a {
-    background-color: rgb(0, 255, 255);
+    // background-color: rgb(0, 255, 255);
+    color: $primaryFontColor;
     width: 100%;
     height: 25%;
     display: flex;
@@ -57,8 +71,10 @@ $primaryColor : rgb(18, 18, 35);
 }
 
 .exchange-rate-container {
-    font-size: 13px;
-    background-color: grey;
+    font-size: $smallFontSize - 2px;
+    color: $secondaryFontColor;
+    font-family: Montserrat;
+    // background-color: grey;
     padding: 10px;
     border-radius: 8px;
     display: flex;
@@ -66,15 +82,17 @@ $primaryColor : rgb(18, 18, 35);
 }
 
 #select-amount {
-    background-color: grey;
+    // background-color: grey;
+    font-family: Montserrat SemiBold;
     padding: 10px;
     border-radius: 8px;
     display: flex;
     align-items: flex-end;
+    font-size: $bigFontSize;
 }
 
 .middle1-4a {
-    background-color: rgb(65, 233, 18);
+    // background-color: rgb(65, 233, 18);
     width: 100%;
     height: 25%;
     display: flex;
@@ -82,10 +100,10 @@ $primaryColor : rgb(18, 18, 35);
     align-items: center;
 }
 
-.btn-class-a
-{
-    background-color: rgb(243, 0, 0);
-    color: rgb(0, 0, 0);
+.btn-class-a {
+    background-color: $classBtnColor;
+    color: $primaryBtnColor;
+    font-family: Montserrat SemiBold;
     cursor: pointer;
     height: 50.63px;
     width: 405px;
@@ -102,10 +120,11 @@ $primaryColor : rgb(18, 18, 35);
 .class-label {
     padding: 0px 15px;
     cursor: pointer;
+    font-size: $classSubmitFontSize;
 }
 
 .middle2-4a {
-    background-color: rgb(49, 175, 175);
+    // background-color: rgb(49, 175, 175);
     width: 100%;
     height: 25%;
     display: flex;
@@ -115,8 +134,9 @@ $primaryColor : rgb(18, 18, 35);
 
 .btn-class-b
 {
-    background-color: rgb(109, 109, 109);
-    color: rgb(0, 0, 0);
+    background-color: $classBtnColor;
+    color: $primaryBtnColor;
+    font-family: Montserrat SemiBold;
     cursor: pointer;
     height: 50.63px;
     width: 405px;
@@ -127,23 +147,26 @@ $primaryColor : rgb(18, 18, 35);
 }
 
 .bottom-4a {
-    background-color: rgb(138, 240, 80);
+    // background-color: rgb(138, 240, 80);
     width: 100%;
     height: 25%;
 }
 
 #note-text {
-    font-size: 10px;
+    font-size: $noteFontSize;
     margin: 0;
     padding: 1px;
+    font-family: Montserrat SemiBold;
+    color: $primaryFontColor;
 }
 
 .box-left-4b {
-    background-color: rgb(255, 87, 87);
+    // background-color: rgb(255, 87, 87);
     width: 100%;
     height: 50%;
     display: flex;
     flex-direction: column;
+    font-size: $classFontSize;
 }
 
 .top-4b {
@@ -154,12 +177,14 @@ $primaryColor : rgb(18, 18, 35);
 }
 
 .middle1-4b {
-    background-color: rgb(255, 255, 255);
+    background-color: $secondaryColor;
     width: 100%;
     height: 15%;
     display: flex;
     justify-content:last baseline;
     align-items: center;
+    color: $primaryFontColor;
+    font-family: Montserrat Medium;
 }
 
 .middle2-4b {
@@ -173,13 +198,15 @@ $primaryColor : rgb(18, 18, 35);
 }
 
 .top-middle2-4b {
-    background-color: green;
+    background-color: $secondaryColor;
     height: 35%;
     width: 100%;
+    color: $primaryFontColor;
+    font-family: Montserrat Medium;
 }
 
 .bottom-middle2-4b {
-    background-color: red;
+    background-color: $secondaryColor;
     height: 65%;
     width: 100%;
     display: flex;
@@ -190,28 +217,30 @@ $primaryColor : rgb(18, 18, 35);
 #refer-others-box {
     height: 80%;
     width: 100%;
-    background-color: rgb(147, 252, 0);
+    background-color: $secondaryColor;
     display: flex;
     align-items: center;
+    color: $primaryFontColor;
 }
 
 #refer-others-link {
-    background-color: rgb(193, 30, 30);
+    background-color: $secondaryColor;
     height: 80%;
     width: 80%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: Montserrat Medium;
 }
 
 #refer-others-copy {
-    background-color: rgb(255, 255, 255);
-    color: green;
+    background-color: $classBtnColor;
     width: 20%;
+    color: $primaryFontColor;
 }
 
 .bottom-4b {
-    background-color: rgb(105, 0, 82);
+    background-color: $secondaryColor;
     width: 100%;
     height: 35%;
 }
@@ -220,26 +249,38 @@ $primaryColor : rgb(18, 18, 35);
     width: 100%;
     border-radius: 8px;
     cursor: pointer;
+    font-size: $classSubmitFontSize;
+    background-color: $buttonColor;
+    color: $primaryFontColor;
 }
 
 #the-more-referrals-text {
-    font-size: 14px;
+    font-size: $smallFontSize;
     margin: 0;
     padding: 1px;
+    color: $primaryFontColor;
+    font-family: Montserrat Medium;
 }
 
 .referral-explainer-text {
-    font-size: 14px;
+    font-size: $smallFontSize;
     margin: 0;
+    color: $primaryFontColor;
+    font-family: Montserrat Medium;
 }
 
 #note-referrals-text {
-    font-size: 10px;
+    font-size: $noteFontSize;
     margin: 0;
     padding: 1px;
+    color: $primaryFontColor;
 }
 
 .pricing-box-1 {
+    background-color: $secondaryColor;
+    color: $primaryFontColor;
+    font-family: Montserrat Medium;
+    font-weight: 500;
     width: 100%;
     height: 125px;
     display: flex;
@@ -249,18 +290,23 @@ $primaryColor : rgb(18, 18, 35);
 }
 
 .pricing-box-1-top {
-    background-color: rgb(154, 154, 154);
+    // background-color: rgb(154, 154, 154);
     width: 100%;
     height: 40%;
     flex-direction: column;
     display: flex;
     justify-content: space-around;
+    font-size: $classFontSize;
 }
 
 .pricing-box-1-top-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    font-size: $classFontSize - 1px;
+    .singular-timer {
+        margin-right: 3px;
+    }
 }
 
 .pricing-box-1-top-text {
@@ -269,7 +315,7 @@ $primaryColor : rgb(18, 18, 35);
 }
 
 .pricing-box-1-middle1 {
-    background-color: rgb(55, 55, 55);
+    // background-color: rgb(55, 55, 55);
     width: 100%;
     height: 25%;
     display: flex;
@@ -277,7 +323,7 @@ $primaryColor : rgb(18, 18, 35);
     justify-content: space-between;
 }
 .pricing-box-1-middle2 {
-    background-color: rgb(181, 12, 12);
+    // background-color: rgb(181, 12, 12);
     width: 100%;
     height: 25%;
     display: flex;
@@ -285,7 +331,7 @@ $primaryColor : rgb(18, 18, 35);
     justify-content: space-between;
 }
 .pricing-box-1-bottom {
-    background-color: rgb(25, 136, 120);
+    // background-color: rgb(25, 136, 120);
     width: 100%;
     height: 25%;
     display: flex;
@@ -351,28 +397,36 @@ $primaryColor : rgb(18, 18, 35);
 .box-right-2-left {
     background-color: green;
     // height:px;
-    width: 70%;
+    width: 60%;
     padding: 20px 24px;
 }
 
 .leaderboards-header-leaderboards {
-    font-size: 20px;
+    font-size: $bigFontSize;
 }
 
 .leaderboards-header-in-progress {
-    font-size: 10px;
+    font-size: $noteFontSize;
 }
 
 .leaderboards-header-time {
-    font-size: 14px;
+    font-size: $smallFontSize;
 }
 
 .box-right-2-left {
     background-color: green;
 }
 
+.leaderboards-header {
+    font-size: $leaderboardsHeaderFontSize;
+}
+
 .leaderboard-row {
     background-color: grey;
+    font-size: $leaderboardsRowFontSize;
+    height: 39px;
+    border-bottom: 10px;
+    font-family: Montserrat;
 }
 
 .percent-green {

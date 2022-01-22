@@ -1,11 +1,17 @@
 import homepage from "./homepage.scss"
 
+
+
 const Homepage = () => {
     return (
      
             <div className="houter">
                 <div className="hbox-right-1">
                     <div className="hbox-right-2">
+                        
+                        
+                        <h1 id='come-on'>Perpetuals, decentralized</h1>
+                        <h1 id='come-on'>Perpetuals, decentralized</h1>
 
                     </div>
                 </div>
@@ -15,6 +21,8 @@ const Homepage = () => {
                         
                         </div>
                 </div>
+
+                
             </div>
     
     )

@@ -1,5 +1,35 @@
+@font-face {
+  font-family: "Montserrat SemiBold";
+  src: local("Montserrat SemiBold"), url("./Montserrat-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"), url("./Montserrat-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat Bold";
+  src: local("Montserrat Bold"), url("./Montserrat-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat Medium";
+  src: local("Montserrat Medium"), url("./Montserrat-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat Light";
+  src: local("Montserrat Light"), url("./Montserrat-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Courier";
+  src: local("Courier"), url("./CourierPrime-Regular.ttf") format("truetype");
+}
+
 .outer {
-  background-color: #121223;
+  background-color: #1c1c27;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,7 +47,6 @@
   width: 480px;
   height: 700px;
   position: relative;
-  background-color: #432a2a;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -48,13 +77,12 @@
 }
 
 .box-left-3 {
-  background-color: grey;
   width: 90%;
   height: 90%;
 }
 
 .box-left-4a {
-  background-color: gold;
+  background-color: #171721;
   width: 100%;
   height: 50%;
   display: -webkit-box;
@@ -64,10 +92,11 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  border-radius: 8px;
 }
 
 .top-4a {
-  background-color: cyan;
+  color: #f7f7f7;
   width: 100%;
   height: 25%;
   display: -webkit-box;
@@ -79,8 +108,9 @@
 }
 
 .exchange-rate-container {
-  font-size: 13px;
-  background-color: grey;
+  font-size: 12px;
+  color: #6f6e82;
+  font-family: Montserrat;
   padding: 10px;
   border-radius: 8px;
   display: -webkit-box;
@@ -92,7 +122,7 @@
 }
 
 #select-amount {
-  background-color: grey;
+  font-family: Montserrat SemiBold;
   padding: 10px;
   border-radius: 8px;
   display: -webkit-box;
@@ -101,10 +131,10 @@
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  font-size: 20px;
 }
 
 .middle1-4a {
-  background-color: #41e912;
   width: 100%;
   height: 25%;
   display: -webkit-box;
@@ -119,8 +149,9 @@
 }
 
 .btn-class-a {
-  background-color: #f30000;
-  color: black;
+  background-color: #303042;
+  color: #c3c2d2;
+  font-family: Montserrat SemiBold;
   cursor: pointer;
   height: 50.63px;
   width: 405px;
@@ -144,10 +175,10 @@
 .class-label {
   padding: 0px 15px;
   cursor: pointer;
+  font-size: 18px;
 }
 
 .middle2-4a {
-  background-color: #31afaf;
   width: 100%;
   height: 25%;
   display: -webkit-box;
@@ -162,8 +193,9 @@
 }
 
 .btn-class-b {
-  background-color: #6d6d6d;
-  color: black;
+  background-color: #303042;
+  color: #c3c2d2;
+  font-family: Montserrat SemiBold;
   cursor: pointer;
   height: 50.63px;
   width: 405px;
@@ -180,7 +212,6 @@
 }
 
 .bottom-4a {
-  background-color: #8af050;
   width: 100%;
   height: 25%;
 }
@@ -189,10 +220,11 @@
   font-size: 10px;
   margin: 0;
   padding: 1px;
+  font-family: Montserrat SemiBold;
+  color: #f7f7f7;
 }
 
 .box-left-4b {
-  background-color: #ff5757;
   width: 100%;
   height: 50%;
   display: -webkit-box;
@@ -202,6 +234,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  font-size: 16px;
 }
 
 .top-4b {
@@ -214,7 +247,7 @@
 }
 
 .middle1-4b {
-  background-color: white;
+  background-color: #171721;
   width: 100%;
   height: 15%;
   display: -webkit-box;
@@ -226,6 +259,8 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  color: #f7f7f7;
+  font-family: Montserrat Medium;
 }
 
 .middle2-4b {
@@ -248,13 +283,15 @@
 }
 
 .top-middle2-4b {
-  background-color: green;
+  background-color: #171721;
   height: 35%;
   width: 100%;
+  color: #f7f7f7;
+  font-family: Montserrat Medium;
 }
 
 .bottom-middle2-4b {
-  background-color: red;
+  background-color: #171721;
   height: 65%;
   width: 100%;
   display: -webkit-box;
@@ -271,17 +308,18 @@
 #refer-others-box {
   height: 80%;
   width: 100%;
-  background-color: #93fc00;
+  background-color: #171721;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  color: #f7f7f7;
 }
 
 #refer-others-link {
-  background-color: #c11e1e;
+  background-color: #171721;
   height: 80%;
   width: 80%;
   display: -webkit-box;
@@ -293,16 +331,17 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  font-family: Montserrat Medium;
 }
 
 #refer-others-copy {
-  background-color: white;
-  color: green;
+  background-color: #303042;
   width: 20%;
+  color: #f7f7f7;
 }
 
 .bottom-4b {
-  background-color: #690052;
+  background-color: #171721;
   width: 100%;
   height: 35%;
 }
@@ -311,26 +350,38 @@
   width: 100%;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 18px;
+  background-color: #5e72f5;
+  color: #f7f7f7;
 }
 
 #the-more-referrals-text {
   font-size: 14px;
   margin: 0;
   padding: 1px;
+  color: #f7f7f7;
+  font-family: Montserrat Medium;
 }
 
 .referral-explainer-text {
   font-size: 14px;
   margin: 0;
+  color: #f7f7f7;
+  font-family: Montserrat Medium;
 }
 
 #note-referrals-text {
   font-size: 10px;
   margin: 0;
   padding: 1px;
+  color: #f7f7f7;
 }
 
 .pricing-box-1 {
+  background-color: #171721;
+  color: #f7f7f7;
+  font-family: Montserrat Medium;
+  font-weight: 500;
   width: 100%;
   height: 125px;
   display: -webkit-box;
@@ -344,7 +395,6 @@
 }
 
 .pricing-box-1-top {
-  background-color: #9a9a9a;
   width: 100%;
   height: 40%;
   -webkit-box-orient: vertical;
@@ -356,6 +406,7 @@
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  font-size: 16px;
 }
 
 .pricing-box-1-top-container {
@@ -369,6 +420,11 @@
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  font-size: 15px;
+}
+
+.pricing-box-1-top-container .singular-timer {
+  margin-right: 3px;
 }
 
 .pricing-box-1-top-text {
@@ -381,7 +437,6 @@
 }
 
 .pricing-box-1-middle1 {
-  background-color: #373737;
   width: 100%;
   height: 25%;
   display: -webkit-box;
@@ -396,7 +451,6 @@
 }
 
 .pricing-box-1-middle2 {
-  background-color: #b50c0c;
   width: 100%;
   height: 25%;
   display: -webkit-box;
@@ -411,7 +465,6 @@
 }
 
 .pricing-box-1-bottom {
-  background-color: #198878;
   width: 100%;
   height: 25%;
   display: -webkit-box;
@@ -441,7 +494,6 @@
   background-color: #636363;
   width: 95%;
   height: 80%;
-  top: 62.5px;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -455,17 +507,64 @@
           align-items: center;
 }
 
-.slot {
-  position: relative;
-  width: 440px;
-  height: 45px;
-  background-color: #1c00bb;
-  margin-top: 1%;
+.box-right-2-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
 }
 
-.highlighted-wallet {
-  height: 100px;
-  width: 100px;
-  background-color: red;
+.rankings-table {
+  background-color: darkblue;
+  position: relative;
+}
+
+.box-right-2-left {
+  background-color: green;
+  width: 60%;
+  padding: 20px 24px;
+}
+
+.leaderboards-header-leaderboards {
+  font-size: 20px;
+}
+
+.leaderboards-header-in-progress {
+  font-size: 10px;
+}
+
+.leaderboards-header-time {
+  font-size: 14px;
+}
+
+.box-right-2-left {
+  background-color: green;
+}
+
+.leaderboards-header {
+  font-size: 13px;
+}
+
+.leaderboard-row {
+  background-color: grey;
+  font-size: 14px;
+  height: 39px;
+  border-bottom: 10px;
+  font-family: Montserrat;
+}
+
+.percent-green {
+  color: green;
+}
+
+.percent-flat {
+  color: darkgrey;
 }
 /*# sourceMappingURL=idowhitelist.css.map */

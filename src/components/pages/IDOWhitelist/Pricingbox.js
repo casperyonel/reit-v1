@@ -31,7 +31,7 @@ const Pricingbox = ({ stats, setStats }) => {
         <div className="pricing-box-1">
             <div className="pricing-box-1-top">
                 <div className="pricing-box-1-top-container">
-                    Refreshes in {timer} seconds
+                    {timer === 1 ? <span className="singular-timer">Refreshes in {timer} second</span> : <span>Refreshes in {timer} seconds</span>}
                 </div>
                 <div className="pricing-box-1-top-text">
                     <span>Your initial IDO price</span>

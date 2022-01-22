@@ -170,7 +170,7 @@ const IDOWhitelist = () => {
                     <div className="box-right-2">
                     <div className="box-right-2-top">
                         <div className="box-right-2-left">
-                            <h2 className="leaderboards-header-leaderboards">Leaderboards
+                            <h2 className="leaderboards-header-leaderboards">Competition
                                 <span className="leaderboards-header-in-progress">NOT STARTED</span> <br />
                                 <h3 className="leaderboards-header-time">Dec 9, 18:00 UTC - Dec 16, 18:00 UTC</h3>
                             </h2>

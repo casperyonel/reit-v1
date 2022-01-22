@@ -1,3 +1,33 @@
+@font-face {
+  font-family: "Montserrat SemiBold";
+  src: local("Montserrat SemiBold"), url("./Montserrat-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"), url("./Montserrat-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat Bold";
+  src: local("Montserrat Bold"), url("./Montserrat-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat Medium";
+  src: local("Montserrat Medium"), url("./Montserrat-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat Light";
+  src: local("Montserrat Light"), url("./Montserrat-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Courier";
+  src: local("Courier"), url("./CourierPrime-Regular.ttf") format("truetype");
+}
+
 .houter {
   background-color: #121223;
   display: -webkit-box;
@@ -31,7 +61,7 @@
 .hbox-left-2 {
   width: 450px;
   height: 450px;
-  background-color: black;
+  background-color: #f9f9f9;
   top: 130px;
 }
 
@@ -55,5 +85,10 @@
   height: 450px;
   background-color: black;
   top: 130px;
+}
+
+#come-on {
+  font-family: Montserrat SemiBold;
+  color: #f7f7f7;
 }
 /*# sourceMappingURL=homepage.css.map */
