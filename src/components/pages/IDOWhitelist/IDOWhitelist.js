@@ -152,21 +152,22 @@ const IDOWhitelist = () => {
                                         </span>   
                                     </form>
                                 </div>
-                                <div className="bottom-4a">
-                                    <p id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your amount spent (either 500 or 1,000 DAI) will remain the same, but you will be airdropped more $REIT tokens. 
-                                    <br /> Read more about how to lower your IDO price here.</p>
-                                </div> 
+                                
                             </div>
                             <div className="top-4b">
                                 <button id='submit-btn' onClick={submit}>Submit order</button>
                             </div>
+                            <div className="bottom-4a">
+                                    <p id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your total purchase amount (either 500 or 1,000 DAI) will remain the same, but you will be airdropped more $REIT tokens. 
+                                    <br /> Read more about how to lower your IDO price here.</p>
+                            </div> 
                         </div>
                         <div className="box-right-3">
                         <div className="box-left-2-right">
                                 {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
                                 {referralLink === ''? null : <Pricingbox stats={stats} setStats={setStats} />}
-                            <div className="box-left-4b" >                  
-                            </div>
+                            <div className="box-left-4b">                  
+                            </div>  
                         </div>
                         </div>
                     </div>

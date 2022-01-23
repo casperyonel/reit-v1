@@ -55,11 +55,11 @@ $borderColor: rgb(195, 194, 212);
     background-color: grey;
     width: 420px;
     // height: 500px;
-    padding: 10px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    // align-items: center;
+    // justify-content: center;
 }
 
 
@@ -68,7 +68,7 @@ $borderColor: rgb(195, 194, 212);
     background-color: grey;
     width: 420px;
     // height: 500px;
-    padding: 10px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,6 +92,7 @@ $borderColor: rgb(195, 194, 212);
     height: 25%;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 16px; // Confirmed sushi
 }
 
 .exchange-rate-container {
@@ -116,12 +117,8 @@ $borderColor: rgb(195, 194, 212);
 }
 
 .middle1-4a {
-    // background-color: rgb(65, 233, 18);
     width: 100%;
     height: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .btn-class-a {
@@ -129,12 +126,13 @@ $borderColor: rgb(195, 194, 212);
     color: $primaryBtnColor;
     font-family: Montserrat SemiBold;
     cursor: pointer;
-    height: 50.63px;
-    // width: 405px;
+    height: 61px; // Confirmed
+    width: 420px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 12px;
+    margin-bottom: 16px; // Confirmed sushi
     &:hover {
         border-color: goldenrod;
         background-color: green;
@@ -142,32 +140,28 @@ $borderColor: rgb(195, 194, 212);
 }
 
 .class-label {
-    padding: 0px 15px;
+    padding: 20px; // Confirmed
     cursor: pointer;
     font-size: $classSubmitFontSize;
 }
 
 .middle2-4a {
-    // background-color: rgb(49, 175, 175);
     width: 100%;
     height: 25%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.btn-class-b
-{
+.btn-class-b {
     background-color: $classBtnColor;
     color: $primaryBtnColor;
     font-family: Montserrat SemiBold;
     cursor: pointer; 
-    height: 50.63px;
-    // width: 100%;
+    height: 61px; // Confirmed
+    width: 420px; // Confirmed
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 10px;
+    margin-bottom: 16px;
 }
 
 .bottom-4a {
@@ -178,7 +172,7 @@ $borderColor: rgb(195, 194, 212);
 
 #note-text {
     font-size: $noteFontSize;
-    margin: 0;
+    margin-top: 16px;
     // padding: 1px;
     font-family: Montserrat SemiBold;
     color: $primaryFontColor;
@@ -270,8 +264,10 @@ $borderColor: rgb(195, 194, 212);
 }
 
 #submit-btn {
+    // margin-top: 16px;
     width: 100%;
     border-radius: 12px;
+    height: 52px; // Confirmed
     cursor: pointer;
     font-size: $classSubmitFontSize;
     background-color: $buttonColor;
