@@ -52,7 +52,8 @@ $borderColor: rgb(195, 194, 212);
 }
 
 .box-left-3 {
-    background-color: grey;
+    background-color: $secondaryColor;
+    border-radius: 10px; // Confirmed
     width: 420px;
     // height: 500px;
     padding: 16px;
@@ -98,12 +99,12 @@ $borderColor: rgb(195, 194, 212);
 .exchange-rate-container {
     font-size: $smallFontSize - 2px;
     color: $secondaryFontColor;
+    background-color: $classBtnColor;
     font-family: Montserrat;
-    // background-color: grey;
-    // padding: 10px;
-    // border-radius: 8px;
+    padding: 5px; // Confirmed
+    border-radius: 7px; 
     display: flex;
-    align-items: flex-end;  
+    align-items: center; 
 }
 
 #select-amount {
@@ -134,9 +135,17 @@ $borderColor: rgb(195, 194, 212);
     border-radius: 12px;
     margin-bottom: 16px; // Confirmed sushi
     &:hover {
-        border-color: goldenrod;
-        background-color: green;
+        
+        background-image: linear-gradient(to left,#5e72f50f, #5957d719, #5e72f514);
+        background-size: 200%;
+        transition: 7s;
+        outline: none;
     }
+    &:checked {
+        background-color: green;
+        outline: green;
+    }
+    
 }
 
 .class-label {
@@ -160,7 +169,7 @@ $borderColor: rgb(195, 194, 212);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 10px; // Confirmed
     margin-bottom: 16px;
 }
 
@@ -168,14 +177,19 @@ $borderColor: rgb(195, 194, 212);
     // background-color: rgb(138, 240, 80);
     width: 100%;
     height: 25%;
+    margin-top: 10px;
+    line-height: .7em;
 }
 
 #note-text {
     font-size: $noteFontSize;
     margin-top: 16px;
-    // padding: 1px;
-    font-family: Montserrat SemiBold;
-    color: $primaryFontColor;
+    margin-bottom: 0;
+    padding: 0px;
+    font-family: Montserrat Medium; // Confirmed wonderland
+
+    color: $secondaryFontColor;
+    // line-height: .01em;
 }
 
 .box-left-4b {
@@ -264,14 +278,22 @@ $borderColor: rgb(195, 194, 212);
 }
 
 #submit-btn {
-    // margin-top: 16px;
     width: 100%;
-    border-radius: 12px;
-    height: 52px; // Confirmed
+    border-radius: 10px; // Confirmed
     cursor: pointer;
     font-size: $classSubmitFontSize;
+    font-family: Montserrat SemiBold; // Confirmed
     background-color: $buttonColor;
     color: $primaryFontColor;
+    height: 52px; // Confirmed
+
+    border: none;
+    background-image: linear-gradient(to left,#5E72F5, #5957d7, #5E72F5);
+    background-size: 200%;
+    transition: .6s;
+    &:hover {
+        background-position: center;
+    }
 }
 
 #the-more-referrals-text {
