@@ -2,6 +2,11 @@
 
 const Referralinfo = ({ referralLink }) => {
     
+    async function copyLink() {
+        await navigator.clipboard.writeText(referralLink)
+        // alert('Copied!')
+    }
+
     return (
         <>
             <div className="middle1-4b">
@@ -15,7 +20,7 @@ const Referralinfo = ({ referralLink }) => {
                 <div className="bottom-middle2-4b">
                     <span id='refer-others-box'>
                         <span id='refer-others-link'>{referralLink}</span>
-                        <span id='refer-others-copy'>Copy</span>
+                        <span onClick={copyLink} id='refer-others-copy'>Copy</span>
                     </span>
                 </div>
             </div>

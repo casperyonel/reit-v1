@@ -169,6 +169,7 @@ $borderColor: rgb(195, 194, 212);
         background-size: 200%;
         transition: 7s;
         outline: none;
+        
     } 
 }
 
@@ -280,8 +281,46 @@ $borderColor: rgb(195, 194, 212);
     height: 30px;
     width: 75px;
     border-radius: 10px;
-    
+    cursor: pointer;
+    border: none;
+    transition-duration: 0.4s; // Safari
+    -webkit-transition-duration: 0.4s; // Safari
+    &:hover {
+        box-shadow: 0px 1px 10px .1px $buttonColor;
+      }
+    &:after { // Flash
+        content: "";
+        position: absolute;
+        border-radius: 10px;
+        right: 40;
+        top: 40;
+        height: 30px;
+        width: 75px;
+        opacity: 0;
+        transition: all 0.45s;
+        box-shadow: 0 0 10px 30px $buttonColor;
+        }
+        &:active:after { // Flash
+        box-shadow: 0 0 0 0 $buttonColor;
+        position: absolute;
+        border-radius: 10px;
+        left: 0;
+        top:0;
+        opacity: 1;
+        transition: 0s;
+        }
 }
+      
+
+
+
+
+    // EXAMPLE FOR CLASS BTNs on click, glows up border
+    // &:hover {
+    //     background: #fff;
+    //     box-shadow: 0px 2px 10px 5px #1abc9c;
+    //     color: #000;
+    //   }
 
 .bottom-4b {
     background-color: $secondaryColor;
@@ -296,7 +335,7 @@ $borderColor: rgb(195, 194, 212);
     cursor: pointer;
     font-size: $classSubmitFontSize;
     font-family: Montserrat SemiBold; // Confirmed
-    background-color: $buttonColor;
+    // background-color: $buttonColor;
     color: $primaryFontColor;
     height: 52px; // Confirmed
 
