@@ -36,10 +36,10 @@ $borderColor: rgb(195, 194, 212);
     position: relative;
     // background-color: rgb(67, 42, 42);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
     // flex-direction: row;
-}
+} 
 
 .box-left-2 {
     position: relative;
@@ -53,8 +53,9 @@ $borderColor: rgb(195, 194, 212);
 
 .box-left-3 {
     background-color: grey;
-    width: 450px;
-    height: 500px;
+    width: 420px;
+    // height: 500px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,8 +66,9 @@ $borderColor: rgb(195, 194, 212);
 
 .box-right-3 {
     background-color: grey;
-    width: 450px;
-    height: 500px;
+    width: 420px;
+    // height: 500px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -77,11 +79,10 @@ $borderColor: rgb(195, 194, 212);
 
 .box-left-4a {
     background-color: $secondaryColor;
-    width: 90%;
+    width: 100%;
     height: 50%;
     display: flex;
     flex-direction: column;
-    border-radius: 8px;
 }
 
 .top-4a {
@@ -98,8 +99,8 @@ $borderColor: rgb(195, 194, 212);
     color: $secondaryFontColor;
     font-family: Montserrat;
     // background-color: grey;
-    padding: 10px;
-    border-radius: 8px;
+    // padding: 10px;
+    // border-radius: 8px;
     display: flex;
     align-items: flex-end;  
 }
@@ -107,8 +108,8 @@ $borderColor: rgb(195, 194, 212);
 #select-amount {
     // background-color: grey;
     font-family: Montserrat SemiBold;
-    padding: 10px;
-    border-radius: 8px;
+    // padding: 10px;
+    // border-radius: 8px;
     display: flex;
     align-items: flex-end;
     font-size: $bigFontSize;
@@ -129,11 +130,11 @@ $borderColor: rgb(195, 194, 212);
     font-family: Montserrat SemiBold;
     cursor: pointer;
     height: 50.63px;
-    width: 405px;
+    // width: 405px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 12px;
     &:hover {
         border-color: goldenrod;
         background-color: green;
@@ -160,9 +161,9 @@ $borderColor: rgb(195, 194, 212);
     background-color: $classBtnColor;
     color: $primaryBtnColor;
     font-family: Montserrat SemiBold;
-    cursor: pointer;
+    cursor: pointer; 
     height: 50.63px;
-    width: 405px;
+    // width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -178,7 +179,7 @@ $borderColor: rgb(195, 194, 212);
 #note-text {
     font-size: $noteFontSize;
     margin: 0;
-    padding: 1px;
+    // padding: 1px;
     font-family: Montserrat SemiBold;
     color: $primaryFontColor;
 }
@@ -194,7 +195,7 @@ $borderColor: rgb(195, 194, 212);
 
 .top-4b {
     background-color: rgb(27, 27, 27);
-    width: 90%;
+    width: 100%;
     height: 50.63px;
     display: flex;
 }
@@ -270,7 +271,7 @@ $borderColor: rgb(195, 194, 212);
 
 #submit-btn {
     width: 100%;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     font-size: $classSubmitFontSize;
     background-color: $buttonColor;
@@ -280,7 +281,7 @@ $borderColor: rgb(195, 194, 212);
 #the-more-referrals-text {
     font-size: $smallFontSize;
     margin: 0;
-    padding: 1px;
+    // padding: 1px;
     color: $primaryFontColor;
     font-family: Montserrat Medium;
 }
@@ -295,7 +296,7 @@ $borderColor: rgb(195, 194, 212);
 #note-referrals-text {
     font-size: $noteFontSize;
     margin: 0;
-    padding: 1px;
+    // padding: 1px;
     color: $primaryFontColor;
 }
 
@@ -308,7 +309,7 @@ $borderColor: rgb(195, 194, 212);
     height: 125px;
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    // margin-top: 20px;
     
 }
 
@@ -405,6 +406,7 @@ $borderColor: rgb(195, 194, 212);
 }
 
 .box-right-2-top {
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
