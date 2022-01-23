@@ -6,6 +6,7 @@ $primaryFontColor: rgb(247, 247, 247);
 $secondaryFontColor: rgb(111, 110, 130);
 $primaryBtnColor: rgb(195, 194, 210);
 $bigFontSize: 20px;
+$pricingFontSize: 16px;
 $smallFontSize: 14px; 
 $noteFontSize: 10px;
 $classFontSize: $bigFontSize - 4px;
@@ -14,6 +15,7 @@ $linkText: rgb(105, 102, 255);
 $leaderboardsHeaderFontSize: $classFontSize - 3px;
 $leaderboardsRowFontSize: $classFontSize - 2px;
 $borderColor: rgb(195, 194, 212);
+$marginPricing: 8px;
 @mixin flexCenter {
     display: flex;
     align-items: center;
@@ -138,6 +140,7 @@ $borderColor: rgb(195, 194, 212);
         background-size: 200%;
         transition: 7s;
         outline: none;
+        // box-shadow: 0px 1px 10px .1px $buttonColor; // Glow??
     } 
 }
 
@@ -183,11 +186,10 @@ $borderColor: rgb(195, 194, 212);
 
 #note-text {
     font-size: $noteFontSize;
-    margin-top: 16px;
+    margin-top: 10px;
     margin-bottom: 0;
     padding: 0px;
     font-family: Montserrat Medium; // Confirmed wonderland
-
     color: $secondaryFontColor;
 }
 
@@ -195,15 +197,6 @@ $borderColor: rgb(195, 194, 212);
     color: $linkText;
     text-decoration: none;
     
-}
-
-.box-left-4b {
-    // background-color: rgb(255, 87, 87);
-    width: 100%;
-    height: 50%;
-    display: flex;
-    flex-direction: column;
-    font-size: $classFontSize;
 }
 
 .top-4b {
@@ -215,13 +208,14 @@ $borderColor: rgb(195, 194, 212);
 
 .middle1-4b {
     background-color: $secondaryColor;
+    color: $primaryFontColor;
+    font-size: $bigFontSize;
+    font-family: Montserrat SemiBold;
     width: 100%;
     height: 15%;
-    display: flex;
-    justify-content:last baseline;
-    align-items: center;
-    color: $primaryFontColor;
-    font-family: Montserrat Medium;
+    margin-bottom: 16px; // Confirmed sushi
+    // display: flex;
+    // align-items: center;
 }
 
 .middle2-4b {
@@ -229,8 +223,8 @@ $borderColor: rgb(195, 194, 212);
     height: 25%;
     display: flex;
     flex-direction: column;
-    justify-content:last baseline;
     justify-content: center;
+    margin-bottom: 16px; // Confirmed sushi
 }
 
 .top-middle2-4b {
@@ -238,7 +232,8 @@ $borderColor: rgb(195, 194, 212);
     height: 35%;
     width: 100%;
     color: $primaryFontColor;
-    font-family: Montserrat Medium;
+    font-family: Montserrat;
+    
 }
 
 .bottom-middle2-4b {
@@ -248,6 +243,7 @@ $borderColor: rgb(195, 194, 212);
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 8px; 
 }
 
 #refer-others-box {
@@ -285,9 +281,9 @@ $borderColor: rgb(195, 194, 212);
     border: none;
     transition-duration: 0.4s; // Safari
     -webkit-transition-duration: 0.4s; // Safari
-    &:hover {
-        box-shadow: 0px 1px 10px .1px $buttonColor;
-      }
+    // &:hover { // I thought user experience wise this makes it confusing. 
+    //     box-shadow: 0px 1px 10px .1px $buttonColor;
+    //   }
     &:after { // Flash
         content: "";
         position: absolute;
@@ -298,7 +294,7 @@ $borderColor: rgb(195, 194, 212);
         width: 75px;
         opacity: 0;
         transition: all 0.45s;
-        box-shadow: 0 0 10px 30px $buttonColor;
+        box-shadow: 0 0 10px 20px $buttonColor;
         }
         &:active:after { // Flash
         box-shadow: 0 0 0 0 $buttonColor;
@@ -325,8 +321,7 @@ $borderColor: rgb(195, 194, 212);
 .bottom-4b {
     background-color: $secondaryColor;
     width: 100%;
-    height: 35%;
-    margin-bottom: 16px;
+    height: 120px; // CHANGE??
 }
 
 #submit-btn {
@@ -349,25 +344,29 @@ $borderColor: rgb(195, 194, 212);
 }
 
 #the-more-referrals-text {
-    font-size: $smallFontSize;
-    margin: 0;
-    // padding: 1px;
+    font-size: $classFontSize;
     color: $primaryFontColor;
-    font-family: Montserrat Medium;
+    font-family: Montserrat SemiBold;
+    margin-top: 22px;
+    margin-bottom: 10px;
+}
+
+.purple-text {
+    color: $primaryFontColor;
 }
 
 .referral-explainer-text {
-    font-size: $smallFontSize;
-    margin: 0;
+    font-size: $linkText;
     color: $primaryFontColor;
-    font-family: Montserrat Medium;
+    font-family: Montserrat;
+    margin-top: 8px;
+    margin-bottom: 1px;
 }
 
 #note-referrals-text {
     font-size: $noteFontSize;
-    margin: 0;
-    // padding: 1px;
-    color: $primaryFontColor;
+    font-family: Montserrat Medium; // Confirmed wonderland
+    color: $secondaryFontColor;
 }
 
 .pricing-box-1 {
@@ -375,8 +374,9 @@ $borderColor: rgb(195, 194, 212);
     color: $primaryFontColor;
     font-family: Montserrat Medium; // Confirmed wonderland
     font-weight: 500;
+    font-size: $pricingFontSize; // Confirmed wonderland
     width: 100%;
-    height: 125px;
+    height: 125px; // CHANGE???
     display: flex;
     flex-direction: column;
     // margin-top: 20px;
@@ -393,19 +393,24 @@ $borderColor: rgb(195, 194, 212);
     display: flex;
     justify-content: space-around;
     font-size: $classFontSize;
+    margin-bottom: $marginPricing;
 }
 
 .pricing-box-1-top-container {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    font-size: $classFontSize - 1px;
+    font-size: 12px;
     font-family: Montserrat; // Confirmed
     .singular-timer {
         margin-right: 3px;
     }
-    
-    
+    margin-bottom: $marginPricing - 2px;
+}
+
+.red-txt {
+    // color: rgb(237, 96, 143); // Confirmed, hashflow
+    color: rgb(244, 80, 81); // Confirmed, dydx
 }
 
 .pricing-box-1-top-text {
@@ -420,6 +425,7 @@ $borderColor: rgb(195, 194, 212);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: $marginPricing;
 }
 .pricing-box-1-middle2 {
     // background-color: rgb(181, 12, 12);
@@ -428,6 +434,7 @@ $borderColor: rgb(195, 194, 212);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: $marginPricing;
 }
 .pricing-box-1-bottom {
     // background-color: rgb(25, 136, 120);

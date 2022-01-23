@@ -161,15 +161,13 @@ const IDOWhitelist = () => {
                             </div>
                             <div className="bottom-4a">
                                     <em id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your total purchase amount (either 500 DAI or 1,000 DAI) will remain the same, but you will receive more $REIT tokens.
-                                    <br />Read more about how to lower your IDO price <a className="link-txt" target='_blank' href="https://medium.com/@REITDAO"> here.</a></em>
+                                    <br/>Read more about how to lower your IDO price <a className="link-txt" target='_blank' href="https://medium.com/@REITDAO"> here.</a></em>
                             </div> 
                         </div>
                         <div className="box-right-3">
                         <div className="box-left-2-right">
-                                {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
+                                {referralLink === ''? null : <Referralinfo referralLink={referralLink} />}        
                                 {referralLink === ''? null : <Pricingbox stats={stats} setStats={setStats} />}
-                            <div className="box-left-4b">                  
-                            </div>  
                         </div>
                         </div>
                     </div>

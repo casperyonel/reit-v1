@@ -30,12 +30,17 @@ const Pricingbox = ({ stats, setStats }) => {
     return (
         <div className="pricing-box-1">
             <div className="pricing-box-1-top">
-                <div className="pricing-box-1-top-container">
-                    {timer === 1 ? <span className="singular-timer">Refreshes in {timer} second</span> : <span>Refreshes in {timer} seconds</span>}
+                <div className="pricing-box-1-top-container"> 
+                        {/* The below is for 1) red color of countdown, 2) second vs. seconds */}
+                        {timer === 1 ? <span className="singular-timer">Refreshes in 
+                        <span className="red-txt"> {timer} second</span>
+                        </span> : <span>Refreshes in 
+                        <span className="red-txt"> {timer} seconds</span>
+                        </span>}
                 </div>
                 <div className="pricing-box-1-top-text">
                     <span>Your initial IDO price</span>
-                    <span className="right-text-pricing-thin">20 DAI</span>
+                    <span className="right-text-pricing-thin">20.00 DAI</span>
                 </div>
             </div>           
             <div className="pricing-box-1-middle1">
@@ -48,7 +53,7 @@ const Pricingbox = ({ stats, setStats }) => {
             </div>           
             <div className="pricing-box-1-bottom">
                 <span>Your current IDO price</span>
-                <span className="right-text-pricing-thin">{stats.ido_price}</span>
+                <span className="right-text-pricing-thin">{stats.ido_price} DAI</span>
             </div>           
         </div>
     )
