@@ -124,6 +124,7 @@ const IDOWhitelist = () => {
         <div className="outer">
               <div className="box-left-1">
                   <div className="box-left-2">
+                      
                       <div className="box-left-3">
                           <div className="box-left-4a">
                                 <div className="top-4a">
@@ -155,16 +156,21 @@ const IDOWhitelist = () => {
                                     <p id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your amount spent (either 500 or 1,000 DAI) will remain the same, but you will be airdropped more $REIT tokens. 
                                     <br /> Read more about how to lower your IDO price here.</p>
                                 </div> 
-                          </div>
-                          <div className="box-left-4b" >
-                                <div className="top-4b">
-                                    <button id='submit-btn' onClick={submit}>Submit order</button>
-                                </div>
-                            {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
+                            </div>
+                            <div className="top-4b">
+                                <button id='submit-btn' onClick={submit}>Submit order</button>
+                            </div>
                         </div>
-                            {referralLink === ''? null : <Pricingbox stats={stats} setStats={setStats} />}
-                      </div>
-                  </div>
+                        <div className="box-right-3">
+                        <div className="box-left-2-right">
+                                {referralLink === ''? null : <Referralinfo referralLink={referralLink} /> }        
+                                {referralLink === ''? null : <Pricingbox stats={stats} setStats={setStats} />}
+                            <div className="box-left-4b" >                  
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                  
               </div>
               <div className="box-right-1">
                     <div className="box-right-2">
