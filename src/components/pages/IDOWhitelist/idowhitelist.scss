@@ -64,8 +64,6 @@ $borderColor: rgb(195, 194, 212);
     // justify-content: center;
 }
 
-
-
 .box-right-3 {
     background-color: $secondaryColor;
     border-radius: 10px; // Confirmed
@@ -77,8 +75,6 @@ $borderColor: rgb(195, 194, 212);
     // align-items: center;
     // justify-content: center;
 }
-
-
 
 .box-left-4a {
     background-color: $secondaryColor;
@@ -100,8 +96,9 @@ $borderColor: rgb(195, 194, 212);
 
 .exchange-rate-container {
     font-size: $smallFontSize - 2px;
-    color: $secondaryFontColor;
-    background-color: $classBtnColor;
+    // color: $secondaryFontColor;
+    color: $primaryFontColor;
+    // background-color: $classBtnColor;
     font-family: Montserrat;
     padding: 5px; // Confirmed
     border-radius: 7px; 
@@ -196,6 +193,7 @@ $borderColor: rgb(195, 194, 212);
 .link-txt {
     color: $linkText;
     text-decoration: none;
+    
 }
 
 .box-left-4b {
@@ -226,8 +224,7 @@ $borderColor: rgb(195, 194, 212);
 }
 
 .middle2-4b {
-    background-color: rgb(255, 251, 0);
-    width: 100%;
+    // width: 100%;
     height: 25%;
     display: flex;
     flex-direction: column;
@@ -253,34 +250,44 @@ $borderColor: rgb(195, 194, 212);
 }
 
 #refer-others-box {
-    height: 80%;
     width: 100%;
-    background-color: $secondaryColor;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    background-color: $classBtnColor;
     color: $primaryFontColor;
+    border-radius: 10px;
+    padding: 5px 12px; // Confirmed
 }
 
 #refer-others-link {
-    background-color: $secondaryColor;
+    // background-color: $secondaryColor;
     height: 80%;
     width: 80%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: Montserrat Medium;
+    font-family: Montserrat;
 }
 
 #refer-others-copy {
-    background-color: $classBtnColor;
-    width: 20%;
+    @include flexCenter();
+    background-color: $buttonColor;
     color: $primaryFontColor;
+    font-family: Montserrat Medium;
+    // position: absolute;
+    // transform: translate(200px, 0px);
+    height: 30px;
+    width: 75px;
+    border-radius: 10px;
+    
 }
 
 .bottom-4b {
     background-color: $secondaryColor;
     width: 100%;
     height: 35%;
+    margin-bottom: 16px;
 }
 
 #submit-btn {
@@ -327,14 +334,16 @@ $borderColor: rgb(195, 194, 212);
 .pricing-box-1 {
     background-color: $secondaryColor;
     color: $primaryFontColor;
-    font-family: Montserrat Medium;
+    font-family: Montserrat Medium; // Confirmed wonderland
     font-weight: 500;
     width: 100%;
     height: 125px;
     display: flex;
     flex-direction: column;
     // margin-top: 20px;
-    
+    .right-text-pricing-thin {
+        font-family: Montserrat; // Confirmed, right side text that refreshes 
+    }
 }
 
 .pricing-box-1-top {
@@ -352,9 +361,12 @@ $borderColor: rgb(195, 194, 212);
     flex-direction: column;
     align-items: flex-end;
     font-size: $classFontSize - 1px;
+    font-family: Montserrat; // Confirmed
     .singular-timer {
         margin-right: 3px;
     }
+    
+    
 }
 
 .pricing-box-1-top-text {
