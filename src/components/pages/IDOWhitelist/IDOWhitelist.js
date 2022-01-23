@@ -136,7 +136,9 @@ const IDOWhitelist = () => {
                                 </div>
                                 <div className="middle1-4a">
                                     <form action="click">
+                                         
                                         <span className='btn-class-a' onClick={() => setOrder('A')}>
+                                            
                                             <label className='class-label'htmlFor="class-a">Class A:</label>
                                             <label className='class-label'htmlFor="class-a">500</label>
                                             <label className='class-label'htmlFor="class-a">DAI</label>
@@ -158,8 +160,8 @@ const IDOWhitelist = () => {
                                 <button id='submit-btn' onClick={submit}>Submit order</button>
                             </div>
                             <div className="bottom-4a">
-                                    <em id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your total purchase amount (either 500 or 1,000 DAI) will remain the same, but you will be airdropped more $REIT tokens. 
-                                    <br /> Read more about how to lower your IDO price here.</em>
+                                    <em id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your total purchase amount (either 500 DAI or 1,000 DAI) will remain the same, but you will receive more $REIT tokens.
+                                    <br />Read more about how to lower your IDO price <a className="link-txt" target='_blank' href="https://medium.com/@REITDAO"> here.</a></em>
                             </div> 
                         </div>
                         <div className="box-right-3">

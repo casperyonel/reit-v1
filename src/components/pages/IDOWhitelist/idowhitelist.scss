@@ -10,6 +10,7 @@ $smallFontSize: 14px;
 $noteFontSize: 10px;
 $classFontSize: $bigFontSize - 4px;
 $classSubmitFontSize: $classFontSize + 2px;
+$linkText: rgb(105, 102, 255);
 $leaderboardsHeaderFontSize: $classFontSize - 3px;
 $leaderboardsRowFontSize: $classFontSize - 2px;
 $borderColor: rgb(195, 194, 212);
@@ -66,14 +67,15 @@ $borderColor: rgb(195, 194, 212);
 
 
 .box-right-3 {
-    background-color: grey;
+    background-color: $secondaryColor;
+    border-radius: 10px; // Confirmed
     width: 420px;
     // height: 500px;
     padding: 16px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    // align-items: center;
+    // justify-content: center;
 }
 
 
@@ -135,17 +137,11 @@ $borderColor: rgb(195, 194, 212);
     border-radius: 12px;
     margin-bottom: 16px; // Confirmed sushi
     &:hover {
-        
         background-image: linear-gradient(to left,#5e72f50f, #5957d719, #5e72f514);
         background-size: 200%;
         transition: 7s;
         outline: none;
-    }
-    &:checked {
-        background-color: green;
-        outline: green;
-    }
-    
+    } 
 }
 
 .class-label {
@@ -171,6 +167,12 @@ $borderColor: rgb(195, 194, 212);
     align-items: center;
     border-radius: 10px; // Confirmed
     margin-bottom: 16px;
+    &:hover {
+        background-image: linear-gradient(to left,#5e72f50f, #5957d719, #5e72f514);
+        background-size: 200%;
+        transition: 7s;
+        outline: none;
+    } 
 }
 
 .bottom-4a {
@@ -189,7 +191,11 @@ $borderColor: rgb(195, 194, 212);
     font-family: Montserrat Medium; // Confirmed wonderland
 
     color: $secondaryFontColor;
-    // line-height: .01em;
+}
+
+.link-txt {
+    color: $linkText;
+    text-decoration: none;
 }
 
 .box-left-4b {
