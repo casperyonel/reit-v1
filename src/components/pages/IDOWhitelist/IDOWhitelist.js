@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import Referralinfo from "./Referralinfo";
 import Pricingbox from "./Pricingbox"; 
 import Leaderboards from "./Leaderboards";
+import MIMlogo from '../../../assets/tokens/MIM.svg'
  
 const IDOWhitelist = () => {
     const { search } = useLocation()
@@ -129,7 +130,7 @@ const IDOWhitelist = () => {
                                     <span id='select-amount'>Secure your spot:</span>
                                     <span className='exchange-rate-container'>
                                          
-                                        <span>20 DAI = 1 REIT</span>
+                                        <span>20 MIM = 1 REIT</span>
                                     </span>
                                 </div>
                                 <div className="middle1-4a">
@@ -143,7 +144,7 @@ const IDOWhitelist = () => {
                                             
                                             <label className='class-label'htmlFor="class-a">Class A:</label>
                                             <label className='class-label'htmlFor="class-a">500</label>
-                                            <label className='class-label'htmlFor="class-a">DAI</label>
+                                            <label className='class-label'htmlFor="class-a"><img className="mim-logo-class" src={MIMlogo} alt="mimlogo" /></label>
                                         </span>
                                     </form>
                                 </div>
@@ -152,7 +153,7 @@ const IDOWhitelist = () => {
                                         <span className='btn-class-b' onClick={() => setOrder('B')}> 
                                             <label className='class-label'htmlFor="class-a">Class B:</label>
                                             <label className='class-label'htmlFor="class-a">1,000</label>
-                                            <label className='class-label'htmlFor="class-a">DAI</label>
+                                            <label className='class-label'htmlFor="class-a"><img className="mim-logo-class" src={MIMlogo} alt="mimlogo" /></label>
                                         </span>   
                                     </form>
                                 </div>

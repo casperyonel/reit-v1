@@ -40,7 +40,7 @@ const Pricingbox = ({ stats, setStats }) => {
                 </div>
                 <div className="pricing-box-1-top-text">
                     <span>Your initial IDO price</span>
-                    <span className="right-text-pricing-thin">20.00 DAI</span>
+                    <span className="right-text-pricing-thin">20.00 MIM</span>
                 </div>
             </div>           
             <div className="pricing-box-1-middle1">
@@ -53,7 +53,7 @@ const Pricingbox = ({ stats, setStats }) => {
             </div>           
             <div className="pricing-box-1-bottom">
                 <span>Your current IDO price</span>
-                <span className="right-text-pricing-thin">{stats.ido_price} DAI</span>
+                <span className="right-text-pricing-thin">{stats.ido_price} MIM</span>
             </div>           
         </div>
     )
