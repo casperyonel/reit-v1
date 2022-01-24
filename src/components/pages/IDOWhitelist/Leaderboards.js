@@ -27,10 +27,10 @@ const Leaderboards = ({ stats }) => {
             <table className="rankings-table">
                 <thead>
                     <tr className="leaderboards-header">
-                        <th>Rank</th>
-                        <th>Wallet</th>
-                        <th>% Change</th>
-                        <th>IDO Price</th>
+                        <th className="leaderboards-header-text">Rank</th>
+                        <th className="leaderboards-header-text">Wallet</th>
+                        <th className="leaderboards-header-text">% Change</th>
+                        <th className="leaderboards-header-text">IDO Price</th>
                     </tr>
                 </thead>
                 <tbody>

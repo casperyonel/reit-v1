@@ -527,11 +527,14 @@ $marginPricing: 8px;
 
 .leaderboards-header {
     font-size: $leaderboardsHeaderFontSize; // Confirmed dydx
-    height: 40.5px;
+    height: 40.5px; // Confirmed dydx
     color: $primaryFontColor;
     background-color: $secondaryColor;
-    // border-collapse: collapse;
-    padding: 0px;
+}
+
+.leaderboards-header-text {
+    
+
 }
 
 .leaderboard-row {
