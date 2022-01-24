@@ -24,18 +24,25 @@ const Leaderboards = ({ stats }) => {
     })
 
     return (
-            <table className="rankings-table">
+            <table style={{width: "100%"}} className="rankings-table">
+                 <colgroup >
+                    <col span='1' style={{width: "10%"}}/>
+                    <col span='1' style={{width: "60%"}}/>
+                    <col span='1' style={{width: "20%", display: "flex", justifyContent: "center"}}/>
+                    <col span='1' style={{width: "15%"}}/>
+                 </colgroup>
                 <thead>
                     <tr className="leaderboards-header">
-                        <th className="leaderboards-header-text">Rank</th>
-                        <th className="leaderboards-header-text">Wallet</th>
-                        <th className="leaderboards-header-text">% Change</th>
-                        <th className="leaderboards-header-text">IDO Price</th>
+                        <th id="rank-column" className="leaderboards-header-text">Rank</th>
+                        <th id="wallet-column" className="leaderboards-header-text">Wallet</th>
+                        <th id="change-column" className="leaderboards-header-text">% Change</th>
+                        <th id="ido-price-column" className="leaderboards-header-text">IDO Price</th>
                     </tr>
                 </thead>
                 <tbody>
                     {walletsMapped}
                 </tbody>
+                
             </table>
     )
 };

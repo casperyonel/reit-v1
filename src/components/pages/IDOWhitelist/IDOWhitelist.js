@@ -135,7 +135,11 @@ const IDOWhitelist = () => {
                                 <div className="middle1-4a">
                                     <form action="click">
                                          
-                                        <span className='btn-class-a' onClick={() => setOrder('A')}>
+                                        <span className='btn-class-a' onClick={(event) => {
+                                            setOrder('A')
+                                            event.target.classList.toggle('clicked-outlined')
+                                            }
+                                        }>
                                             
                                             <label className='class-label'htmlFor="class-a">Class A:</label>
                                             <label className='class-label'htmlFor="class-a">500</label>
@@ -159,7 +163,7 @@ const IDOWhitelist = () => {
                             </div>
                             <div className="bottom-4a">
                                     <em id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your total purchase amount (either 500 DAI or 1,000 DAI) will remain the same, but you will receive more $REIT tokens.
-                                    <br/>Read more about how to lower your IDO price <a className="link-txt" target='_blank' href="https://medium.com/@REITDAO"> here.</a></em>
+                                    <br/>Read more about how to lower your IDO price <a className="link-txt" rel="noreferrer" target='_blank' href="https://medium.com/@REITDAO"> here.</a></em>
                             </div> 
                         </div>
                         <div className="box-right-3">
@@ -177,9 +181,11 @@ const IDOWhitelist = () => {
                     <div className="box-right-2">
                         <div className="box-right-2-top">
                             <div className="box-right-2-left">
-                                <h2 className="leaderboards-header-leaderboards">Competition
-                                    <span className="leaderboards-header-in-progress">NOT STARTED</span> <br />
-                                    
+                                <h2 className="leaderboards-header-leaderboards">
+                                    <div className="top-header-leaderboards">
+                                        <span>Competition</span>
+                                        <span className="leaderboards-header-in-progress">NOT STARTED</span> <br />
+                                    </div>
                                     <h3 className="leaderboards-header-time">Dec 9, 18:00 UTC - Dec 16, 18:00 UTC</h3>
                                 </h2>
 

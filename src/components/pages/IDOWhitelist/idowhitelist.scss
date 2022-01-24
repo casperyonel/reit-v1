@@ -138,16 +138,19 @@ $marginPricing: 8px;
     &:hover {
         background-image: linear-gradient(to left,#5e72f50f, #5957d719, #5e72f514);
         background-size: 200%;
-        transition: 7s;
-        outline: none;
         // box-shadow: 0px 1px 10px .1px $buttonColor; // Glow??
     } 
 }
+
+.clicked-outlined {
+    outline: 5px solid $borderColor;
+} // Write logic for only selecting 1 at a time
 
 .class-label {
     padding: 20px; // Confirmed
     cursor: pointer;
     font-size: $classSubmitFontSize;
+    outline: none;
 }
 
 .middle2-4a {
@@ -334,7 +337,7 @@ $marginPricing: 8px;
     background-size: 200%;
     transition: .6s;
     &:hover {
-        background-position: center;
+        background-position: right;
     }
 }
 
@@ -505,6 +508,11 @@ $marginPricing: 8px;
     margin-top: 0px;
 }
 
+.top-header-leaderboards {
+    display: flex;
+    align-items: center;
+}
+
 .leaderboards-header-in-progress {
     font-size: $noteFontSize; // Confirmed dydx
     margin-left: 8px;
@@ -534,17 +542,19 @@ $marginPricing: 8px;
 
 .leaderboards-header-text {
     
-
 }
 
 .leaderboard-row {
-    background-color: $primaryColor;
+    background-color: $secondaryColor;
     font-size: $leaderboardsRowFontSize;
     height: 49px; // Confirmed dydx
     font-family: Montserrat;
-    // outline: 1px solid $borderColor;
-    // outline: 1px solid rgba(0, 0, 0, 0.1);
     color: rgb(166, 165, 182); // Confirmed dydx
+    border-bottom: 1px solid $borderColor;
+}
+
+table {
+    border-collapse: collapse;
 }
 
 .percent-green {
@@ -555,6 +565,18 @@ $marginPricing: 8px;
     color: darkgrey;
 }
 
+#rank-column {
+    width: 10%;
+}
 
+#wallet-column {
+    width: 70%;
+}
 
+#change-column {
+    width: 20%;
+}
 
+#ido-price-column {
+    width: 10%;
+}
