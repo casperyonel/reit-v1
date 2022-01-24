@@ -464,7 +464,7 @@ $marginPricing: 8px;
 
 .box-right-2 {
     width: 100%; 
-    padding: 16px; // Confirmed sushi
+    // padding: 16px; // Confirmed sushi
     // background-color: $secondaryColor;
     outline: 1px solid $borderColor;
     border-radius: 10px;
@@ -489,10 +489,8 @@ $marginPricing: 8px;
 }
 
 .box-right-2-left {
-    // background-color: green;
-    // height:px;
     width: 60%;
-    padding: 0px 20px; // Confirmed
+    padding: 20px 24px; // Confirmed
     margin: 0px 0px;
     display: flex;
     justify-content: flex-start;
@@ -504,9 +502,7 @@ $marginPricing: 8px;
     Font-family: Montserrat SemiBold; // Confirmed
     Font-size: $bigFontSize; // Confirmed
     color: $primaryFontColor;
-    margin-bottom: 16px;
-    margin-top: 0px;
-    
+    margin: 0;
 }
 
 .top-header-leaderboards {
@@ -540,24 +536,26 @@ $marginPricing: 8px;
     height: 40.5px; // Confirmed dydx
     color: $primaryFontColor;
     background-color: $secondaryColor;
-    
-}
-
-.leaderboards-header-text {
-    
+    border-bottom: 1px solid $borderColor;
+    font-family: Montserrat SemiBold;
 }
 
 .leaderboard-row {
-    background-color: $secondaryColor;
+    // background-color: $secondaryColor;
     font-size: $leaderboardsRowFontSize;
     height: 49px; // Confirmed dydx
     font-family: Montserrat;
     color: rgb(166, 165, 182); // Confirmed dydx
     border-bottom: 1px solid $borderColor;
+    
 }
 
 table {
     border-collapse: collapse;
+}
+
+td,th {
+    padding: 0;
 }
 
 th:nth-child(1) {
@@ -576,17 +574,7 @@ th:nth-child(4) {
     color: darkgrey;
 }
 
-#rank-column {
-    width: 10%;
-}
-
-#wallet-column {
-    width: 70%;
-}
-
-#change-column {
-    width: 20%;
-}
+ 
 
 td:nth-child(3) { // td = table data telling 3rd child to text align
     text-align: center;
@@ -596,8 +584,16 @@ td:nth-child(1) {
     text-align: center;
 }
 
-th:nth-child(2) { // td = table data telling 3rd child to text align
+td:nth-child(4) {
+    text-align: center;
+}
+
+th:nth-child(2) {  
     text-align: left;
+}
+
+th:nth-child(4) {  
+    text-align: center;
 }
 
 #ido-price-column {

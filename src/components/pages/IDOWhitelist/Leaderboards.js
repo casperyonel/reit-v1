@@ -27,8 +27,8 @@ const Leaderboards = ({ stats }) => {
             <table style={{width: "100%"}} className="rankings-table">
                  <colgroup >
                     <col span='1' style={{width: "10%"}}/>
-                    <col span='1' style={{width: "60%"}}/>
-                    <col span='1' style={{width: "20%", display: "flex", justifyContent: "center"}}/>
+                    <col span='1' style={{width: "40%"}}/>
+                    <col span='1' style={{width: "10%", display: "flex", justifyContent: "center"}}/>
                     <col span='1' style={{width: "15%"}}/>
                  </colgroup>
                 <thead>
