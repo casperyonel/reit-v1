@@ -14,7 +14,7 @@ $classSubmitFontSize: $classFontSize + 2px;
 $linkText: rgb(105, 102, 255);
 $leaderboardsHeaderFontSize: $classFontSize - 3px;
 $leaderboardsRowFontSize: $classFontSize - 2px;
-$borderColor: rgb(195, 194, 212);
+$borderColor: rgb(195, 194, 212, .2);
 $marginPricing: 8px;
 @mixin flexCenter {
     display: flex;
@@ -166,7 +166,7 @@ $marginPricing: 8px;
     justify-content: space-between;
     align-items: center;
     border-radius: 10px; // Confirmed
-    margin-bottom: 16px;
+    margin-bottom: 16px; // Confirmed sushi
     &:hover {
         background-image: linear-gradient(to left,#5e72f50f, #5957d719, #5e72f514);
         background-size: 200%;
@@ -306,11 +306,6 @@ $marginPricing: 8px;
         transition: 0s;
         }
 }
-      
-
-
-
-
     // EXAMPLE FOR CLASS BTNs on click, glows up border
     // &:hover {
     //     background: #fff;
@@ -455,85 +450,98 @@ $marginPricing: 8px;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 .box-right-1 { 
-    width: 480px;
+    width: 930px;
     position: relative;
-    background-color: rgb(156, 156, 253);
+    border-radius: 10px;
     display: flex;
     justify-content: center;
+    
 }
 
 .box-right-2 {
-    background-color: rgb(99, 99, 99);
-    width: 95%;
-    height: 80%;
-    // top: 62.5px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%; 
+    padding: 16px; // Confirmed sushi
+    // background-color: $secondaryColor;
+    outline: 1px solid $borderColor;
+    border-radius: 10px;
+    
+
 }
 
 .box-right-2-top {
-    
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 100%;
+    // justify-content: center;
+    
+    // width: 100%;
     // height: 10px;
 }
 
 .rankings-table {
-    background-color: darkblue;
+    
     position: relative;
+    border-radius: 10px;
+    
 }
 
 .box-right-2-left {
-    background-color: green;
+    // background-color: green;
     // height:px;
     width: 60%;
-    padding: 20px 24px;
+    padding: 0px 20px; // Confirmed
+    margin: 0px 0px;
+    display: flex;
+    justify-content: flex-start;
+    
+    
 }
 
 .leaderboards-header-leaderboards {
-    font-size: $bigFontSize;
+    Font-family: Montserrat SemiBold; // Confirmed
+    Font-size: $bigFontSize; // Confirmed
+    color: $primaryFontColor;
+    margin-bottom: 16px;
+    margin-top: 0px;
 }
 
 .leaderboards-header-in-progress {
-    font-size: $noteFontSize;
+    font-size: $noteFontSize; // Confirmed dydx
+    margin-left: 8px;
+    background-color: #303044; // Confirmed dydx
+    border-radius: 4px;
+    padding: 1px 4px 1px 5px; // Confirmed dydx 
 }
 
 .leaderboards-header-time {
-    font-size: $smallFontSize;
+    font-size: $smallFontSize; // Confirmed dydx
+    margin: 0px;
+    margin-top: 4px; // Confirmed dydx
+    Font-family: Montserrat SemiBold; // Confirmed
+    color: $secondaryFontColor;
 }
 
 .box-right-2-left {
-    background-color: green;
+    // background-color: green;
 }
 
 .leaderboards-header {
-    font-size: $leaderboardsHeaderFontSize;
+    font-size: $leaderboardsHeaderFontSize; // Confirmed dydx
+    height: 40.5px;
+    color: $primaryFontColor;
+    background-color: $secondaryColor;
+    // border-collapse: collapse;
+    padding: 0px;
 }
 
 .leaderboard-row {
-    background-color: grey;
+    background-color: $primaryColor;
     font-size: $leaderboardsRowFontSize;
-    height: 39px;
-    border-bottom: 10px;
+    height: 49px; // Confirmed dydx
     font-family: Montserrat;
+    // outline: 1px solid $borderColor;
+    // outline: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgb(166, 165, 182); // Confirmed dydx
 }
 
 .percent-green {

@@ -57,7 +57,6 @@ const IDOWhitelist = () => {
             // WRITE AN AND STATEMENT HERE TO GET RID OF SPAMS / PAGE RELOADS!
         }
         updateStats()
-        console.log("FIRRRREEEDDDDD")
     }, [])
        
     // Upon purchase of IDO, make sure new wallet then add wallet:
@@ -124,7 +123,6 @@ const IDOWhitelist = () => {
         <div className="outer">
               <div className="box-left-1">
                   <div className="box-left-2">
-                      
                       <div className="box-left-3">
                           <div className="box-left-4a">
                                 <div className="top-4a">
@@ -173,20 +171,27 @@ const IDOWhitelist = () => {
                     </div>
                   
               </div>
+              
+              
               <div className="box-right-1">
                     <div className="box-right-2">
-                    <div className="box-right-2-top">
-                        <div className="box-right-2-left">
-                            <h2 className="leaderboards-header-leaderboards">Competition
-                                <span className="leaderboards-header-in-progress">NOT STARTED</span> <br />
-                                <h3 className="leaderboards-header-time">Dec 9, 18:00 UTC - Dec 16, 18:00 UTC</h3>
-                            </h2>
+                        <div className="box-right-2-top">
+                            <div className="box-right-2-left">
+                                <h2 className="leaderboards-header-leaderboards">Competition
+                                    <span className="leaderboards-header-in-progress">NOT STARTED</span> <br />
+                                    
+                                    <h3 className="leaderboards-header-time">Dec 9, 18:00 UTC - Dec 16, 18:00 UTC</h3>
+                                </h2>
+
+                                
+
+                            </div>
+                            <Leaderboards stats={stats} />
                         </div>
-                        <Leaderboards stats={stats} />
                     </div>
-                    </div>
-                
               </div>
+
+              
         </div>
     )
 }
