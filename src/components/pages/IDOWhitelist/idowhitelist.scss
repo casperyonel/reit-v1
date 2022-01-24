@@ -484,7 +484,7 @@ $marginPricing: 8px;
 .rankings-table {
     
     position: relative;
-    border-radius: 10px;
+    // border-radius: 10px;
     
 }
 
@@ -506,11 +506,13 @@ $marginPricing: 8px;
     color: $primaryFontColor;
     margin-bottom: 16px;
     margin-top: 0px;
+    
 }
 
 .top-header-leaderboards {
     display: flex;
     align-items: center;
+    
 }
 
 .leaderboards-header-in-progress {
@@ -538,6 +540,7 @@ $marginPricing: 8px;
     height: 40.5px; // Confirmed dydx
     color: $primaryFontColor;
     background-color: $secondaryColor;
+    
 }
 
 .leaderboards-header-text {
@@ -555,6 +558,14 @@ $marginPricing: 8px;
 
 table {
     border-collapse: collapse;
+}
+
+th:nth-child(1) {
+    border-radius: 10px 0 0 0;
+}
+
+th:nth-child(4) {
+    border-radius: 0 10px 0 0px;
 }
 
 .percent-green {
@@ -575,6 +586,18 @@ table {
 
 #change-column {
     width: 20%;
+}
+
+td:nth-child(3) { // td = table data telling 3rd child to text align
+    text-align: center;
+}
+
+td:nth-child(1) {
+    text-align: center;
+}
+
+th:nth-child(2) { // td = table data telling 3rd child to text align
+    text-align: left;
 }
 
 #ido-price-column {

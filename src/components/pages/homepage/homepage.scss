@@ -2,11 +2,12 @@
 
 
 .houter {
-    background-color: rgb(18, 18, 35);
+    // background-color: rgb(18, 18, 35);
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
+    background: URL('../../../assets/reit-visuals/wave.svg') no-repeat fixed 10% 0%;
 }
 
 .hbox-left-1 {

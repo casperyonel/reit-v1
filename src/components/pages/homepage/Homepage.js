@@ -11,7 +11,6 @@ const Homepage = () => {
                         
                         
                         <h1 id='come-on'>Perpetuals, decentralized</h1>
-                        <h1 id='come-on'>Perpetuals, decentralized</h1>
 
                     </div>
                 </div>
