@@ -41,8 +41,65 @@ contract PreSale is Ownable {
         _;
     }
 
-    /* Approving buyers into new whitelist */
+    struct UserStruct {
+        address userAddress;
+        uint userPrice;
+    }
 
+    UserStruct[] public users;
+    mapping(address => bool) knownUser;
+
+    // Checking if user already registered with price:
+    function isUser(address userAddress) public returns (bool isIndeed) {
+        return knownUser[userAddress];
+    }
+
+    function getUserCount() public returns (uint userCount) {
+        return users.length;
+    }
+
+    function newUser(address userAddress, uint userPrice) public returns (uint userIndexPosition) {
+        require(knownUser[userAddress] == false, "User already uploaded");
+        UserStruct memory newUserStruct;
+        newUserStruct.userAddress = userAddress;
+        newUserStruct.userPrice = userPrice;
+        knownUser[userAddress] = true;
+        users.push(newUserStruct);
+        return users.length;
+    } // Do we want this to be public? Probably not...OnlyAdmin (which is msg.sender = owner from OG transaction)
+
+    function getUserIndexPosition(address userAddress) public view returns (uint indexPosition) {
+        require(knownUser[userAddress] == true, "User is not in the contract"); 
+        return users.indexOf(userAddress);
+    }
+
+    function updateUserPrice(uint indexPosition, address userAddress, uint newUserPrice) public returns (bool success) {
+        require(knownUser[userAddress] == true, "User is not in contract");
+        require(users[indexPosition] == users.indexOf(userAddress), "indexPosition and userAddress arguments do not match");
+        require(users[indexPosition] != newUserPrice, "This is already the user price");
+        users[indexPosition].userPrice = newUserPrice;
+        return true;
+    }
+
+    function getUserCount() public view returns (uint usersArrayLength) {
+        return users.length;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Approving buyers into new whitelist */
     function _approveBuyer(address newBuyer_) internal onlyOwner() returns (bool) {
         approvedBuyers[newBuyer_] = true;
         return approvedBuyers[newBuyer_];
@@ -62,8 +119,5 @@ contract PreSale is Ownable {
     function deapproveBuyer(address newBuyer_) external onlyOwner() returns (bool) {
         return _deapproveBuyer(newBuyer_);
     }
-
-
-
 }
 
