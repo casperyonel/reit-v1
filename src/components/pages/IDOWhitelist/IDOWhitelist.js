@@ -1,5 +1,4 @@
 import axios from "axios"
-
 import { ethers } from 'ethers'
 import queryString from "query-string";
 import { useEffect, useState } from "react";
@@ -16,11 +15,14 @@ const IDOWhitelist = () => {
     const [order, setOrder] = useState('') // For bond class
     const [referralLink, setReferralLink] = useState('') // For showing referralLink info
     const [stats, setStats] = useState('') // For showing stats for existing users
+    const [walletConnected, setWalletConnected] = useState(false)
     
     // Connect metamask:
     async function requestAccount() {
         if (typeof window.ethereum !== 'undefined') {
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
+            console.log('its clicking the function')
+            setWalletConnected(true)
             return account[0]
         }
     }
@@ -28,6 +30,7 @@ const IDOWhitelist = () => {
     // Called at page load if they are an existing buyer:
     async function updateStats() {
         let wallet_address = await requestAccount()
+        setWalletConnected(true)
         axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
         .then(async res => {    
             console.log(res.data[0][0].exists)
@@ -72,6 +75,7 @@ const IDOWhitelist = () => {
             try {
                 // Sign into wallet and confirm wallet doesn't already exist:
                 let wallet_address = await requestAccount()
+                setWalletConnected(true)
                 await axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
                     .then(async res => {
                         if (res.data[0][0].exists) { // If wallet is already in DB column wallet_address, don't proceed. 
@@ -158,7 +162,8 @@ const IDOWhitelist = () => {
                                 
                             </div>
                             <div className="top-4b">
-                                <button id='submit-btn' onClick={submit}>Submit order</button>
+                                <button id='submit-btn' onClick={walletConnected ? submit : requestAccount}>{walletConnected ? 'Submit order' : 'Connect wallet'}</button>
+                                {/* <button id='submit-btn' onClick={submit}>Submit order</button> */}
                             </div>
                             <div className="bottom-4a">
                                     <em id='note-text'>Note: Both classes represent an IDO price of $20 per share. This can be lowered by referring others to join. Upon referrals, your total purchase amount (either 500 DAI or 1,000 DAI) will remain the same, but you will receive more $REIT tokens.
