@@ -18,7 +18,7 @@ const Homepage = () => {
                 <div className="hbox-left-1">
                 <div className="hbox-left-2">
                         
-                        </div>
+                    </div>
                 </div>
 
                 
