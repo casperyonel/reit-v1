@@ -7,17 +7,6 @@ import "hardhat/console.sol";
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-library SafeERC20 {
-
-    function safeTransfer(IERC20 token, address to, uint256 value) internal {
-        _callOptionalReturn(token, abi.encodeWithSelector(token.transfer.selector, to, value));
-    }
-
-    function safeTransferFrom(IERC20 token, address from, address to, uint256 value) internal {
-        _callOptionalReturn(token, abi.encodeWithSelector(token.transferFrom.selector, from, to, value));
-    }
-}
-
 contract PreSale {
 
     // Convert to MIM?
@@ -65,26 +54,24 @@ contract PreSale {
         return users.length;
     }
 
-    function isUserInContract(address userAddress) external returns (bool isIndeed) {
+    function isUserInContract(address userAddress) external view returns (bool isIndeed) {
         return knownUser[userAddress];
     }
 
-    function getAllUsers() external returns (UserStruct[] memory) {
+    function getAllUsers() external view returns (UserStruct[] memory) {
         return users;
     }
 
-    function purchaseIDO(uint _amount, IERC20 _token) external returns (uint totalContractBalance) {
+    function purchaseIDO(uint _amount, address _token) external returns (uint totalContractBalance) {
         require(acceptedToken[_token], "Token not accepted");
         require(!knownUser[msg.sender], "User has already purchased IDO");
         require((_amount == 500 || _amount == 1000), "Argument was not 500 or 1000 MIM");
 
-        IERC20(_token).safeTransferFrom(msg.sender, address(this), _amount);
+        ERC20(_token).transferFrom(msg.sender, address(this), _amount);
         
         totalPurchased += _amount;
         knownUser[msg.sender] = true;
         purchaseAmount[msg.sender] = _amount;
-
-
 
         return address(this).balance; 
     }
@@ -119,6 +106,4 @@ contract PreSale {
     function getBalanceOfIDO() public view returns (uint totalBalance) {
         return address(this).balance;
     }
-    
-
 }

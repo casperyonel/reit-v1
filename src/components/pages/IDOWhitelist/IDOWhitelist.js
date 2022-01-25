@@ -8,6 +8,10 @@ import Referralinfo from "./Referralinfo";
 import Pricingbox from "./Pricingbox"; 
 import Leaderboards from "./Leaderboards";
 import MIMlogo from '../../../assets/tokens/MIM.svg'
+
+import PreSale from "../../../../src/artifacts/contracts/PreSale.sol/PreSale.json";
+const preSaleAddress = "0x0aB603d04741088904e67bD49b87f18329a5F8c7";
+const DAIToken = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa';
  
 const IDOWhitelist = () => {
     const { search } = useLocation()
@@ -16,6 +20,7 @@ const IDOWhitelist = () => {
     const [referralLink, setReferralLink] = useState('') // For showing referralLink info
     const [stats, setStats] = useState('') // For showing stats for existing users
     const [walletConnected, setWalletConnected] = useState(false)
+    const [walletAddress, setWalletAddress] = useState('')
     
     // Connect metamask:
     async function requestAccount() {
@@ -75,6 +80,7 @@ const IDOWhitelist = () => {
             try {
                 // Sign into wallet and confirm wallet doesn't already exist:
                 let wallet_address = await requestAccount()
+                setWalletAddress(wallet_address)
                 setWalletConnected(true)
                 await axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
                     .then(async res => {
@@ -88,16 +94,15 @@ const IDOWhitelist = () => {
                                 console.log(res.data)
                             })
                             .catch(err => console.log(err))
-                            //     Else complete transaction and add wallet in DB. 
-                            //     const provider = new ethers.providers.Web3Provider(window.ethereum)
-                            //     const signer = provider.getSigner()
-                            //     const contract = new ethers.Contract(contractName, contractName.abi, signer)
-                            //     const transaction = await contract.function(order)
-                            //     setOrder('')
-                            //     await transaction.wait()
-                            //     Set new state (true) of showReferralLink after successful transaction here. 
-                            //     WILL NEED TO ADD SIGNER AND CONTRACT FUNCTION LOGIC HERE!
-                            
+                            // Send either 500 or 1000 DAI to IDO contract:
+                            if (typeof window.ethereum !== 'undefined') {
+                                const provider = new ethers.providers.Web3Provider(window.ethereum)
+                                const signer = provider.getSigner()
+                                const contract = new ethers.Contract(preSaleAddress, PreSale.abi, signer)
+                                const transaction = await contract.purchaseIDO((order === 'A' ? 500 : 1000), DAIToken)
+                                await transaction.wait()
+                                console.log(`${order} DAI successfully sent to IDO contract`)                                 
+                            }                            
                             // Lastly, give credit to successful referral by incrementing conversion_counter in DB with referrer from query:
                             if (referrer) {
                                 axios.put('http://localhost:3000/updateConversionCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
