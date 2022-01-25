@@ -53,6 +53,17 @@ contract PreSale is Ownable {
         return _approveBuyer(newBuyer_);
     }
 
+    function _deapproveBuyer(address newBuyer_) internal onlyOwner() returns (bool) {
+        approvedBuyers[newBuyer_] = false;
+        return approvedBuyers[newBuyer_];
+    }
+
+    // Outside admin calling on contract to call on function above to approve buyer of IDO:
+    function deapproveBuyer(address newBuyer_) external onlyOwner() returns (bool) {
+        return _deapproveBuyer(newBuyer_);
+    }
+
+
 
 }
 
