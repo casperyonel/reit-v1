@@ -1,3 +1,4 @@
+@import "../../../assets/fonts/fonts.scss";
 $primaryColor: rgb(28, 28, 39);
 $secondaryColor: rgb(23, 23, 33);
 $classBtnColor: rgb(48, 48, 66);
@@ -22,26 +23,18 @@ $marginPricing: 8px;
     justify-content: center;
 }
 
-@import "../../../assets/fonts/fonts.scss";
-
 .outer {
     background-color: $primaryColor;
     display: flex;
-    // align-items: flex-start;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    // flex-wrap: wrap;
+    flex-direction: column;    
 }
 
 .box-left-1 {
     height: 500px;
     position: relative;
-    // background-color: rgb(67, 42, 42);
     display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // flex-direction: row;
 } 
 
 .box-left-2 {
@@ -58,12 +51,9 @@ $marginPricing: 8px;
     background-color: $secondaryColor;
     border-radius: 10px; // Confirmed
     width: 420px;
-    // height: 500px;
     padding: 16px;
     display: flex;
     flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
 }
 
 .box-right-3 {
@@ -143,7 +133,7 @@ $marginPricing: 8px;
 }
 
 .clicked-outlined {
-    outline: 5px solid $borderColor;
+    outline: 10px solid $borderColor;
 } // Write logic for only selecting 1 at a time
 
 .class-label {
@@ -180,8 +170,8 @@ $marginPricing: 8px;
     &:hover {
         background-image: linear-gradient(to left,#5e72f50f, #5957d719, #5e72f514);
         background-size: 200%;
-        transition: 7s;
-        outline: none;
+        // transition: 7s;
+        // outline: none;
         
     } 
 }
@@ -421,6 +411,7 @@ $marginPricing: 8px;
 .pricing-box-1-top-text {
     display: flex;
     justify-content: space-between;
+    // font-size: $bigFontSize - 2px;
 }
 
 .pricing-box-1-middle1 {
@@ -431,6 +422,7 @@ $marginPricing: 8px;
     align-items: center;
     justify-content: space-between;
     margin-bottom: $marginPricing;
+    // font-size: $bigFontSize - 2px;
 }
 .pricing-box-1-middle2 {
     // background-color: rgb(181, 12, 12);
@@ -440,6 +432,7 @@ $marginPricing: 8px;
     align-items: center;
     justify-content: space-between;
     margin-bottom: $marginPricing;
+    // font-size: $bigFontSize - 2px;
 }
 .pricing-box-1-bottom {
     // background-color: rgb(25, 136, 120);
@@ -448,6 +441,7 @@ $marginPricing: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    // font-size: $bigFontSize - 2px;
 }
 
 

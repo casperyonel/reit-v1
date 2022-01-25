@@ -1,4 +1,5 @@
 import axios from "axios"
+
 import { ethers } from 'ethers'
 import queryString from "query-string";
 import { useEffect, useState } from "react";
@@ -58,6 +59,7 @@ const IDOWhitelist = () => {
             // WRITE AN AND STATEMENT HERE TO GET RID OF SPAMS / PAGE RELOADS!
         }
         updateStats()
+        // console.log(Document.referrer)
     }, [])
        
     // Upon purchase of IDO, make sure new wallet then add wallet:
@@ -135,13 +137,9 @@ const IDOWhitelist = () => {
                                 </div>
                                 <div className="middle1-4a">
                                     <form action="click">
-                                         
-                                        <span className='btn-class-a' onClick={(event) => {
-                                            setOrder('A')
-                                            event.target.classList.toggle('clicked-outlined')
-                                            }
-                                        }>
-                                            
+                                        
+                                        
+                                        <span className={`${order === 'A' ? 'clicked-outlined' : '' } btn-class-a`}  onClick={() => setOrder('A')} >                                            
                                             <label className='class-label'htmlFor="class-a">Class A:</label>
                                             <label className='class-label'htmlFor="class-a">500</label>
                                             <label className='class-label'htmlFor="class-a"><img className="mim-logo-class" src={MIMlogo} alt="mimlogo" /></label>
@@ -150,7 +148,7 @@ const IDOWhitelist = () => {
                                 </div>
                                 <div className="middle2-4a">
                                     <form action="click">
-                                        <span className='btn-class-b' onClick={() => setOrder('B')}> 
+                                        <span className={`${order === 'B' ? 'clicked-outlined' : '' } btn-class-b`} onClick={() => setOrder('B')} >
                                             <label className='class-label'htmlFor="class-a">Class B:</label>
                                             <label className='class-label'htmlFor="class-a">1,000</label>
                                             <label className='class-label'htmlFor="class-a"><img className="mim-logo-class" src={MIMlogo} alt="mimlogo" /></label>
@@ -184,10 +182,10 @@ const IDOWhitelist = () => {
                             <div className="box-right-2-left">
                                 <h2 className="leaderboards-header-leaderboards">
                                     <div className="top-header-leaderboards">
-                                        <span>Competition</span>
+                                        <span>Rankings</span>
                                         <span className="leaderboards-header-in-progress">NOT STARTED</span> <br />
                                     </div>
-                                    <h3 className="leaderboards-header-time">Dec 9, 18:00 UTC - Dec 16, 18:00 UTC</h3>
+                                    <h3 className="leaderboards-header-time">Mar 9, 18:00 UTC - Mar 16, 18:00 UTC</h3>
                                 </h2>
 
                                 
