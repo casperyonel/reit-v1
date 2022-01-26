@@ -26,7 +26,6 @@ const IDOWhitelist = () => {
     async function requestAccount() {
         if (typeof window.ethereum !== 'undefined') {
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
-            console.log('its clicking the function')
             setWalletConnected(true)
             return account[0]
         }

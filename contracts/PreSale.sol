@@ -5,7 +5,7 @@ pragma experimental ABIEncoderV2; // This is for returning an array of structs.
 
 import "hardhat/console.sol";
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract PreSale {
 
@@ -67,7 +67,9 @@ contract PreSale {
         require(!knownUser[msg.sender], "User has already purchased IDO");
         require((_amount == 500 || _amount == 1000), "Argument was not 500 or 1000 MIM");
 
-        ERC20(_token).transferFrom(msg.sender, address(this), _amount);
+        IERC20(_token).approve(msg.sender, _amount);
+
+        IERC20(_token).transferFrom(msg.sender, address(this), _amount);
         
         totalPurchased += _amount;
         knownUser[msg.sender] = true;
