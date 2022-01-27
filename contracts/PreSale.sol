@@ -62,14 +62,11 @@ contract PreSale {
         return users;
     }
 
-    function purchaseIDO(uint _amount, address _token) external returns (uint totalContractBalance) {
-        require(acceptedToken[_token], "Token not accepted");
+    function purchaseIDO(uint _amount) external {
         require(!knownUser[msg.sender], "User has already purchased IDO");
         require((_amount == 500 || _amount == 1000), "Argument was not 500 or 1000 MIM");
 
-        IERC20(_token).approve(msg.sender, _amount);
-
-        IERC20(_token).transferFrom(msg.sender, address(this), _amount);
+        dai.transferFrom(msg.sender, address(this), _amount);
         
         totalPurchased += _amount;
         knownUser[msg.sender] = true;
