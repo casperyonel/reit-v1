@@ -12,7 +12,10 @@ import MIMlogo from '../../../assets/tokens/MIM.svg'
 import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
 import PreSale from "../../../../src/artifacts/contracts/PreSale.sol/PreSale.json"; // I have 2 artifacts folders which is a mistake. 
 const preSaleAddress = "0x0aB603d04741088904e67bD49b87f18329a5F8c7";
-const DAIAddress = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa';
+const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa";
+
+const classAOrder = String(500 * Math.pow(10, 18))
+const classBOrder = String(1000 * Math.pow(10, 18))
  
 const IDOWhitelist = () => {
     const { search } = useLocation()
@@ -22,8 +25,6 @@ const IDOWhitelist = () => {
     const [stats, setStats] = useState('') // For showing stats for existing users
     const [walletConnected, setWalletConnected] = useState(false)
     const [walletAddress, setWalletAddress] = useState('')
-
-    const daiUnits = ethers.utils.parseUnits("1.0", 18)
     
     // Connect metamask:
     async function requestAccount() {
@@ -99,17 +100,17 @@ const IDOWhitelist = () => {
                             .catch(err => console.log(err))
                             // Send either 500 or 1000 DAI to IDO contract:
                             if (typeof window.ethereum !== 'undefined') {
-                                console.log("IT GOT HERE 1")
                                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                                 const signer = provider.getSigner()
-                                console.log("IT GOT HERE 2")
                                 const contract = new ethers.Contract(preSaleAddress, PreSale.abi, signer)
-                                console.log("IT GOT HERE 3")
                                 const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
                                 console.log("IT GOT HERE 4")
-                                const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? 500*daiUnits :  1000*daiUnits)).then(() => console.log("APPROVED!")).catch(err => console.log(err))
+                                console.log(typeof `${order === 'A' ? classAOrder : classBOrder}`)
+                                 
+                                const approveTransaction = await dai.approve(walletAddress, `${order === 'A' ? classAOrder : classBOrder}`).then(() => console.log("APPROVED!")).catch(err => console.log(err))
+                                // const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? ethers.utils.parseUnits("500", 18) :  ethers.utils.parseUnits("1000", 18))).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 console.log("IT GOT HERE 5")
-                                const transaction = await contract.purchaseIDO((order === 'A' ? 500*daiUnits :  1000*daiUnits), DAIAddress)
+                                const transaction = await contract.purchaseIDO(`${order === 'A' ? classAOrder : classBOrder}`, DAIAddress)
                                 console.log("IT GOT HERE 6")
                                 await transaction.wait()
                                 console.log(`${order} DAI successfully sent to IDO contract`)                                 
