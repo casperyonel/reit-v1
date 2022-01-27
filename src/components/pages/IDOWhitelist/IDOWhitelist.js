@@ -11,7 +11,8 @@ import MIMlogo from '../../../assets/tokens/MIM.svg'
 
 import PreSale from "../../../../src/artifacts/contracts/PreSale.sol/PreSale.json";
 const preSaleAddress = "0x0aB603d04741088904e67bD49b87f18329a5F8c7";
-const DAIToken = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa';
+import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
+const DAIAddress = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa';
  
 const IDOWhitelist = () => {
     const { search } = useLocation()
@@ -98,11 +99,9 @@ const IDOWhitelist = () => {
                                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                                 const signer = provider.getSigner()
                                 const contract = new ethers.Contract(preSaleAddress, PreSale.abi, signer)
-                                // const approve = await DAIToken.approve(wallet_address , (order === 'A' ? 500 : 1000))
-                                DAIToken.approve((order === 'A' ? 500 : 1000)).then(() => {
-                                    console.log("approved!");
-                                  }) 
-                                const transaction = await contract.purchaseIDO((order === 'A' ? 500 : 1000), DAIToken)
+                                const dai = new ethers.Contract(DAIAddress, DAIAbi)
+                                const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? String(500 * 18) : String(1000 * 18))).then(() => console.log("APPROVED!"))
+                                const transaction = await contract.purchaseIDO((order === 'A' ? String(500 * 18) : String(1000 * 18)), DAIAddress)
                                 await transaction.wait()
                                 console.log(`${order} DAI successfully sent to IDO contract`)                                 
                             }                            
