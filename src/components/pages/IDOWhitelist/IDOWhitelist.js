@@ -9,10 +9,13 @@ import Pricingbox from "./Pricingbox";
 import Leaderboards from "./Leaderboards";
 import MIMlogo from '../../../assets/tokens/MIM.svg'
 
+import PreSale2ABI from "../../../../src/artifacts/contracts/PreSale2.json"
 import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
 import PreSale from "../../../../src/artifacts/contracts/PreSale.sol/PreSale.json"; // I have 2 artifacts folders which is a mistake. 
 const preSaleAddress = "0x0aB603d04741088904e67bD49b87f18329a5F8c7";
 const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa";
+
+const preSale2Address = "0x39B0D90c1e15a09D2d35F8d93225B3C553186276"
 
 const classAOrder = String(500 * Math.pow(10, 18))
 const classBOrder = String(1000 * Math.pow(10, 18))
@@ -102,11 +105,11 @@ const IDOWhitelist = () => {
                             if (typeof window.ethereum !== 'undefined') {
                                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                                 const signer = provider.getSigner()
-                                const contract = new ethers.Contract(preSaleAddress, PreSale.abi, signer)
+                                const contract = new ethers.Contract(preSale2Address, PreSale2ABI, signer) // CHANGED
                                 const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
                                 console.log("IT GOT HERE 4")
                                 console.log(typeof `${order === 'A' ? classAOrder : classBOrder}`)
-                                 
+                                console.log(typeof walletAddress)
                                 const approveTransaction = await dai.approve(walletAddress, `${order === 'A' ? classAOrder : classBOrder}`).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 // const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? ethers.utils.parseUnits("500", 18) :  ethers.utils.parseUnits("1000", 18))).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 console.log("IT GOT HERE 5")
