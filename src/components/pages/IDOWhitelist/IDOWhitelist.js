@@ -98,6 +98,10 @@ const IDOWhitelist = () => {
                                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                                 const signer = provider.getSigner()
                                 const contract = new ethers.Contract(preSaleAddress, PreSale.abi, signer)
+                                // const approve = await DAIToken.approve(wallet_address , (order === 'A' ? 500 : 1000))
+                                DAIToken.approve((order === 'A' ? 500 : 1000)).then(() => {
+                                    console.log("approved!");
+                                  }) 
                                 const transaction = await contract.purchaseIDO((order === 'A' ? 500 : 1000), DAIToken)
                                 await transaction.wait()
                                 console.log(`${order} DAI successfully sent to IDO contract`)                                 
