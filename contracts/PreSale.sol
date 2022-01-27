@@ -66,13 +66,13 @@ contract PreSale {
         require(!knownUser[msg.sender], "User has already purchased IDO");
         require((_amount == 500 || _amount == 1000), "Argument was not 500 or 1000 MIM");
 
-        dai.transferFrom(msg.sender, address(this), _amount);
+        // dai.transferFrom(msg.sender, address(this), _amount);
         
         totalPurchased += _amount;
         knownUser[msg.sender] = true;
         purchaseAmount[msg.sender] = _amount;
 
-        return address(this).balance; 
+        return address(this).balance;
     }
 
 // Based on above, I think we need 2 newUser functions. 1 to store users that purchase IDO, and amount purchased. 

@@ -2,32 +2,31 @@ import axios from "axios"
 import { ethers } from 'ethers'
 import queryString from "query-string";
 import { useEffect, useState } from "react";
-import idowhitelist from "./idowhitelist.scss"
 import { useLocation } from "react-router-dom";
 import Referralinfo from "./Referralinfo";
 import Pricingbox from "./Pricingbox"; 
 import Leaderboards from "./Leaderboards";
 import MIMlogo from '../../../assets/tokens/MIM.svg'
+import "./idowhitelist.scss"
 
-import PreSale2ABI from "../../../../src/artifacts/contracts/PreSale2.json"
-import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
-import PreSale from "../../../../src/artifacts/contracts/PreSale.sol/PreSale.json"; // I have 2 artifacts folders which is a mistake. 
-const preSaleAddress = "0x0aB603d04741088904e67bD49b87f18329a5F8c7";
+import PreSale2ABI from "../../../../src/artifacts/contracts/PreSale2.json" // WORKING
+import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json"; // WORKING
 const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa";
 
-const preSale2Address = "0xffC5aff66C207047dCE512d40D3cD7820Fe1e2D9"
+const preSale2Address = "0xffC5aff66C207047dCE512d40D3cD7820Fe1e2D9" // WORKING
 
 const classAOrder = String(500 * Math.pow(10, 18))
 const classBOrder = String(1000 * Math.pow(10, 18))
  
 const IDOWhitelist = () => {
+    
     const { search } = useLocation()
     const { referrer } = queryString.parse(search)
+    
     const [order, setOrder] = useState('') // For bond class
     const [referralLink, setReferralLink] = useState('') // For showing referralLink info
     const [stats, setStats] = useState('') // For showing stats for existing users
     const [walletConnected, setWalletConnected] = useState(false)
-    const [walletAddress, setWalletAddress] = useState('')
     
     // Connect metamask:
     async function requestAccount() {
@@ -38,43 +37,43 @@ const IDOWhitelist = () => {
         }
     }
 
-    // Called at page load if they are an existing buyer:
-    async function updateStats() {
-        let wallet_address = await requestAccount()
-        setWalletConnected(true)
-        axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
-        .then(async res => {    
-            console.log(res.data[0][0].exists)
-            if (res.data[0][0].exists) {
-                await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
-                .then(response => {
-                    // IF USER SWITCHES WALLETS WE NEED TO HANDLE THAT, THIS NEEDS TO UDPATE!
-                    setReferralLink(response.data[0][0].link)
-                    setStats({
-                        click_counter: response.data[0][0].click_counter,
-                        conversion_counter: response.data[0][0].conversion_counter,
-                        link: response.data[0][0].link,
-                        wallet_address: wallet_address,
-                        ido_price: (20 - (Math.floor(response.data[0][0].click_counter) * 0.01) - (Math.floor(response.data[0][0].conversion_counter) * 1)).toFixed(2)
-                    })
-                })
-                .catch(err => console.log(err))
-            } else {
-                return // They haven't purchased IDO before, so just proceed
-            }
-        }).catch(err => console.log(err)) 
-    }
-
     useEffect(() => {
+        console.log('IT FIRED')       
+        console.log(referrer)       
         if (referrer) { // Checks if URL has a referrer and updates referral_counter for referralLink owner
             axios.put('http://localhost:3000/updateClickCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
-            .then(response => console.log(response.data)) // Await?
+            .then()
             .catch(error => console.log(error))
             // WRITE AN AND STATEMENT HERE TO GET RID OF SPAMS / PAGE RELOADS!
         }
+        // Called at page load if they are an existing buyer:
+        async function updateStats() {
+            let wallet_address = await requestAccount()
+            setWalletConnected(true)
+            axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
+            .then(async res => {    
+                // console.log(res.data[0][0].exists)
+                if (res.data[0][0].exists) {
+                    await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
+                    .then(response => {
+                        // IF USER SWITCHES WALLETS WE NEED TO HANDLE THAT, THIS NEEDS TO UDPATE!
+                        setReferralLink(response.data[0][0].link)
+                        setStats({
+                            click_counter: response.data[0][0].click_counter,
+                            conversion_counter: response.data[0][0].conversion_counter,
+                            link: response.data[0][0].link,
+                            wallet_address: wallet_address,
+                            ido_price: (20 - (Math.floor(response.data[0][0].click_counter) * 0.01) - (Math.floor(response.data[0][0].conversion_counter) * 1)).toFixed(2)
+                        })
+                    })
+                    .catch(err => console.log(err))
+                } else {
+                    return // They haven't purchased IDO before, so just proceed
+                }
+            }).catch(err => console.log(err)) 
+        } 
         updateStats()
-        // console.log(Document.referrer)
-    }, [])
+    }, [referrer])
        
     // Upon purchase of IDO, make sure new wallet then add wallet:
     const submit = async () => {
@@ -86,7 +85,6 @@ const IDOWhitelist = () => {
             try {
                 // Sign into wallet and confirm wallet doesn't already exist:
                 let wallet_address = await requestAccount()
-                setWalletAddress(wallet_address)
                 setWalletConnected(true)
                 await axios.put('http://localhost:3000/confirmNewWallet', ({ wallet_address: wallet_address }))
                     .then(async res => {
@@ -109,7 +107,7 @@ const IDOWhitelist = () => {
                                 const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
                                 console.log(typeof `${order === 'A' ? classAOrder : classBOrder}`)
                                 console.log(order === 'A' ? classAOrder : classBOrder)
-                                const approveTransaction = await dai.approve(preSale2Address, order === 'A' ? classAOrder : classBOrder).then(() => console.log("APPROVED!")).catch(err => console.log(err))
+                                await dai.approve(preSale2Address, order === 'A' ? classAOrder : classBOrder).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 console.log("IT GOT HERE 5")
                                 const transaction = await contract.purchaseIDO(order === 'A' ? classAOrder : classBOrder)
                                 console.log("IT GOT HERE 6")
@@ -208,7 +206,7 @@ const IDOWhitelist = () => {
                                         <span>Rankings</span>
                                         <span className="leaderboards-header-in-progress">NOT STARTED</span> <br />
                                     </div>
-                                    <h3 className="leaderboards-header-time">Mar 9, 18:00 UTC - Mar 16, 18:00 UTC</h3>
+                                    <div className="leaderboards-header-time">Mar 9, 18:00 UTC - Mar 16, 18:00 UTC</div>
                                 </h2>
 
                                 
