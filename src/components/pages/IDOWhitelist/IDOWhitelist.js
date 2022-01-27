@@ -15,7 +15,7 @@ import PreSale from "../../../../src/artifacts/contracts/PreSale.sol/PreSale.jso
 const preSaleAddress = "0x0aB603d04741088904e67bD49b87f18329a5F8c7";
 const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa";
 
-const preSale2Address = "0x39B0D90c1e15a09D2d35F8d93225B3C553186276"
+const preSale2Address = "0xffC5aff66C207047dCE512d40D3cD7820Fe1e2D9"
 
 const classAOrder = String(500 * Math.pow(10, 18))
 const classBOrder = String(1000 * Math.pow(10, 18))
@@ -107,13 +107,11 @@ const IDOWhitelist = () => {
                                 const signer = provider.getSigner()
                                 const contract = new ethers.Contract(preSale2Address, PreSale2ABI, signer) // CHANGED
                                 const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
-                                console.log("IT GOT HERE 4")
                                 console.log(typeof `${order === 'A' ? classAOrder : classBOrder}`)
-                                console.log(typeof walletAddress)
-                                const approveTransaction = await dai.approve(walletAddress, `${order === 'A' ? classAOrder : classBOrder}`).then(() => console.log("APPROVED!")).catch(err => console.log(err))
-                                // const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? ethers.utils.parseUnits("500", 18) :  ethers.utils.parseUnits("1000", 18))).then(() => console.log("APPROVED!")).catch(err => console.log(err))
+                                console.log(order === 'A' ? classAOrder : classBOrder)
+                                const approveTransaction = await dai.approve(preSale2Address, order === 'A' ? classAOrder : classBOrder).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 console.log("IT GOT HERE 5")
-                                const transaction = await contract.purchaseIDO(`${order === 'A' ? classAOrder : classBOrder}`, DAIAddress)
+                                const transaction = await contract.purchaseIDO(order === 'A' ? classAOrder : classBOrder)
                                 console.log("IT GOT HERE 6")
                                 await transaction.wait()
                                 console.log(`${order} DAI successfully sent to IDO contract`)                                 
