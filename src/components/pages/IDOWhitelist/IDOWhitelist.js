@@ -22,6 +22,8 @@ const IDOWhitelist = () => {
     const [stats, setStats] = useState('') // For showing stats for existing users
     const [walletConnected, setWalletConnected] = useState(false)
     const [walletAddress, setWalletAddress] = useState('')
+
+    const daiUnits = ethers.utils.parseUnits("1.0", 18)
     
     // Connect metamask:
     async function requestAccount() {
@@ -105,9 +107,9 @@ const IDOWhitelist = () => {
                                 console.log("IT GOT HERE 3")
                                 const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
                                 console.log("IT GOT HERE 4")
-                                const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? (500*(10^18)) :  (1000*(10^18)))).then(() => console.log("APPROVED!")).catch(err => console.log(err))
+                                const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? 500*daiUnits :  1000*daiUnits)).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 console.log("IT GOT HERE 5")
-                                const transaction = await contract.purchaseIDO((order === 'A' ? (500*(10^18)) : (1000*(10^18))), DAIAddress)
+                                const transaction = await contract.purchaseIDO((order === 'A' ? 500*daiUnits :  1000*daiUnits), DAIAddress)
                                 console.log("IT GOT HERE 6")
                                 await transaction.wait()
                                 console.log(`${order} DAI successfully sent to IDO contract`)                                 
