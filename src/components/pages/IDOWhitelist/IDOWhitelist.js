@@ -9,9 +9,9 @@ import Pricingbox from "./Pricingbox";
 import Leaderboards from "./Leaderboards";
 import MIMlogo from '../../../assets/tokens/MIM.svg'
 
-import PreSale from "../../../../src/artifacts/contracts/PreSale.sol/PreSale.json";
-const preSaleAddress = "0x0aB603d04741088904e67bD49b87f18329a5F8c7";
 import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
+import PreSale from "../../../../src/artifacts/contracts/PreSale.sol/PreSale.json"; // I have 2 artifacts folders which is a mistake. 
+const preSaleAddress = "0x0aB603d04741088904e67bD49b87f18329a5F8c7";
 const DAIAddress = '0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa';
  
 const IDOWhitelist = () => {
@@ -92,16 +92,23 @@ const IDOWhitelist = () => {
                             await axios.post('http://localhost:3000/addWallet', { bond_class: order, wallet_address: wallet_address })
                             .then(res => {
                                 console.log(res.data)
+                                
                             })
                             .catch(err => console.log(err))
                             // Send either 500 or 1000 DAI to IDO contract:
                             if (typeof window.ethereum !== 'undefined') {
+                                console.log("IT GOT HERE 1")
                                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                                 const signer = provider.getSigner()
+                                console.log("IT GOT HERE 2")
                                 const contract = new ethers.Contract(preSaleAddress, PreSale.abi, signer)
-                                const dai = new ethers.Contract(DAIAddress, DAIAbi)
-                                const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? String(500 * 18) : String(1000 * 18))).then(() => console.log("APPROVED!"))
-                                const transaction = await contract.purchaseIDO((order === 'A' ? String(500 * 18) : String(1000 * 18)), DAIAddress)
+                                console.log("IT GOT HERE 3")
+                                const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
+                                console.log("IT GOT HERE 4")
+                                const approveTransaction = await dai.approve(walletAddress, (order === 'A' ? (500*(10^18)) :  (1000*(10^18)))).then(() => console.log("APPROVED!")).catch(err => console.log(err))
+                                console.log("IT GOT HERE 5")
+                                const transaction = await contract.purchaseIDO((order === 'A' ? (500*(10^18)) : (1000*(10^18))), DAIAddress)
+                                console.log("IT GOT HERE 6")
                                 await transaction.wait()
                                 console.log(`${order} DAI successfully sent to IDO contract`)                                 
                             }                            
