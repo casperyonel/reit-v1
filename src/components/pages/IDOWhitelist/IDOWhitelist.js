@@ -111,7 +111,7 @@ const IDOWhitelist = () => {
                                 axios.put('http://localhost:3000/updateConversionCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
                                     .then(response => console.log(response.data)) 
                                     .catch(error => console.log(error))
-                            }
+                            } // irght
                             // Update Pricingbox stats with referral and current IDO price from DB:
                             await axios.put('http://localhost:3000/updateStats', ({ wallet_address: wallet_address }))
                             .then(response => {
