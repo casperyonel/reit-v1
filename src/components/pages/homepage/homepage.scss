@@ -1,50 +1,151 @@
 @import "../../../assets/fonts/fonts.scss";
-
-
-.houter {
-    // background-color: rgb(18, 18, 35);
+$primaryColor: rgb(28, 28, 39);
+$secondaryColor: rgb(23, 23, 33);
+$classBtnColor: rgb(48, 48, 66);
+$buttonColor: rgb(94, 114, 245);
+$primaryFontColor: rgb(247, 247, 247);
+$secondaryFontColor: rgb(111, 110, 130);
+$primaryBtnColor: rgb(195, 194, 210);
+$bigFontSize: 20px;
+$pricingFontSize: 16px;
+$smallFontSize: 14px; 
+$noteFontSize: 10px;
+$classFontSize: $bigFontSize - 4px;
+$classSubmitFontSize: $classFontSize + 2px;
+$linkText: rgb(105, 102, 255);
+$leaderboardsHeaderFontSize: $classFontSize - 3px;
+$leaderboardsRowFontSize: $classFontSize - 2px;
+$borderColor: rgb(195, 194, 212, .2);
+$marginPricing: 8px;
+@mixin flexCenter {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    background: URL('../../../assets/reit-visuals/wave.svg') no-repeat fixed 10% 0%;
 }
 
-.hbox-left-1 {
-    width: 480px;
+// -- Main Container --
+.outer-main {
+    display: flex;
+    flex-direction: column;
+}
+
+// -- Top, Middle, and Bottom Columns --
+.outer-top {
+    display: flex;
     height: 700px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: URL('../../../assets/reit-visuals/wave.svg') no-repeat 10% 0%; // Add "Fixed" option
+}
+
+.outer-middle {
+    display: flex;
+    background-color: yellowgreen;
+    height: 700px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.outer-bottom {
+    display: flex;
+    background-color: rgb(52, 19, 89);
+    height: 700px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+// -- Top Containers --
+.outer-top-left-1 {
+    width: 480px;
+    height: 100%;
     background-color: darkblue;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.hbox-left-2 {
+.outer-top-left-2 {
     width: 450px;
     height: 450px;
     background-color: rgb(249, 249, 249);
-    top: 130px;
 }
 
-.hbox-right-1 {
+.outer-top-right-1 {
     width: 480px;
-    height: 700px;
+    height: 100%;
     background-color: green;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.hbox-right-2 {
+.outer-top-right-2 {
     width: 450px;
     height: 450px;
     background-color: rgb(0, 0, 0);
-    top: 130px;
 }
 
-#come-on {
-    // font-family: Montserrat Bold;
-    font-family: Montserrat SemiBold;
-    color: rgb(247, 247, 247);
+// -- Middle Containers --
+.outer-middle-left-1 {
+    width: 480px;
+    height: 100%;
+    background-color: darkblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.outer-middle-left-2 {
+    width: 450px;
+    height: 450px;
+    background-color: rgb(249, 249, 249);
+}
+
+.outer-middle-right-1 {
+    width: 480px;
+    height: 100%;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outer-middle-right-2 {
+    width: 450px;
+    height: 450px;
+    background-color: rgb(0, 0, 0);
+}
+
+// -- Bottom Containers --
+.outer-bottom-left-1 {
+    width: 480px;
+    height: 100%;
+    background-color: darkblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outer-bottom-left-2 {
+    width: 450px;
+    height: 450px;
+    background-color: rgb(249, 249, 249);
+}
+
+.outer-bottom-right-1 {
+    width: 480px;
+    height: 100%;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outer-bottom-right-2 {
+    width: 450px;
+    height: 450px;
+    background-color: rgb(0, 0, 0);
+}
