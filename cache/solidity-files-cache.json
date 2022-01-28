@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/casperyonel/Documents/Projects/REIT-DAO-1/reit-v1/contracts/PreSale.sol": {
-      "lastModificationDate": 1643149751146,
-      "contentHash": "4e80b34033e149854de3679cde419b70",
+      "lastModificationDate": 1643330722244,
+      "contentHash": "fb6c9bfbd8d7cccf08f69da9dc885e7c",
       "sourceName": "contracts/PreSale.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -30,7 +30,7 @@
       },
       "imports": [
         "hardhat/console.sol",
-        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol"
       ],
       "versionPragmas": [
         "^0.8.0"
@@ -258,8 +258,8 @@
       ]
     },
     "/Users/casperyonel/Documents/Projects/REIT-DAO-1/reit-v1/contracts/PreSaleNotes.sol": {
-      "lastModificationDate": 1643149708499,
-      "contentHash": "3e66dacbf839918d4a59b6712fd01ad9",
+      "lastModificationDate": 1643246278190,
+      "contentHash": "1cb7f61f18003834b3608dbd1737abba",
       "sourceName": "contracts/PreSaleNotes.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -287,6 +287,44 @@
       "imports": [],
       "versionPragmas": [],
       "artifacts": []
+    },
+    "/Users/casperyonel/Documents/Projects/REIT-DAO-1/reit-v1/contracts/PreSaleKovan.sol": {
+      "lastModificationDate": 1643330662800,
+      "contentHash": "17ed330cfac0b687ae45176a303119a8",
+      "sourceName": "contracts/PreSaleKovan.sol",
+      "solcConfig": {
+        "version": "0.8.4",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "hardhat/console.sol",
+        "@openzeppelin/contracts/token/ERC20/ERC20.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "PreSaleKovan"
+      ]
     }
   }
 }

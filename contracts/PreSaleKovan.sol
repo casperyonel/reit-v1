@@ -23,6 +23,7 @@ contract PreSaleKovan {
     mapping(address => bool) knownUser;
     mapping(address => uint) purchaseAmount;
 
+    // -- Purchase options -- 
     uint classA = 500 * 10 ** 18;
     uint classB = 1000 * 10 ** 18;
 

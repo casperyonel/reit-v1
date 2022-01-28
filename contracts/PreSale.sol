@@ -72,7 +72,7 @@ contract PreSale {
         knownUser[msg.sender] = true;
         purchaseAmount[msg.sender] = _amount;
 
-        return address(this).balance;
+        // return address(this).balance;
     }
 
 // Based on above, I think we need 2 newUser functions. 1 to store users that purchase IDO, and amount purchased. 

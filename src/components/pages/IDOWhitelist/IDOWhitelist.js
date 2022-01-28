@@ -1,4 +1,5 @@
 import axios from "axios"
+import "./idowhitelist.scss"
 import { ethers } from 'ethers'
 import queryString from "query-string";
 import { useEffect, useState } from "react";
@@ -7,12 +8,15 @@ import Referralinfo from "./Referralinfo";
 import Pricingbox from "./Pricingbox"; 
 import Leaderboards from "./Leaderboards";
 import MIMlogo from '../../../assets/tokens/MIM.svg'
-import "./idowhitelist.scss"
 
-import PreSale2ABI from "../../../../src/artifacts/contracts/PreSale2.json" // WORKING
-import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json"; // WORKING
+import PreSaleKovan from "../../../../src/artifacts/contracts/PreSaleKovan.sol/PreSaleKovan.json"
+// import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json"; // WORKING
+import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
+const PreSaleKovanAddress = "0x8dA4973175c2c700Cd91e9ac9A29b5431926D592";
 const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa"; // WORKING
-const preSale2Address = "0xffC5aff66C207047dCE512d40D3cD7820Fe1e2D9" // WORKING
+
+// import PreSale2ABI from "../../../../src/artifacts/contracts/PreSale2.json" // WORKING, not using
+// const preSale2Address = "0xffC5aff66C207047dCE512d40D3cD7820Fe1e2D9" // WORKING, not using
 
 const classAOrder = String(500 * Math.pow(10, 18))
 const classBOrder = String(1000 * Math.pow(10, 18))
@@ -98,23 +102,23 @@ const IDOWhitelist = () => {
                                 
                             })
                             .catch(err => console.log(err))
-                            // Send either 500 or 1000 DAI to IDO contract:
+                            // -- Send 500 or 1000 DAI to IDO contract --
                             if (typeof window.ethereum !== 'undefined') {
                                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                                 const signer = provider.getSigner()
 
-                                const contract = new ethers.Contract(preSale2Address, PreSale2ABI, signer)
+                                const contract = new ethers.Contract(PreSaleKovanAddress, PreSaleKovan.abi, signer)
                                 const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
 
-                                await dai.approve(preSale2Address, order === 'A' ? classAOrder : classBOrder).then(() => console.log("APPROVED!")).catch(err => console.log(err))
+                                await dai.approve(PreSaleKovanAddress, order === 'A' ? classAOrder : classBOrder).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 console.log("IT GOT HERE 5")
                                 const transaction = await contract.purchaseIDO(order === 'A' ? classAOrder : classBOrder)
-                                
+
                                 console.log("IT GOT HERE 6")
                                 await transaction.wait()
                                 console.log(`${order === 'A' ? classAOrder : classBOrder} DAI successfully deposited to contract`)                                 
                             }                            
-                            // Lastly, give credit to successful referral by incrementing conversion_counter in DB with referrer from query:
+                            // -- Give credit to successful referral by incrementing conversion_counter in DB with referrer from query -- 
                             if (referrer) {
                                 axios.put('http://localhost:3000/updateConversionCounter', { referrer: referrer }) // This runs on axios server to backend. While backend feeds the "link" in DB with actual website URL. That needs to change, this deosn't. 
                                     .then(response => console.log(response.data)) 
