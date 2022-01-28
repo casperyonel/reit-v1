@@ -17,6 +17,7 @@ contract PreSaleKovan {
     }
 
     event newInvestor(address investor, uint purchaseAmount);
+    event totalAmountPurchased(uint amount);
 
     UserStruct[] public users;
     mapping(address => bool) knownUser;
@@ -32,6 +33,8 @@ contract PreSaleKovan {
         require(_amount == classA || _amount == classB, "Purchase amount is not 500 or 1000");
 
         dai.transferFrom(msg.sender, address(this), _amount);
+
+        addUser(msg.sender);
         
         totalPurchased += _amount;
         knownUser[msg.sender] = true;
@@ -40,4 +43,24 @@ contract PreSaleKovan {
         emit newInvestor(msg.sender, _amount);
     }
 
+    function getTotalAmount() external returns (uint TotalPurchased) {
+        emit totalAmountPurchased(totalPurchased);
+        return totalPurchased; 
+    }
+
+    function userCheck(address _user) external view returns (bool userExists) {
+        require(knownUser[_user], "User does not exist");
+        return true;
+    }
+
+    function addUser(address _user) internal returns (bool success) {
+        require(!knownUser[_user], "User already exists");
+        
+        UserStruct memory newUserStruct;
+        newUserStruct.userAddress = _user;
+        users.push(newUserStruct);
+
+        knownUser[_user] = true;
+        return true; 
+    }
 }

@@ -11,8 +11,7 @@ import "./idowhitelist.scss"
 
 import PreSale2ABI from "../../../../src/artifacts/contracts/PreSale2.json" // WORKING
 import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json"; // WORKING
-const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa";
-
+const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa"; // WORKING
 const preSale2Address = "0xffC5aff66C207047dCE512d40D3cD7820Fe1e2D9" // WORKING
 
 const classAOrder = String(500 * Math.pow(10, 18))
@@ -103,16 +102,17 @@ const IDOWhitelist = () => {
                             if (typeof window.ethereum !== 'undefined') {
                                 const provider = new ethers.providers.Web3Provider(window.ethereum)
                                 const signer = provider.getSigner()
-                                const contract = new ethers.Contract(preSale2Address, PreSale2ABI, signer) // CHANGED
+
+                                const contract = new ethers.Contract(preSale2Address, PreSale2ABI, signer)
                                 const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
-                                console.log(typeof `${order === 'A' ? classAOrder : classBOrder}`)
-                                console.log(order === 'A' ? classAOrder : classBOrder)
+
                                 await dai.approve(preSale2Address, order === 'A' ? classAOrder : classBOrder).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 console.log("IT GOT HERE 5")
                                 const transaction = await contract.purchaseIDO(order === 'A' ? classAOrder : classBOrder)
+                                
                                 console.log("IT GOT HERE 6")
                                 await transaction.wait()
-                                console.log(`${order} DAI successfully sent to IDO contract`)                                 
+                                console.log(`${order === 'A' ? classAOrder : classBOrder} DAI successfully deposited to contract`)                                 
                             }                            
                             // Lastly, give credit to successful referral by incrementing conversion_counter in DB with referrer from query:
                             if (referrer) {
