@@ -12,8 +12,11 @@ const Homepage = () => {
                     <div className="outer-top-left-1">
                         <div className="outer-top-left-2">
                             <h1 className="top-header-text">Monopoly, in the metaverse</h1>
-                            <h2 className="top-subheader-text">REIT DAO is monopoly, </h2>
-
+                                <div className="top-subheader-text">REIT DAO is the first Metaverse Land Investment DAO. </div>
+                                <div className="top-subheader-text-2">Stop missing out on exposure to metaverse land, join the whitelist. </div>
+                            <div className="header-links">
+                                How it works (down arrow)
+                            </div>
                         </div>
                     </div>
                     <div className="outer-top-right-1">

@@ -2,7 +2,6 @@ import { FaBars } from 'react-icons/fa';
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-// background-color:rgba(18, 18, 35, 0);
 
 
 export const Nav = styled.nav`
@@ -55,7 +54,7 @@ export const NavMenu = styled.div`
 
 export const NavBtnLink = styled(Link)`
   border-radius: 4px;
-  background: #256ce1;
+  background: rgb(104, 102, 246);
   padding: 10px 22px;
   color: #fff;
   outline: none;
