@@ -2,6 +2,9 @@ import { FaBars } from 'react-icons/fa';
 import { NavLink as Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+// background-color:rgba(18, 18, 35, 0);
+
+
 export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -10,7 +13,6 @@ export const Nav = styled.nav`
   position: sticky;
   top: 0;
   
-  background-color:rgba(18, 18, 35, 0);
   backdrop-filter: blur(5px);
 `;
 

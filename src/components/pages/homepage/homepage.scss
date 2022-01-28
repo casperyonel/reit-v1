@@ -36,7 +36,7 @@ $marginPricing: 8px;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    background: URL('../../../assets/reit-visuals/wave.svg') no-repeat 10% 0%; // Add "Fixed" option
+    background: URL('../../../assets/reit-visuals/wave.svg') no-repeat 30% 25%; // Add "Fixed" option
 }
 
 .outer-middle {
@@ -61,22 +61,25 @@ $marginPricing: 8px;
 .outer-top-left-1 {
     width: 480px;
     height: 100%;
-    background-color: darkblue;
+    // background-color: darkblue;
     display: flex;
     justify-content: center;
     align-items: center;
+    // order: 1;
 }
 
 .outer-top-left-2 {
     width: 480px;
     height: 450px;
-    background-color: rgb(249, 249, 249);
+    // background-color: rgb(249, 249, 249);
+    // display: flex;
+    // order: 2;
 }
 
 .outer-top-right-1 {
     width: 480px;
     height: 100%;
-    background-color: green;
+    // background-color: green;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,8 +87,10 @@ $marginPricing: 8px;
 
 .outer-top-right-2 {
     width: 480px;
-    height: 450px;
-    background-color: rgb(0, 0, 0);
+    height: 100%;
+    // background-color: rgb(0, 0, 0);
+    display: flex;
+    align-items: center;
 }
 
 // -- Middle Containers --
@@ -153,12 +158,17 @@ $marginPricing: 8px;
 // -- Top contents --
 .top-header-text {
     font-family: Montserrat Bold; // Confirmed wonderland
-    font-size: 72px; // Confirmed dydx
-    color: white;
+    font-size: 48px; // Confirmed dydx
+    color: rgb(148, 42, 42);
 }
 
 .top-subheader-text {
     font-family: Montserrat SemiBold;
     font-size: 17px; // Confirmed dydx
     color: grey;
+}
+
+#mainMonopolyDashboard {
+    height: 531px;
+    width: 824px;
 }

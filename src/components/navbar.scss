@@ -1,6 +1,32 @@
+$primaryColor: rgb(28, 28, 39);
+$secondaryColor: rgb(23, 23, 33);
+$classBtnColor: rgb(48, 48, 66);
+$buttonColor: rgb(94, 114, 245);
+$primaryFontColor: rgb(247, 247, 247);
+$secondaryFontColor: rgb(111, 110, 130);
+$primaryBtnColor: rgb(195, 194, 210);
+$bigFontSize: 20px;
+$pricingFontSize: 16px;
+$smallFontSize: 14px; 
+$noteFontSize: 10px;
+$classFontSize: $bigFontSize - 4px;
+$classSubmitFontSize: $classFontSize + 2px;
+$linkText: rgb(105, 102, 255);
+$leaderboardsHeaderFontSize: $classFontSize - 3px;
+$leaderboardsRowFontSize: $classFontSize - 2px;
+$borderColor: rgb(195, 194, 212, .2);
+$marginPricing: 8px;
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+// - NEED TO CHANGE FONT FAMILY AND COLORS FOR ALL ELEMENTS --
+
 .external-nav-element {
     text-decoration: none;
-    color: #fff;
+    color: $primaryFontColor;
     display: flex;
     align-items: center;
     text-decoration: none;
