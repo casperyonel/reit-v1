@@ -16,21 +16,26 @@ export const Nav = styled.nav`
 `;
 
 export const NavLink = styled(Link)`
-  color: #fff;
+  color: rgb(200, 199, 216);
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
+  font-family: Montserrat Medium;
   &.active {
-    color: #15cdfc;
+    color: rgb(200, 199, 216); // Change this for "Clicked on" link
   }
+  &:hover {
+    color: rgb(137, 136, 150);
+    transition: 150ms;
+}
 `;
 
 export const Bars = styled(FaBars)`
   display: none;
-  color: #fff;
+  color: rgb(200, 199, 216);
   @media screen and (max-width: 768px) {
     display: block;
     position: absolute;
@@ -40,6 +45,8 @@ export const Bars = styled(FaBars)`
     font-size: 1.8rem;
     cursor: pointer;
   }
+
+  
 `;
 
 export const NavMenu = styled.div`
@@ -53,19 +60,25 @@ export const NavMenu = styled.div`
 `;
 
 export const NavBtnLink = styled(Link)`
-  border-radius: 4px;
+  border-radius: 8px;
   background: rgb(104, 102, 246);
-  padding: 10px 22px;
-  color: #fff;
+  padding: 8px 16px;
+  color: rgb(200, 199, 216);
+  font-family: Montserrat Medium;
   outline: none;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   text-decoration: none;
   margin-left: 24px;
-  &:hover {
-    transition: all 0.2s ease-in-out;
-    background: #fff;
-    color: #010606;
-  }
+  background-image: linear-gradient(to left,#5E72F5, #5957d7, #5E72F5);
+  background-size: 200%;
+  transition: .6s;
+  transition: all .15s ease;
+    &:hover {
+        background-position: right;
+        transform: scale(1.07);
+        transition: all .25s ease;
+        
+    }
 `;

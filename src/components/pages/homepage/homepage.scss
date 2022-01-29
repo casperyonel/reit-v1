@@ -203,14 +203,6 @@ html {
     justify-content: center;
     align-items: center;
     text-decoration: none !important;
-
-    &:hover {
-        transform: scale(1.05);
-        transition: .25s;
-    }
-
-
-
     .how-it-works {
         font-family: Montserrat Medium;
         font-size: 17px; // Confirmed dydx
@@ -220,6 +212,11 @@ html {
         .down-arrow {
             position: relative;
             transform: translate(5px, 3px);
+        }
+        transition: all .15s ease;
+        &:hover {
+            transform: scale(1.07);
+            transition: all .25s ease;
         }
     }
 }
