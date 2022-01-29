@@ -4,6 +4,9 @@ import styled from 'styled-components';
 
 
 
+
+
+
 export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -28,7 +31,7 @@ export const NavLink = styled(Link)`
     color: rgb(200, 199, 216); // Change this for "Clicked on" link
   }
   &:hover {
-    color: rgb(137, 136, 150);
+    color: rgb(247, 247, 247);
     transition: 150ms;
 }
 `;
@@ -80,6 +83,7 @@ export const NavBtnLink = styled(Link)`
         background-position: right;
         transform: scale(1.07);
         transition: all .25s ease;
+        
         
     }
 `;

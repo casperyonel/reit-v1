@@ -35,7 +35,7 @@ $marginPricing: 8px;
     cursor: pointer;
     font-family: Montserrat Medium;
     &:hover {
-        color: rgb(137, 136, 150);
+        color: $primaryFontColor;
         transition: 150ms;
     }
 }
