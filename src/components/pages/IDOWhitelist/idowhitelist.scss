@@ -444,49 +444,28 @@ $marginPricing: 8px;
     // font-size: $bigFontSize - 2px;
 }
 
-
-
-
-
-
-
-
-
-
-
+// -- Right --
 .box-right-1 { 
     width: 930px;
     position: relative;
     border-radius: 10px;
     display: flex;
-    justify-content: center;
-    
+    justify-content: center;   
 }
 
 .box-right-2 {
     width: 100%; 
-    // padding: 16px; // Confirmed sushi
-    // background-color: $secondaryColor;
     outline: 1px solid $borderColor;
     border-radius: 10px;
-    
-
 }
 
 .box-right-2-top {
     display: flex;
     flex-direction: column;
-    // justify-content: center;
-    
-    // width: 100%;
-    // height: 10px;
 }
 
 .rankings-table {
-    
     position: relative;
-    // border-radius: 10px;
-    
 }
 
 .box-right-2-left {
@@ -494,9 +473,7 @@ $marginPricing: 8px;
     padding: 20px 24px; // Confirmed
     margin: 0px 0px;
     display: flex;
-    justify-content: flex-start;
-    
-    
+    justify-content: flex-start; 
 }
 
 .leaderboards-header-leaderboards {
@@ -509,7 +486,6 @@ $marginPricing: 8px;
 .top-header-leaderboards {
     display: flex;
     align-items: center;
-    
 }
 
 .leaderboards-header-in-progress {
@@ -526,10 +502,6 @@ $marginPricing: 8px;
     margin-top: 4px; // Confirmed dydx
     Font-family: Montserrat SemiBold; // Confirmed
     color: $secondaryFontColor;
-}
-
-.box-right-2-left {
-    // background-color: green;
 }
 
 .leaderboards-header {
@@ -579,8 +551,7 @@ th:nth-child(4) {
     width: 6px;
     height: 6px;
     position: relative;
-    top: -2.5px;
-    
+    top: -2.5px; 
 }
 
 #mim-logo {
@@ -591,8 +562,6 @@ th:nth-child(4) {
     right: -4px;
 }
  
-
-
 td:nth-child(3) { // td = table data telling 3rd child to text align
     text-align: center;
 }
