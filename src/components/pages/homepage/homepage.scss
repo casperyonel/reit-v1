@@ -25,16 +25,23 @@ $leaderboardsRowFontSize: $classFontSize - 2px;
 
 $marginPricing: 8px;
 
+
+
 @mixin flexCenter {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
+html {
+    scroll-behavior: smooth;
+  }
+
 // -- Main Container --
 .outer-main {
     display: flex;
     flex-direction: column;
+    
 }
 
 // -- Top, Middle, and Bottom Columns --
@@ -191,8 +198,28 @@ $marginPricing: 8px;
     line-height: 25.8px;
 }
 
-.header-links {
-    font-family: Montserrat Medium;
-    font-size: 17px; // Confirmed dydx
-    color: $subheader2FontColor;
+.how-it-works-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none !important;
+
+    &:hover {
+        transform: scale(1.05);
+        transition: .25s;
+    }
+
+
+
+    .how-it-works {
+        font-family: Montserrat Medium;
+        font-size: 17px; // Confirmed dydx
+        color: $subheader2FontColor;
+        cursor: pointer;
+        margin-top: 28px; // Confirmed dydx
+        .down-arrow {
+            position: relative;
+            transform: translate(5px, 3px);
+        }
+    }
 }
