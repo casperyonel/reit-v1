@@ -32,7 +32,13 @@ const Homepage = () => {
                 <div className="outer-middle" id="how-it-works">
 
                     <div className="outer-middle-left-1">
-                        <div className="outer-middle-left-2"></div>
+                        <div className="outer-middle-left-2">
+                            <div className="outer-middle-left-2-top">Metaverse land is way too expensive, we’re here to change that.</div>
+                            <div className="outer-middle-left-2-middle">Stake Magic Monopoly Money ($MMM) to claim Magic Internet Land ($MIL).</div>
+                            <div className="outer-middle-left-2-bottom">Owning Magic Internet Land is like owning land in every major metaverse game.</div>
+
+
+                        </div>
                     </div>
                     <div className="outer-middle-right-1">
                         <div className="outer-middle-right-2">
