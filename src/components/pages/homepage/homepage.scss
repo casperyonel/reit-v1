@@ -23,7 +23,7 @@ $classSubmitFontSize: $classFontSize + 2px;
 $leaderboardsHeaderFontSize: $classFontSize - 3px;
 $leaderboardsRowFontSize: $classFontSize - 2px;
 
-$marginPricing: 8px;
+$marginPricing: 8px; //.
 
 
 
@@ -145,7 +145,6 @@ html {
     font-size: 17px;  
 }
 
-
 .outer-middle-left-2-bottom {
     width: 100%;
     height: 33.33%;
@@ -154,7 +153,6 @@ html {
     font-family: Montserrat Medium; // Confirmed Wonderland
     font-size: 17px;  
 }
-
 
 .outer-middle-right-1 {
     width: 960px;
@@ -169,7 +167,7 @@ html {
     width: 70%;
     height: 450px;
     background-color: rgb(161, 31, 31);
-}//yes
+}
 
 // -- Bottom Containers --
 .outer-bottom-left-1 {
