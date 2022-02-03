@@ -54,7 +54,7 @@ html {
 
 .outer-middle {
     display: flex;
-    background-color: yellowgreen;
+    // background-color: yellowgreen;
     height: 750px; // CHANGE
     align-items: center;
     justify-content: center;
@@ -121,35 +121,36 @@ html {
 .outer-middle-left-2 {
     width: 80%;
     height: 100%;
-    background-color: rgb(249, 249, 249);
 }
 
 .outer-middle-left-2-top {
     width: 100%;
     height: 33.33%;
-    background-color: grey;
+    // background-color: grey;
     @include flexCenter();
-    // font-family: Montserrat Medium;
     font-family: Montserrat SemiBold;
     font-size: 22px;  
+    color: $headerFontColor; 
 }
 
 .outer-middle-left-2-middle {
     width: 100%;
     height: 33.33%;
-    background-color: rgb(189, 0, 252);
+    // background-color: rgb(189, 0, 252);
     @include flexCenter();
     font-family: Montserrat Medium; // Confirmed Wonderland
     font-size: 17px;  
+    color: $subheaderFontColor; // Confirmed dydx
 }
 
 .outer-middle-left-2-bottom {
     width: 100%;
     height: 33.33%;
-    background-color: rgb(167, 14, 14);
+    // background-color: rgb(167, 14, 14);
     @include flexCenter();
     font-family: Montserrat Medium; // Confirmed Wonderland
     font-size: 17px;  
+    color: $subheaderFontColor; // Confirmed dydx
 }
 
 .outer-middle-right-1 {
@@ -250,10 +251,8 @@ html {
     }
 }
 
-
 // -- Middle contents --
-.land-card {
-    height: 150px;
-    width: 280px;
-    background-color: grey;
+#middleDiagram {   
+    width: 960px;
+    height: 600px;
 }

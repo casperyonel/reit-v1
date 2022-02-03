@@ -1,5 +1,6 @@
 import "./homepage.scss";
 import mainMonopolyDashboard from "../../../assets/reit-visuals/outer-main-dashboard (4).png";
+import middleDiagram from "../../../assets/reit-visuals/monopolyDiagram (2).png";
 
 import { BsChevronDoubleDown } from 'react-icons/bs'
 
@@ -33,7 +34,7 @@ const Homepage = () => {
 
                     <div className="outer-middle-left-1">
                         <div className="outer-middle-left-2">
-                            <div className="outer-middle-left-2-top">Democratizing access to metaverse land.</div>
+                            <div className="outer-middle-left-2-top">Democratizing access to metaverse land</div>
                             <div className="outer-middle-left-2-middle">Stake Magic Monopoly Money ($MMM) to claim Magic Internet Land ($MIL).</div>
                             <div className="outer-middle-left-2-bottom">Owning Magic Internet Land is like owning land in every major metaverse game.</div>
 
@@ -41,16 +42,10 @@ const Homepage = () => {
                         </div>
                     </div>
                     <div className="outer-middle-right-1">
-                        <div className="outer-middle-right-2">
-                            <div className="land-card">Card 1</div>
-                            <div className="land-card">Card 2</div>
-                            <div className="land-card">Card 3</div>
-                            <div className="land-card">Card 4</div>
-                            <div className="land-card">Card 5</div>
-                            <div className="land-card">Card 6</div>
 
-                            
-                        </div>     
+                        <img id="middleDiagram" src={middleDiagram} alt="monopoly-diagram" />
+                        <div className="outer-middle-right-2"> </div>
+                       
                     </div>
                 </div>
 
