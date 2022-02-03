@@ -14,7 +14,7 @@ const Homepage = () => {
                             <h1 className="top-header-text">Monopoly, in the metaverse</h1>
                                 <div className="top-subheader-text">REIT DAO is the first Metaverse Land Investment DAO, <span className="top-subheader-text-2">operating like Monopoly.</span></div>
                             
-                            <a href="#how-it-works" className="how-it-works-container">
+                            <a href="#." className="how-it-works-container">
                                 <div className="how-it-works">How it works <BsChevronDoubleDown className="down-arrow" /> </div>
                             </a>
                                 
@@ -29,7 +29,7 @@ const Homepage = () => {
                 </div>
 
 
-                <div className="outer-middle" id="how-it-works">
+                <div className="outer-middle" id=".">
 
                     <div className="outer-middle-left-1">
                         <div className="outer-middle-left-2">

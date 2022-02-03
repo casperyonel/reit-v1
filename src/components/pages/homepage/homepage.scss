@@ -93,6 +93,7 @@ html {
     justify-content: center;
     // flex-wrap: wrap;
     flex-direction: column;
+   
 }
 
 .outer-bottom {
@@ -261,11 +262,19 @@ html {
     line-height: 25.8px;
 }
 
+// a.how-it-works-container {
+//     top: -200px; 
+// }
+
 .how-it-works-container {
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none !important;
+    
+    // &::before {
+    //     top: -200px;
+    // }
     .how-it-works {
         font-family: Montserrat Medium;
         font-size: 17px; // Confirmed dydx
@@ -483,9 +492,9 @@ html {
   box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
+.faq-styling,
+.faq-styling::before,
+.faq-styling::after {
   box-sizing: inherit;
 }
 
@@ -500,7 +509,6 @@ html {
   line-height: 18px;
   font-weight: 400;
   
-
   min-height: 100vh;
   display: grid;
   place-items: center;
