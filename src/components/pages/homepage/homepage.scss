@@ -23,9 +23,7 @@ $classSubmitFontSize: $classFontSize + 2px;
 $leaderboardsHeaderFontSize: $classFontSize - 3px;
 $leaderboardsRowFontSize: $classFontSize - 2px;
 
-$marginPricing: 8px; //.
-
-
+$marginPricing: 8px;
 
 @mixin flexCenter {
     display: flex;
@@ -57,7 +55,7 @@ html {
 .outer-middle {
     display: flex;
     background-color: yellowgreen;
-    height: 1000px; // CHANGE
+    height: 750px; // CHANGE
     align-items: center;
     justify-content: center;
     // flex-wrap: wrap;
@@ -113,7 +111,7 @@ html {
 // -- Middle Containers --
 .outer-middle-left-1 {
     width: 960px;
-    height: 300px;
+    height: 150px;
     // background-color: darkblue;
     display: flex;
     justify-content: center;
@@ -156,7 +154,7 @@ html {
 
 .outer-middle-right-1 {
     width: 960px;
-    height: 700px;
+    height: 600px;
     background-color: green;
     display: flex;
     justify-content: center;
