@@ -238,6 +238,7 @@ html {
     font-size: 52px; 
     color: $headerFontColor;
     margin-bottom: 0; // Confirmed dydx
+    line-height: normal;
 }
 
 #mainMonopolyDashboard {
@@ -293,7 +294,7 @@ html {
 
 // -- Bottom contents --
 .faq__desc.show-description {
-    height: 2rem;
+    height: 2.5rem;
     margin-bottom: 15px;
   }
   
@@ -320,16 +321,16 @@ color: $soft-violet;
 }
 
 .component {
-margin: 0 auto;
-max-width: 920px;
-width: 100%;
-background-color: #ffffff;
-background-image: url(../../../assets/images/faq/bg-pattern-desktop.svg);
-background-position: -565px -295px;
-background-repeat: no-repeat;
-box-shadow: 0px 50px 50px -20px rgba(53, 18, 122, 0.497159);
-border-radius: 23px;
-display: flex;
+    margin: 0 auto;
+    max-width: 920px;
+    width: 100%;
+    background-color: #ffffff;
+    background-image: url(../../../assets/images/faq/bg-pattern-desktop.svg);
+    background-position: -565px -295px;
+    background-repeat: no-repeat;
+    box-shadow: 0px 50px 50px -20px rgba(53, 18, 122, 0.497159);
+    border-radius: 23px;
+    display: flex;
 }
 
 
@@ -357,6 +358,7 @@ padding-bottom: 80px;
     background-color: transparent;
     padding: 0px;
     cursor: pointer;
+    font-family: Montserrat SemiBold;
 
     padding-top: 18px;
     padding-bottom: 18px;
@@ -368,7 +370,8 @@ padding-bottom: 80px;
     }
 
     &:hover {
-    color: $soft-red;
+    color: green;
+    // color: rgb(18, 18, 35) // THIS TO CHANGE HOVER QUESTIONS
     }
 }
 
@@ -486,44 +489,42 @@ html {
   box-sizing: inherit;
 }
 
-body {
+// -- Lowest level, anything above must be specified to override --
+.faq-styling {
   margin: 0;
   padding: 0;
-  background: linear-gradient($soft-violet, $soft-blue);
+  background: rgb(18, 18, 35);
   color: $dark-grayish-blue;
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: Montserrat Medium;
   font-size: 12px;
   line-height: 18px;
   font-weight: 400;
+  
 
-  /*min-height and grid place-items center in a body to put attribution right under the component.
-  but generally I think it's better to put height and grid on container */
-
-  /*min-height so linear-gradient would not clipp at the bottom */
   min-height: 100vh;
   display: grid;
   place-items: center;
 }
 
 #faq-h1 {
-  color: $very-dark-desaturated-blue;
+//   color: $primaryFontColor;
+  color: green;
   font-size: 32px;
   line-height: 32px;
+  
 }
 
-button {
+.buttonfaq {
   color: $very-dark-grayish-blue;
   font-size: 14px;
   line-height: 14px;
 }
 
-/* https://developer.mozilla.org/en-US/docs/Web/CSS/:focus-visible */
-/* Remove the focus indicator on mouse-focus for browsers that do support :focus-visible */
-button:focus:not(:focus-visible) {
+.buttonfaq:focus:not(:focus-visible) {
   outline: 0;
 }
 
-button:focus-visible {
+.buttonfaq:focus-visible {
   /* Draw a very noticeable focus style for
      keyboard-focus on browsers that do support
      :focus-visible */

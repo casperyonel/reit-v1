@@ -33,15 +33,10 @@ const questionsAnswers = [
 
 const FAQ = () => {
   return (
-    <div className="container">
+    <div className="container faq-styling">
       <div className="component">
         <div className="illustration">
-          <img
-            src={illustration__box}
-            alt="illustration with box"
-            className="illustration__box"
-          />
-
+         
           <img
             className="illustration__woman-desktop"
             src={illustration__woman_desktop}
