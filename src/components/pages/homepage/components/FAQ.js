@@ -1,17 +1,10 @@
 import React from "react";
 import Accordion from "./Accordion";
 
-// import "../css/main.css";
-
-// import "../scss/main.scss";
-
-// import illustration__box from "../images/illustration-box-desktop.svg";
-// import illustration__woman_desktop from "../images/illustration-woman-online-desktop.svg";
-// import illustration__woman_mobile from "../images/illustration-woman-online-mobile.svg";
-
 import illustration__box from "../../../../assets/images/faq/illustration-box-desktop.svg";
-import illustration__woman_desktop from "../../../../assets/images/faq/illustration-woman-online-desktop.svg";
-import illustration__woman_mobile from "../../../../assets/images/faq/illustration-woman-online-mobile.svg";
+// import illustration__woman_desktop from "../../../../assets/images/faq/illustration-woman-online-desktop.svg";
+import illustration__woman_desktop from "../../../../assets/images/faq/monopoly-man.png";
+import illustration__woman_mobile from "../../../../assets/images/faq/monopoly-man.png";
 
 const questionsAnswers = [
   {
@@ -62,17 +55,7 @@ const FAQ = () => {
         </div>
         <Accordion questionsAnswers={questionsAnswers} />
       </div>
-      <div className="attribution">
-        Challenge by
-        <a
-          href="https://www.frontendmentor.io?ref=challenge"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Frontend Mentor.
-        </a>
-        Coded by <a href="https://github.com/ALapina"> Anna Lapina.</a>
-      </div>
+       
     </div>
   );
 };

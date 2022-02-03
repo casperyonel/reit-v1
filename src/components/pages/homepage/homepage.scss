@@ -397,12 +397,15 @@ position: relative;
 &__woman-desktop {
     position: absolute;
     top: 60px;
-    left: -77px;
-    clip-path: inset(0px 0px 0px 77px);
+    left: 90px;
+    // clip-path: inset(0px 0px 0px 77px);
+    height: 381px; // Based on figma
 }
 
 &__woman-mobile {
     display: none;
+    height: 170px; // Based on figma
+    
 }
 }
 
@@ -469,7 +472,9 @@ position: relative;
     }
   }
 
-//   @import "config";
+ 
+
+  // CHANGE ALL THIS BELOW
 
 html {
   box-sizing: border-box;
@@ -500,7 +505,7 @@ body {
   place-items: center;
 }
 
-h1 {
+#faq-h1 {
   color: $very-dark-desaturated-blue;
   font-size: 32px;
   line-height: 32px;
@@ -526,9 +531,8 @@ button:focus-visible {
   outline-offset: 0px;
 }
 
-#root {
-  width: 100%;
-}
+//UNTIL HERE
+
 
 .container {
   max-width: 1440px;
@@ -538,10 +542,4 @@ button:focus-visible {
 .font-weight-bold {
   font-weight: 700;
 }
-
-// @import "component";
-// @import "illustration";
-// @import "faq";
-// @import "attribution";
-// @import "animation";
-// @import "responsive";
+ 
