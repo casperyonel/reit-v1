@@ -39,7 +39,6 @@ html {
 .outer-main {
     display: flex;
     flex-direction: column;
-    
 }
 
 // -- Top, Middle, and Bottom Columns --
@@ -48,13 +47,15 @@ html {
     height: 700px;
     align-items: center;
     justify-content: center;
+    
     flex-wrap: wrap;
     background: URL('../../../assets/reit-visuals/wave.svg') no-repeat 30% 25%; // Add "Fixed" option
+    background-color: rgb(18, 18, 35);
 }
 
 .outer-middle {
     display: flex;
-    // background-color: yellowgreen;
+    background-color: rgb(18, 18, 35);
     height: 750px; // CHANGE
     align-items: center;
     justify-content: center;
@@ -64,7 +65,7 @@ html {
 
 .outer-bottom {
     display: flex;
-    background-color: rgb(52, 19, 89);
+    background-color: rgb(18, 18, 35);
     height: 700px;
     align-items: center;
     justify-content: center;
@@ -125,7 +126,7 @@ html {
 
 .outer-middle-left-2-top {
     width: 100%;
-    height: 33.33%;
+    height: 45%;
     // background-color: grey;
     @include flexCenter();
     font-family: Montserrat SemiBold;
@@ -135,7 +136,7 @@ html {
 
 .outer-middle-left-2-middle {
     width: 100%;
-    height: 33.33%;
+    height: 30%;
     // background-color: rgb(189, 0, 252);
     @include flexCenter();
     font-family: Montserrat Medium; // Confirmed Wonderland
@@ -145,7 +146,7 @@ html {
 
 .outer-middle-left-2-bottom {
     width: 100%;
-    height: 33.33%;
+    height: 23%;
     // background-color: rgb(167, 14, 14);
     @include flexCenter();
     font-family: Montserrat Medium; // Confirmed Wonderland
@@ -238,6 +239,7 @@ html {
         color: $subheader2FontColor;
         cursor: pointer;
         margin-top: 28px; // Confirmed dydx
+        
         .down-arrow {
             position: relative;
             transform: translate(5px, 3px);
@@ -250,6 +252,11 @@ html {
         }
     }
 }
+
+// #how-it-works {
+
+// }
+
 
 // -- Middle contents --
 #middleDiagram {   

@@ -1,6 +1,6 @@
 import "./homepage.scss";
 import mainMonopolyDashboard from "../../../assets/reit-visuals/outer-main-dashboard (4).png";
-import middleDiagram from "../../../assets/reit-visuals/monopolyDiagram (2).png";
+import middleDiagram from "../../../assets/reit-visuals/monopolyDiagram (3).png";
 
 import { BsChevronDoubleDown } from 'react-icons/bs'
 
@@ -50,12 +50,15 @@ const Homepage = () => {
                 </div>
 
                 <div className="outer-bottom">
-                    <div className="outer-bottom-left-1">
+                    
+                    
+                    
+                    {/* <div className="outer-bottom-left-1">
                         <div className="outer-bottom-left-2"></div>
                     </div>
                     <div className="outer-bottom-right-1">
                         <div className="outer-bottom-right-2"></div>     
-                    </div>
+                    </div> */}
 
                 </div>
 
