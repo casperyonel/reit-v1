@@ -1,7 +1,7 @@
 import React from "react";
 import Accordion from "./Accordion";
 
-import illustration__box from "../../../../assets/images/faq/illustration-box-desktop.svg";
+// import illustration__box from "../../../../assets/images/faq/illustration-box-desktop.svg";
 // import illustration__woman_desktop from "../../../../assets/images/faq/illustration-woman-online-desktop.svg";
 import illustration__woman_desktop from "../../../../assets/images/faq/monopoly-man.png";
 import illustration__woman_mobile from "../../../../assets/images/faq/monopoly-man.png";

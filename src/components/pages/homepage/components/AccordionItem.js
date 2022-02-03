@@ -1,5 +1,7 @@
 import React from "react";
 
+import { AiOutlineDown } from 'react-icons/ai'
+
 const AccordionItem = ({
   showDescription,
   ariaExpanded,
@@ -18,6 +20,7 @@ const AccordionItem = ({
         onClick={onClick}
       >
         {item.question}
+        <AiOutlineDown />
       </button>
     </dt>
     <dd>

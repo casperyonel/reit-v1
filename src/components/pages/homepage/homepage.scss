@@ -333,11 +333,12 @@ color: $soft-violet;
     margin: 0 auto;
     max-width: 920px;
     width: 100%;
-    background-color: #ffffff;
-    background-image: url(../../../assets/images/faq/bg-pattern-desktop.svg);
+    // background-color: rgb(37, 37, 57); // Confirmed dydx
+    background-color: rgb(32, 32, 54); // Same as above 3d box
+    // background-image: url(../../../assets/images/faq/bg-pattern-desktop.svg);
     background-position: -565px -295px;
     background-repeat: no-repeat;
-    box-shadow: 0px 50px 50px -20px rgba(53, 18, 122, 0.497159);
+    box-shadow: 0px 50px 50px -20px rgb(94, 114, 245, 0.13);
     border-radius: 23px;
     display: flex;
 }
@@ -356,7 +357,8 @@ padding-bottom: 80px;
 &__question {
     max-width: 350px;
     width: 100%;
-    border-bottom: 1px solid $light-grayish-blue;
+    // border-bottom: 1px solid $light-grayish-blue;
+    border-bottom: 1px solid $borderColor;
 }
 
 &__question-button {
@@ -368,18 +370,20 @@ padding-bottom: 80px;
     padding: 0px;
     cursor: pointer;
     font-family: Montserrat SemiBold;
+    color: $primaryFontColor;
 
     padding-top: 18px;
     padding-bottom: 18px;
 
     &::after {
-    content: url(../../../assets/images/faq/icon-arrow-down.svg);
+    // content: url(../../../assets/images/faq/icon-arrow-down.svg);
     margin-right: 17px;
     transform: rotate(90deg);
     }
 
     &:hover {
-    color: green;
+    color: $subheader2FontColor;
+    transition: 150ms;
     // color: rgb(18, 18, 35) // THIS TO CHANGE HOVER QUESTIONS
     }
 }
@@ -503,7 +507,7 @@ html {
   margin: 0;
   padding: 0;
   background: rgb(18, 18, 35);
-  color: $dark-grayish-blue;
+  color: $subheaderFontColor;
   font-family: Montserrat Medium;
   font-size: 12px;
   line-height: 18px;
@@ -515,8 +519,9 @@ html {
 }
 
 #faq-h1 {
-//   color: $primaryFontColor;
-  color: green;
+  color: $headerFontColor;
+  font-family: Montserrat Bold;
+//   color: green;
   font-size: 32px;
   line-height: 32px;
   
@@ -526,10 +531,12 @@ html {
   color: $very-dark-grayish-blue;
   font-size: 14px;
   line-height: 14px;
+  
 }
 
 .buttonfaq:focus:not(:focus-visible) {
   outline: 0;
+  
 }
 
 .buttonfaq:focus-visible {
@@ -537,6 +544,7 @@ html {
      keyboard-focus on browsers that do support
      :focus-visible */
   outline: 2px dashed $soft-red;
+  
   outline-offset: 0px;
 }
 
