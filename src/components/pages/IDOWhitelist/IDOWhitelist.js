@@ -27,7 +27,7 @@ const IDOWhitelist = () => {
     const [stats, setStats] = useState('') // For showing stats for existing users
     const [walletConnected, setWalletConnected] = useState(false)
     
-    // Connect metamask:
+    // Connect metamask: /
     async function requestAccount() {
         if (typeof window.ethereum !== 'undefined') {
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
