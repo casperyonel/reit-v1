@@ -8,27 +8,28 @@ import illustration__woman_mobile from "../../../../assets/images/faq/monopoly-m
 
 const questionsAnswers = [
   {
-    question: "How many team members can I invite?",
+    question: `What is REIT DAO?`,
     answer:
-      "You can invite up to 2 additional users on the Free plan. There is no limit on team members for the Premium plan.",
+      "REIT DAO is a Metaverse Land Investment DAO operating under the game mechanics of monopoly.",
   },
   {
-    question: "What is the maximum file upload size?",
+    question: `What is Magic Monopoly Money $MMM?`,
     answer:
-      "No more than 2GB. All files in your account must fit your allotted storage space.",
+      "$MMM is the native token of REIT DAO, and is used to participate in monopoly.",
   },
   {
-    question: "How do I reset my password?",
-    answer: `Click “Forgot password” from the login page or “Change password” from your profile page. A reset link will be emailed to you.`,
+    question: `What is Magic Internet Land $MIL?`,
+    answer:
+      "$MIL is claimed when $MMM is staked. $MIL represents your share of the REIT DAO PCV.",
   },
   {
-    question: "Can I cancel my subscription?",
-    answer: `Yes! Send us a message and we’ll process your request no questions asked.`,
+    question: "What is PCV?",
+    answer: `"PCV" stands for Protocol Controlled Value, representing all of the assets REIT DAO owns.`,
   },
   {
-    question: "Do you provide additional support?",
-    answer: `Chat and email support is available 24/7. Phone lines are open during normal business hours.`,
-  },
+    question: "Who is the team behind REIT DAO?",
+    answer: `We are a group of DeFi builders interested in democratizing access to metaverse land.`,
+  }
 ];
 
 const FAQ = () => {

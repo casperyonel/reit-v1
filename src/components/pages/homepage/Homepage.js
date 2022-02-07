@@ -1,7 +1,8 @@
 import "./homepage.scss";
 import { BsChevronDoubleDown } from 'react-icons/bs'
 import mainMonopolyDashboard from "../../../assets/reit-visuals/outer-main-dashboard (4).png";
-import middleDiagram from "../../../assets/reit-visuals/monopolyDiagram (3).png";
+// import middleDiagram from "../../../assets/reit-visuals/monopolyDiagram (3).png";
+import middleDiagram from "../../../assets/reit-visuals/EVERYTHINGv2 (2).png";
 import FAQ from "./components/FAQ";
 
 const Homepage = () => {
@@ -18,7 +19,6 @@ const Homepage = () => {
                                 <div className="how-it-works">How it works <BsChevronDoubleDown className="down-arrow" /> </div>
                             </a>
                                 
-                            
                         </div>
                     </div>
                     <div className="outer-top-right-1">
@@ -28,8 +28,8 @@ const Homepage = () => {
                     </div>
                 </div>
 
-
-                <div className="outer-middle" id=".">
+                <div className="how-it-works-placeholder-absolute" id="." ></div>
+                <div className="outer-middle">
 
                     <div className="outer-middle-left-1">
                         <div className="outer-middle-left-2">
@@ -49,18 +49,10 @@ const Homepage = () => {
                 </div>
 
                 <div className="outer-bottom">
-                    
+        
                     <FAQ />
-                    
-                    {/* <div className="outer-bottom-left-1">
-                        <div className="outer-bottom-left-2"></div>
-                    </div>
-                    <div className="outer-bottom-right-1">
-                        <div className="outer-bottom-right-2"></div>     
-                    </div> */}
-
+    
                 </div>
-
                 
             </div>
     )
