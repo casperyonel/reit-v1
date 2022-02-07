@@ -389,9 +389,9 @@ padding-bottom: 80px;
     }
 
     &:hover {
-    color: $subheader2FontColor;
+    // color: $subheader2FontColor;
     transition: 150ms;
-    // color: rgb(18, 18, 35) // THIS TO CHANGE HOVER QUESTIONS
+    color: rgb(162, 162, 173);
     }
 }
 
