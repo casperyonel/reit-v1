@@ -3,7 +3,7 @@ import { BsChevronDoubleDown } from 'react-icons/bs'
 import mainMonopolyDashboard from "../../../assets/reit-visuals/outer-main-dashboard (4).png";
 // import middleDiagram from "../../../assets/reit-visuals/monopolyDiagram (3).png";
 import middleDiagram from "../../../assets/reit-visuals/EVERYTHINGv2 (2).png";
-import FAQ from "./components/FAQ"; // yes
+import FAQ from "./components/FAQ";
 
 const Homepage = () => {
     return (
