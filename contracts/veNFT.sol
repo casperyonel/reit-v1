@@ -11,7 +11,7 @@ contract veNFT is ERC721 {
     
     mapping(uint => Info) public nftInfo;
     
-    Struct Info {
+    struct Info {
         lockerId uint;
         tokenLocked address;
         amount uint;
@@ -23,7 +23,14 @@ contract veNFT is ERC721 {
 
     constructor() public ERC721(, ) { } // EDIT
 
-    function mintNFT(address wallet, string memory tokenURI, uint _lockerId, ERC20 _token, uint _amount, uint lockUpTime) public returns (uint256) {
+    function mintNFT(
+        address wallet, 
+        string memory tokenURI, 
+        uint _lockerId, 
+        ERC20 _token, 
+        uint _amount, 
+        uint _lockUpTime
+    ) public returns (uint256) {
         _tokensIds.increment();
         uint newItemId = _tokensIds.current();
         _mint(wallet, newItemId);
@@ -33,12 +40,11 @@ contract veNFT is ERC721 {
             lockerId: _lockerId,
             tokenLocked: _token,
             amount: _amount,
-            expiryDate: uint32(block.timestamp + lockUpTime)
+            expiryDate: uint32(block.timestamp + _lockUpTime)
         });
 
         return newItemId;
     }
-
     // where is string memory tokenURI coming from?
 
     function status(uint _tokenId) public view returns (Info) {
@@ -46,7 +52,7 @@ contract veNFT is ERC721 {
     }
 
     function isExpired(uint _tokenId) public view returns (bool) {
-        if (block.timestamp > nftInfo[ _tokenId ].expiryDate) {
+        if (uint32(block.timestamp) > nftInfo[ _tokenId ].expiryDate) {
             return true;
         } else {
             return false;

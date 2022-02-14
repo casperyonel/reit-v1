@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2; // This is for returning an array of structs.
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract PreSaleKovan {
 
@@ -12,13 +13,24 @@ contract PreSaleKovan {
 
     // event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
-    // -- Accepted deposits -- 
+    // -- Accepted tokens -- 
     ERC20 public constant dai = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     ERC20 public constant usdc = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     ERC20 public constant ust = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     ERC20 public constant weth = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     ERC20 public constant eth = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); // Confirm?
     ERC20 public constant mil = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); 
+
+    mapping( address => bool ) public acceptedToken;
+    
+    acceptedToken[ dai ] = true;
+    acceptedToken[ usdc ] = true;
+    acceptedToken[ ust ] = true;
+    acceptedToken[ weth ] = true;
+    acceptedToken[ eth ] = true;
+    acceptedToken[ mil ] = true;
+
+
 
     // -- State variables --
     address public owner;
@@ -30,11 +42,10 @@ contract PreSaleKovan {
     uint public fourYears = 4 years;
 
     // -- Arrays --
-    address[] public depositTokens;
     Tracker[] public tracker; 
 
     // -- Structs -- 
-    Struct Tracker {
+    struct Tracker {
         address wallet;
         address token;
         uint amount; 
@@ -52,9 +63,30 @@ contract PreSaleKovan {
     }
 
     // -- Functions -- /
-    function depositAndMint() {
+    function depositAndMint(
+        IERC20 _token, 
+        uint _lockTime, 
+        uint _amount, 
+        uint _lockerId
+    ) external {
         
+        _token.transferFrom(msg.sender, owner, _amount);
+        
+        // -- Mint new NFT below -- 
+
+
     }
+
+
+
+    //  function mintNFT(
+    //     address wallet, 
+    //     string memory tokenURI, 
+    //     uint _lockerId, 
+    //     ERC20 _token, 
+    //     uint _amount, 
+    //     uint _lockUpTime
+    // ) 
 
 
 
