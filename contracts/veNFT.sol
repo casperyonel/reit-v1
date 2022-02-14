@@ -16,7 +16,6 @@ contract veNFT is ERC721 {
         tokenLocked address;
         amount uint;
         expiryDate uint;
-        lastTime uint;
     }
 
     using Counters for Counters.Counter;
@@ -34,19 +33,24 @@ contract veNFT is ERC721 {
             lockerId: _lockerId,
             tokenLocked: _token,
             amount: _amount,
-            expiryDate: uint32(block.timestamp + lockUpTime),
-            lastTime: uint32(block.timestamp)
+            expiryDate: uint32(block.timestamp + lockUpTime)
         });
 
         return newItemId;
     }
 
-    // write another function public view returns bool if token id is expired
-
     // where is string memory tokenURI coming from?
 
     function status(uint _tokenId) public view returns (Info) {
         return nftInfo[ _tokenId ]; 
+    }
+
+    function isExpired(uint _tokenId) public view returns (bool) {
+        if (block.timestamp > nftInfo[ _tokenId ].expiryDate) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 
