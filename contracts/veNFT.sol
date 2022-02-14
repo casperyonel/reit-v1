@@ -16,6 +16,8 @@ contract veNFT is ERC721 {
         amount uint;
         expiryDate uint;
     }
+
+    mapping(uint => Info) public nftInfo;
     
     
     using Counters for Counters.Counter;
@@ -23,16 +25,7 @@ contract veNFT is ERC721 {
 
     constructor() public ERC721(, ) { }
 
-    function mintNFT(address wallet, string memory tokenURI) public returns (uint256) {
-        
-        // I would use a struct and a mapping of the unique token id to the strict object
-        info = Info ({
-            lockerId: _lockerId,
-            tokenLocked: _token,
-            amount: _amount,
-            expiryDate: block.timestamp + lockUpTime
-        });
-
+    function mintNFT(address wallet, string memory tokenURI, uint _lockerId, ERC20 _token, uint _amount, uint lockUpTime) public returns (uint256) {
         _tokensIds.increment();
 
         uint newItemId = _tokensIds.current();
@@ -40,9 +33,20 @@ contract veNFT is ERC721 {
         _setTokenURI(newItemId, tokenURI);
 
         return newItemId;
+
+        nftInfo[ newItemId ] = Info({ 
+            lockerId: _lockerId,
+            tokenLocked: _token,
+            amount: _amount,
+            expiryDate: block.timestamp + lockUpTime
+        });
+
+        
     }
 
     // write another function public view returns bool if token id is expired
+
+    // where is string memory tokenURI coming from?
 
 }
 
