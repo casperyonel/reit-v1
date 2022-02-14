@@ -69,6 +69,7 @@ contract PreSaleKovan {
         uint _amount, 
         uint _lockerId
     ) external {
+        require( acceptedToken[ _token ], "Token not accepted");
         
         _token.transferFrom(msg.sender, owner, _amount);
         
@@ -80,31 +81,8 @@ contract PreSaleKovan {
             _token, 
             _amount, 
             _lockTime
-        ) 
+        )
     }
-
-
-
-    //  function mintNFT(
-    //     address wallet, 
-    //     string memory tokenURI, 
-    //     uint _lockerId, 
-    //     ERC20 _token, 
-    //     uint _amount, 
-    //     uint _lockUpTime
-    // ) 
-
-
-
-
-
-
-
-
-
-
-
-
 
     // -- Policy functions --
     function addDepositor(address _depositor, address _token, uint _amount) external onlyOwner {
