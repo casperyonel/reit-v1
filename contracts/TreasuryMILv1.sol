@@ -51,7 +51,7 @@ contract PreSaleKovan {
         _;
     }
 
-    // -- Functions --
+    // -- Functions -- /
     function depositAndMint() {
         
     }
