@@ -22,7 +22,7 @@ contract PreSaleKovan {
     ERC20 public constant mil = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); 
 
     mapping( address => bool ) public acceptedToken;
-    
+
     acceptedToken[ dai ] = true;
     acceptedToken[ usdc ] = true;
     acceptedToken[ ust ] = true;
@@ -30,10 +30,10 @@ contract PreSaleKovan {
     acceptedToken[ eth ] = true;
     acceptedToken[ mil ] = true;
 
-
-
     // -- State variables --
     address public owner;
+    address public veNFT; // Figure this out
+
     uint public oneWeek = 1 weeks; // Type string or uint?
     uint public oneMonth = 1 months;
     uint public oneYear = 1 years;
@@ -64,7 +64,7 @@ contract PreSaleKovan {
 
     // -- Functions -- /
     function depositAndMint(
-        IERC20 _token, 
+        IERC20 _token,  // Is this correct?
         uint _lockTime, 
         uint _amount, 
         uint _lockerId
@@ -73,8 +73,14 @@ contract PreSaleKovan {
         _token.transferFrom(msg.sender, owner, _amount);
         
         // -- Mint new NFT below -- 
-
-
+        ERC721(veNFT).mintNFT(
+            msg.sender, 
+            token uri ??, 
+            _lockerId, 
+            _token, 
+            _amount, 
+            _lockTime
+        ) 
     }
 
 

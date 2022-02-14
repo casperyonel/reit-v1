@@ -27,7 +27,7 @@ contract veNFT is ERC721 {
         address wallet, 
         string memory tokenURI, 
         uint _lockerId, 
-        ERC20 _token, 
+        ERC20 _token, // is this correct?
         uint _amount, 
         uint _lockUpTime
     ) public returns (uint256) {
@@ -48,7 +48,7 @@ contract veNFT is ERC721 {
     // where is string memory tokenURI coming from?
 
     function status(uint _tokenId) public view returns (Info) {
-        return nftInfo[ _tokenId ]; 
+        return nftInfo[ _tokenId ];  // Reading that you can only return primitives?
     }
 
     function isExpired(uint _tokenId) public view returns (bool) {
