@@ -5,8 +5,6 @@ pragma experimental ABIEncoderV2; // This is for returning an array of structs.
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-
-
 contract PreSaleKovan {
 
     // -- Events --
@@ -24,12 +22,12 @@ contract PreSaleKovan {
 
     // -- State variables --
     address public owner;
-    string public oneWeek = 1 weeks; // Type string or uint?
-    string public oneMonth = 1 months;
-    string public oneYear = 1 years;
-    string public twoYears = 2 years;
-    string public threeYears = 3 years;
-    string public fourYears = 4 years;
+    uint public oneWeek = 1 weeks; // Type string or uint?
+    uint public oneMonth = 1 months;
+    uint public oneYear = 1 years;
+    uint public twoYears = 2 years;
+    uint public threeYears = 3 years;
+    uint public fourYears = 4 years;
 
     // -- Arrays --
     address[] public depositTokens;
