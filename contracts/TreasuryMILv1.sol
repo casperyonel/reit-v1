@@ -5,6 +5,7 @@ pragma experimental ABIEncoderV2; // This is for returning an array of structs.
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 contract PreSaleKovan {
 
@@ -14,15 +15,15 @@ contract PreSaleKovan {
     // event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     // -- Accepted tokens -- 
-    ERC20 public constant dai = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
+    ERC20 public constant dai = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); // Kovan
     ERC20 public constant usdc = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     ERC20 public constant ust = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     ERC20 public constant weth = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     ERC20 public constant eth = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); // Confirm?
     ERC20 public constant mil = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); 
 
+    // -- Maps --
     mapping( address => bool ) public acceptedToken;
-
     acceptedToken[ dai ] = true;
     acceptedToken[ usdc ] = true;
     acceptedToken[ ust ] = true;
@@ -95,7 +96,11 @@ contract PreSaleKovan {
     } 
 
 
-    // -- Transfer ownership --
+
+
+
+
+    // -- Transfer ownership functinons --
     // Line 149 and functions below it in Treausury.sol of wonderland
 
 

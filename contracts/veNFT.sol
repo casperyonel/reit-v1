@@ -9,13 +9,13 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract veNFT is ERC721 {
     
-    mapping(uint => Info) public nftInfo;
+    mapping( uint => Info ) public nftInfo;
     
     struct Info {
-        lockerId uint;
-        tokenLocked address;
-        amount uint;
-        expiryDate uint;
+        uint lockerId;
+        address tokenLocked; 
+        uint amount;
+        uint expiryDate;
     }
 
     using Counters for Counters.Counter;
@@ -46,6 +46,8 @@ contract veNFT is ERC721 {
         return newItemId;
     }
     // where is string memory tokenURI coming from?
+
+
 
     function status(uint _tokenId) public view returns (Info) {
         return nftInfo[ _tokenId ];  // Reading that you can only return primitives?
