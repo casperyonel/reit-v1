@@ -6,8 +6,11 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/presets/ERC721PresetMinterPauserAutoId.sol";
 
-contract TreasuryMILv1 {
+import "veNFTv2.sol";
+
+contract TreasuryMILv3 is veNFTv2 {
 
     // -- Events --
     event Deposit( address indexed wallet, address indexed token, uint amount );
@@ -33,14 +36,17 @@ contract TreasuryMILv1 {
 
     // -- State variables --
     address public owner;
-    address public veNFT; // Figure this out
+    string public baseURI = "http://localhost:3001/ido/"; // CHANGE UPON DEPLOYMENT
 
-    uint public oneWeek = 1 weeks; // Type string or uint?
-    uint public oneMonth = 1 months;
-    uint public oneYear = 1 years;
-    uint public twoYears = 2 years;
-    uint public threeYears = 3 years;
-    uint public fourYears = 4 years;
+    uint constant YEAR_IN_SECONDS = 31536000;
+    uint constant DAY_IN_SECONDS = 86400;   
+    
+    uint public oneWeek = 5 * DAY_IN_SECONDS;
+    uint public oneMonth = 30 * DAY_IN_SECONDS;
+    uint public oneYear = YEAR_IN_SECONDS;
+    uint public twoYears = 2 * YEAR_IN_SECONDS;
+    uint public threeYears = 3 * YEAR_IN_SECONDS;
+    uint public fourYears = 4 * YEAR_IN_SECONDS;
 
     // -- Arrays --
     Tracker[] public tracker; 
@@ -51,6 +57,7 @@ contract TreasuryMILv1 {
         address token;
         uint amount;
         uint32 depositDate;
+        uint lockUpTime;
     }
 
     constructor() {
@@ -67,28 +74,27 @@ contract TreasuryMILv1 {
     // -- Functions -- /
     function depositAndMint(
         ERC20 _token,
-        uint _lockerId
+        uint _lockerId,
         uint _amount, 
-        uint _lockTime, 
+        uint _lockTime
     ) external {
         require( acceptedToken[ _token ], "Token not accepted");
         
         _token.transferFrom(msg.sender, owner, _amount);
         
-        // -- Mint new NFT below -- 
-        ERC721(veNFT).mintNFT(
-            msg.sender, 
-            token uri ??, 
-            _lockerId, 
-            _token, 
-            _amount, 
-            _lockTime
-        )
+        ERC721PresetMinterPauserAutoId veNFT = new ERC721PresetMinterPauserAutoId(
+                "Locked Voting MIL",
+                "veMIL",
+                baseURI
+            ); //  Do I need to do this if I already have the "is"
+        
+        veNFT.mint(msg.sender); // Mint NFT
     }
 
     // -- Policy functions --
     function addDepositor(address _depositor, address _token, uint _amount) external onlyOwner {
         require( _depositor != address(0), "Failed, deposit is address(0)" );
+        
         tracker.push( Tracker({
             wallet: _depositor,
             token: _token,
