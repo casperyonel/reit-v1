@@ -32,6 +32,9 @@ contract TreasuryMILv4 {
 
     uint public depositId;
 
+     // To get equity stake:
+    balances[msg.sender].div(totalSupply); // Equity stake in DAO
+
     // increment depositId++
     // new deposit, deposits.push[depositId]
     // make a new array for that user, and point address to it
@@ -40,8 +43,14 @@ contract TreasuryMILv4 {
     // point the address to an array of structs, where each struct is a diff deposit id, and array is for diff structs, and aaddress points to them. 
 
     mapping( address => tracker[] ) public schedule;
+    mapping( address => uint256 ) public balances;
+    mapping( address => uint256 ) public claimedBalance;
+    mapping( uint => uint256 ) public lockerBalance; // lockerId points to supply balance of MIL
+
+    uint public lockerId;
 
     uint public depositId;
+    uint256 public totalSupply;
     
     function deposit( // v02
         address _token,
@@ -50,11 +59,10 @@ contract TreasuryMILv4 {
         uint _lockUpTime
     ) external {
         require( acceptedToken[ _token ], "Token not accepted");
-        
         ERC20(_token).transferFrom(msg.sender, owner, _amount);
-
-        depositId++
-
+        depositId++ // Increment master tracker
+        lockerBalance[lockerId] += _amount;
+        balances[msg.sender] += _amount; // To update total ownership of MIL per address
         schedule[msg.sender] = tracker.push( Tracker({
                 depositId: depositId,
                 lockerId: _lockerId,
@@ -62,12 +70,31 @@ contract TreasuryMILv4 {
                 amount: _amount,
                 depositDate: uint32(block.timestamp),
                 lockUpTime: uint32(_lockUpTime),
-                unlockDate: uint32(block.timestamp + _lockUpTime)
+                unlockDate: uint32(block.timestamp + _lockUpTime), 
+                isClaimed: false
             }));
     }
 
+    function claim() external returns(bool) {
+        require(balances[msg.sender] > 0, "Wallet does not have MIL balance");
+        require(schedule[msg.sender]) // make sure isClaimed is true on their depositIds. Get there depositIds
+        // Need to know the length o fthe array
 
+        uint256 memory index = schedule[msg.sender].length;
 
+        for (let i = 0; i < index; i++) {
+            if (schedule[msg.sender][i].isClaimed == true) {
+                schedule[msg.sender][i].amount = _mint;
+
+                claimedBalance[msg.sender] += amount;
+
+                schedule[msg.sender][i].isClaimed == true;
+
+                // THEN MINT FUNDS TO THEIR WALLET, AFTER STATE CHANGE
+                // decrease their amount paid out
+            }
+        }
+    } 
 
 
 
@@ -108,6 +135,7 @@ contract TreasuryMILv4 {
         uint32 depositDate;
         uint lockUpTime;
         uint unlockDate;
+        bool isClaimed;
     }
 
     constructor() {
