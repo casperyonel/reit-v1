@@ -6,26 +6,6 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
-library Counters {
-    using LowGasSafeMath for uint256;
-
-    struct Counter {
-        uint256 _value; // default: 0
-    }
-
-    function current(Counter storage counter) internal view returns (uint256) {
-        return counter._value;
-    }
-
-    function increment(Counter storage counter) internal {
-        counter._value += 1;
-    }
-
-    function decrement(Counter storage counter) internal {
-        counter._value = counter._value.sub(1);
-    }
-}
-
 contract TreasuryMILv4 {
 
     // -- Events --
@@ -42,7 +22,18 @@ contract TreasuryMILv4 {
     // ERC20 public constant mil = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); 
 
     // -- Maps --
-    mapping( address => Counters.counter ) private transactionId;
+    // mapping( address => Counters.counter ) private depositId;
+
+    mapping( uint => Tracker ) private depositId; // 
+
+    mapping( address => uint[] ) walletDeposits; //
+
+    uint[] public deposits;
+
+    uint public depositId;
+
+    // increment depositId++
+    // new deposit, deposits.push[depositId]
 
     mapping( address => bool ) public acceptedToken;
     acceptedToken[ dai_address ] = true;
@@ -54,6 +45,7 @@ contract TreasuryMILv4 {
 
     // -- State variables --
     address public owner;
+    uint256 public depositId;
 
     uint constant YEAR_IN_SECONDS = 31536000;
     uint constant DAY_IN_SECONDS = 86400;   
@@ -70,8 +62,8 @@ contract TreasuryMILv4 {
 
     // -- Structs -- 
     struct Tracker {
+        uint256 depositId;
         address wallet;
-        uint256 transactionId;
         uint lockerId;
         address token;
         uint amount;
@@ -101,10 +93,15 @@ contract TreasuryMILv4 {
         require( acceptedToken[ _token ], "Token not accepted");
         
         ERC20(_token).transferFrom(msg.sender, owner, _amount);
+
+        depositId++;
+
+        // uint256 memory _depositId = depositId[ msg.sender ].increment()
+        // depositId[ _depositId ] = msg.sender
         
         tracker.push( Tracker({
+            depositId: depositId,
             wallet: msg.sender,
-            transactionId: transactionId[ msg.sender ].increment(),
             lockerId: _lockerId,
             token: _token,
             amount: _amount,
@@ -124,18 +121,44 @@ contract TreasuryMILv4 {
     // 2. We make sure current timestamp is greater than endTime 
     // 2. We get how many veMILs they have
     // 3. Each week should be an epoch, and then every week we should update everyone's balance (gons)
-    // 4. keep how much rewards in a struct, 
-    // 5. 
+    // 4. keep how much rewards in a struct 
+
+    // mapping to total amount that user is is owed
+
+    // We have a storage contract that holds all of the depositId data with associated wallets
+    // Then that contracts points to a logic contract that implements changes in storage
 
 
-    function distribute(address _wallet) external returns (bool) {
-        if( _wallet == tracker.wallet ) {
-            if( tracker. )
+    function distribute(address _depositId) external returns (bool) {
+        for (let i = 0; i < tracker; i++) {
+            if( tracker.depositId == _depositId && tracker.unlockDate < block.timestamp ) {
+                
+                
+                _mint(msg.sender)
+            }    
+        }
+            
+            ( _depositId == tracker.depositId ) {
+            if( tracker.unlockDate > block.timestamp ) 
 
-            // Then go to that index and 
+
+            // Map of structs, depositId => Struct of that depositId
+
+            // When you want to redeem, we run a function that takes in your wallet address and loops over map to check:
+                // if theres a wallet address match, then we check if the current time is greater than endTime
+
+
+            // Of the total redemptions that are possible, this person owns what % of total?
+            // So maybe we keep % stake in a lockerId, and keep totals in lockerIds, with redemption. 
+
+            // 
+
+
+
         }
     }
 
+// Redemption must be to address calling the function. Make sure to change enum state prior to withdrawing funds. 
 
 
 }
