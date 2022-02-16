@@ -34,6 +34,44 @@ contract TreasuryMILv4 {
 
     // increment depositId++
     // new deposit, deposits.push[depositId]
+    // make a new array for that user, and point address to it
+    uint[] deposits.push(depositId)
+
+    // point the address to an array of structs, where each struct is a diff deposit id, and array is for diff structs, and aaddress points to them. 
+
+    mapping( address => tracker[] ) public schedule;
+
+    uint public depositId;
+    
+    function deposit( // v02
+        address _token,
+        uint _lockerId,
+        uint _amount, 
+        uint _lockUpTime
+    ) external {
+        require( acceptedToken[ _token ], "Token not accepted");
+        
+        ERC20(_token).transferFrom(msg.sender, owner, _amount);
+
+        depositId++
+
+        schedule[msg.sender] = tracker.push( Tracker({
+                depositId: depositId,
+                lockerId: _lockerId,
+                token: _token,
+                amount: _amount,
+                depositDate: uint32(block.timestamp),
+                lockUpTime: uint32(_lockUpTime),
+                unlockDate: uint32(block.timestamp + _lockUpTime)
+            }));
+    }
+
+
+
+
+
+
+    
 
     mapping( address => bool ) public acceptedToken;
     acceptedToken[ dai_address ] = true;
@@ -83,33 +121,33 @@ contract TreasuryMILv4 {
         _;
     }
 
-    // -- Functions --
-    function deposit(
-        address _token,
-        uint _lockerId,
-        uint _amount, 
-        uint _lockUpTime
-    ) external {
-        require( acceptedToken[ _token ], "Token not accepted");
+    // -- Functions -- // v01
+    // function deposit(
+    //     address _token,
+    //     uint _lockerId,
+    //     uint _amount, 
+    //     uint _lockUpTime
+    // ) external {
+    //     require( acceptedToken[ _token ], "Token not accepted");
         
-        ERC20(_token).transferFrom(msg.sender, owner, _amount);
+    //     ERC20(_token).transferFrom(msg.sender, owner, _amount);
 
-        depositId++;
+    //     depositId++;
 
-        // uint256 memory _depositId = depositId[ msg.sender ].increment()
-        // depositId[ _depositId ] = msg.sender
+    //     // uint256 memory _depositId = depositId[ msg.sender ].increment()
+    //     // depositId[ _depositId ] = msg.sender
         
-        tracker.push( Tracker({
-            depositId: depositId,
-            wallet: msg.sender,
-            lockerId: _lockerId,
-            token: _token,
-            amount: _amount,
-            depositDate: uint32(block.timestamp),
-            lockUpTime: uint32(_lockUpTime),
-            unlockDate: uint32(block.timestamp + _lockUpTime)
-        }));
-    }
+    //     tracker.push( Tracker({
+    //         depositId: depositId,
+    //         wallet: msg.sender,
+    //         lockerId: _lockerId,
+    //         token: _token,
+    //         amount: _amount,
+    //         depositDate: uint32(block.timestamp),
+    //         lockUpTime: uint32(_lockUpTime),
+    //         unlockDate: uint32(block.timestamp + _lockUpTime)
+    //     }));
+    // }
 
     // -- Transfer ownership functinons --
     // Line 149 and functions below it in Treausury.sol of wonderland
@@ -135,6 +173,7 @@ contract TreasuryMILv4 {
                 
                 
                 _mint(msg.sender)
+                // the amount of MIL they get for that depositId
             }    
         }
             
