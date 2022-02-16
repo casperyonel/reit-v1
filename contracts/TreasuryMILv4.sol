@@ -12,46 +12,61 @@ contract TreasuryMILv4 {
     // -- Events --
     event Deposit( address indexed wallet, address indexed token, uint amount );
 
-    // event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-
     // -- Accepted tokens -- 
     ERC20 public constant dai = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); // Kovan
-    // ERC20 public constant usdc = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
-    // ERC20 public constant ust = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
-    // ERC20 public constant mil = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); 
 
-    // -- Maps --
-    // mapping( address => Counters.counter ) private depositId;
-
-    mapping( uint => Tracker ) private depositId; 
-
-    mapping( address => uint[] ) walletDeposits;
-
-    uint[] public deposits;
-
-    uint public depositId;
-
-     // To get equity stake:
-    balances[msg.sender].div(totalSupply); // Equity stake in DAO
-
-    // increment depositId++
-    // new deposit, deposits.push[depositId]
-    // make a new array for that user, and point address to it
-    uint[] deposits.push(depositId)
-
-    // point the address to an array of structs, where each struct is a diff deposit id, and array is for diff structs, and aaddress points to them. 
-
+    mapping( address => bool ) public acceptedToken;
     mapping( address => tracker[] ) public schedule; // Tracks deposit info
     mapping( address => uint256 ) public balances; // Total MIL per user
     mapping( address => uint256 ) public claimedBalance; // How much each user has claimed
     mapping( uint => uint256 ) public lockerBalance; // Keeps track of MIL in each locker
 
+    // -- Arrays --
+    Tracker[] public tracker; 
+
+    // -- Structs -- 
+    struct Tracker {
+        uint256 depositId;
+        address wallet;
+        uint lockerId;
+        address token;
+        uint amount;
+        uint32 depositDate;
+        uint lockUpTime;
+        uint unlockDate;
+        bool isClaimed;
+    }
+
+    acceptedToken[ dai_address ] = true;
     uint public lockerId;
     uint public depositId;
     uint256 public totalSupply;
     uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL
     // Need to define minting privelages
+
+    address public owner; // Multi-sig
+
+    uint constant YEAR_IN_SECONDS = 31536000;
+    uint constant DAY_IN_SECONDS = 86400;   
     
+    uint public oneWeek = 5 * DAY_IN_SECONDS;
+    uint public oneMonth = 30 * DAY_IN_SECONDS;
+    uint public oneYear = YEAR_IN_SECONDS;
+    uint public twoYears = 2 * YEAR_IN_SECONDS;
+    uint public threeYears = 3 * YEAR_IN_SECONDS;
+    uint public fourYears = 4 * YEAR_IN_SECONDS;
+
+    constructor() {
+        owner = msg.sender;
+        // emit OwnershipTransferred(address(0), msg.sender);
+    }
+
+    /// @notice Only allows the `owner` to execute the function.
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Ownable: caller is not the owner");
+        _;
+    }
+
     function deposit(
         address _token,
         uint _lockerId,
@@ -75,11 +90,13 @@ contract TreasuryMILv4 {
                 unlockDate: uint32(block.timestamp + _lockUpTime), 
                 isClaimed: false
             }));
-        totalveMIL += _amount; // Mint veMIL to user ??
+        totalveMIL += mintveMIL(msg.sender, _amount); // Mint veMIL and add to total veMIL
         _mint(msg.sender, _amount)  // ???
     }
 
-    function mintveMIL(address _recipient, uint _amount) internal 
+    function mintveMIL(address _recipient, uint256 _amount) internal returns (uint) {
+        veMIL.mint(_recipient, _amount); // Need to import veMIL ERC20
+    }
 
     function claim() external nonReentrant returns(bool) {
         require(balances[msg.sender] > 0, "Wallet does not have MIL balance");
@@ -97,53 +114,6 @@ contract TreasuryMILv4 {
         }
         return true;
     } 
-
-    mapping( address => bool ) public acceptedToken;
-    acceptedToken[ dai_address ] = true;
-    // acceptedToken[ usdc ] = true;
-    // acceptedToken[ ust ] = true;
-    // acceptedToken[ mil ] = true;
-
-    // -- State variables --
-    address public owner; // Multi-sig
-    uint256 public depositId;
-
-    uint constant YEAR_IN_SECONDS = 31536000;
-    uint constant DAY_IN_SECONDS = 86400;   
-    
-    uint public oneWeek = 5 * DAY_IN_SECONDS;
-    uint public oneMonth = 30 * DAY_IN_SECONDS;
-    uint public oneYear = YEAR_IN_SECONDS;
-    uint public twoYears = 2 * YEAR_IN_SECONDS;
-    uint public threeYears = 3 * YEAR_IN_SECONDS;
-    uint public fourYears = 4 * YEAR_IN_SECONDS;
-
-    // -- Arrays --
-    Tracker[] public tracker; 
-
-    // -- Structs -- 
-    struct Tracker {
-        uint256 depositId;
-        address wallet;
-        uint lockerId;
-        address token;
-        uint amount;
-        uint32 depositDate;
-        uint lockUpTime;
-        uint unlockDate;
-        bool isClaimed;
-    }
-
-    constructor() {
-        owner = msg.sender;
-        // emit OwnershipTransferred(address(0), msg.sender);
-    }
-
-    /// @notice Only allows the `owner` to execute the function.
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Ownable: caller is not the owner");
-        _;
-    }
 
     // -- Transfer ownership functinons --
     // Line 149 and functions below it in Treausury.sol of wonderland
