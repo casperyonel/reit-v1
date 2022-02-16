@@ -6,6 +6,26 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
+library Counters {
+    using LowGasSafeMath for uint256;
+
+    struct Counter {
+        uint256 _value; // default: 0
+    }
+
+    function current(Counter storage counter) internal view returns (uint256) {
+        return counter._value;
+    }
+
+    function increment(Counter storage counter) internal {
+        counter._value += 1;
+    }
+
+    function decrement(Counter storage counter) internal {
+        counter._value = counter._value.sub(1);
+    }
+}
+
 contract TreasuryMILv4 {
 
     // -- Events --
@@ -22,8 +42,10 @@ contract TreasuryMILv4 {
     // ERC20 public constant mil = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); 
 
     // -- Maps --
+    mapping( address => Counters.counter ) private transactionId;
+
     mapping( address => bool ) public acceptedToken;
-    // acceptedToken[ dai_address ] = true;
+    acceptedToken[ dai_address ] = true;
     // acceptedToken[ usdc ] = true;
     // acceptedToken[ ust ] = true;
     // acceptedToken[ weth ] = true;
@@ -49,6 +71,7 @@ contract TreasuryMILv4 {
     // -- Structs -- 
     struct Tracker {
         address wallet;
+        uint256 transactionId;
         uint lockerId;
         address token;
         uint amount;
@@ -68,19 +91,20 @@ contract TreasuryMILv4 {
         _;
     }
 
-    // -- Functions -- /
+    // -- Functions --
     function deposit(
         address _token,
         uint _lockerId,
         uint _amount, 
         uint _lockUpTime
-    ) external returns (bool) {
-        // require( acceptedToken[ _token ], "Token not accepted");
+    ) external {
+        require( acceptedToken[ _token ], "Token not accepted");
         
         ERC20(_token).transferFrom(msg.sender, owner, _amount);
         
         tracker.push( Tracker({
             wallet: msg.sender,
+            transactionId: transactionId[ msg.sender ].increment(),
             lockerId: _lockerId,
             token: _token,
             amount: _amount,
@@ -88,11 +112,30 @@ contract TreasuryMILv4 {
             lockUpTime: uint32(_lockUpTime),
             unlockDate: uint32(block.timestamp + _lockUpTime)
         }));
-
-        return true;
     }
 
     // -- Transfer ownership functinons --
     // Line 149 and functions below it in Treausury.sol of wonderland
+
+    // Now need to mint them our veMIL tokens to hold until they can redeem
+
+    // So when they redeem:
+    // 1. We use their wallet address
+    // 2. We make sure current timestamp is greater than endTime 
+    // 2. We get how many veMILs they have
+    // 3. Each week should be an epoch, and then every week we should update everyone's balance (gons)
+    // 4. keep how much rewards in a struct, 
+    // 5. 
+
+
+    function distribute(address _wallet) external returns (bool) {
+        if( _wallet == tracker.wallet ) {
+            if( tracker. )
+
+            // Then go to that index and 
+        }
+    }
+
+
 
 }
