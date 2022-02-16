@@ -5,6 +5,7 @@ pragma experimental ABIEncoderV2; // This is for returning an array of structs.
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 contract TreasuryMILv4 {
 
@@ -17,16 +18,14 @@ contract TreasuryMILv4 {
     ERC20 public constant dai = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); // Kovan
     // ERC20 public constant usdc = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
     // ERC20 public constant ust = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
-    // ERC20 public constant weth = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa);
-    // ERC20 public constant eth = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); // Confirm?
     // ERC20 public constant mil = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); 
 
     // -- Maps --
     // mapping( address => Counters.counter ) private depositId;
 
-    mapping( uint => Tracker ) private depositId; // 
+    mapping( uint => Tracker ) private depositId; 
 
-    mapping( address => uint[] ) walletDeposits; //
+    mapping( address => uint[] ) walletDeposits;
 
     uint[] public deposits;
 
@@ -42,17 +41,18 @@ contract TreasuryMILv4 {
 
     // point the address to an array of structs, where each struct is a diff deposit id, and array is for diff structs, and aaddress points to them. 
 
-    mapping( address => tracker[] ) public schedule;
-    mapping( address => uint256 ) public balances;
-    mapping( address => uint256 ) public claimedBalance;
-    mapping( uint => uint256 ) public lockerBalance; // lockerId points to supply balance of MIL
+    mapping( address => tracker[] ) public schedule; // Tracks deposit info
+    mapping( address => uint256 ) public balances; // Total MIL per user
+    mapping( address => uint256 ) public claimedBalance; // How much each user has claimed
+    mapping( uint => uint256 ) public lockerBalance; // Keeps track of MIL in each locker
 
     uint public lockerId;
-
     uint public depositId;
     uint256 public totalSupply;
+    uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL
+    // Need to define minting privelages
     
-    function deposit( // v02
+    function deposit(
         address _token,
         uint _lockerId,
         uint _amount, 
@@ -61,8 +61,10 @@ contract TreasuryMILv4 {
         require( acceptedToken[ _token ], "Token not accepted");
         ERC20(_token).transferFrom(msg.sender, owner, _amount);
         depositId++ // Increment master tracker
-        lockerBalance[lockerId] += _amount;
-        balances[msg.sender] += _amount; // To update total ownership of MIL per address
+        totalSupply += _amount; // Increase total supply of MIL by deposit amount
+        totalLockedSupply += _amount;
+        lockerBalance[lockerId] += _amount; // Increase locker balance
+        balances[msg.sender] += _amount; // Increase user's MIL balance
         schedule[msg.sender] = tracker.push( Tracker({
                 depositId: depositId,
                 lockerId: _lockerId,
@@ -73,43 +75,37 @@ contract TreasuryMILv4 {
                 unlockDate: uint32(block.timestamp + _lockUpTime), 
                 isClaimed: false
             }));
+        totalveMIL += _amount; // Mint veMIL to user ??
+        _mint(msg.sender, _amount)  // ???
     }
 
-    function claim() external returns(bool) {
+    function mintveMIL(address _recipient, uint _amount) internal 
+
+    function claim() external nonReentrant returns(bool) {
         require(balances[msg.sender] > 0, "Wallet does not have MIL balance");
-        require(schedule[msg.sender]) // make sure isClaimed is true on their depositIds. Get there depositIds
-        // Need to know the length o fthe array
+        uint256 memory _index = schedule[msg.sender].length;
 
-        uint256 memory index = schedule[msg.sender].length;
-
-        for (let i = 0; i < index; i++) {
-            if (schedule[msg.sender][i].isClaimed == true) {
-                schedule[msg.sender][i].amount = _mint;
-
+        for (let i = 0; i < _index; i++) {
+            if (schedule[msg.sender][i].isClaimed == false && schedule[msg.sender][i].unlockDate < uint32(block.timestamp)) { // If they haven't claimed yet, and now is greater than unlockDate, mint
+                schedule[msg.sender][i].isClaimed == true; // Change first to protect reentrency. ** REECENTRENCY GAURD OPEN ZEPPELIN MODIFIER
+                uint memory _mintAmount = schedule[msg.sender][i].amount;
+                ERC20(MIL).transferFrom(owner, msg.sender, _mintAmount) // *** Replace owner with contract that holds veMIL ***
                 claimedBalance[msg.sender] += amount;
-
-                schedule[msg.sender][i].isClaimed == true;
-
-                // THEN MINT FUNDS TO THEIR WALLET, AFTER STATE CHANGE
-                // decrease their amount paid out
+                schedule[msg.sender][i].amount = 0;
+                totalLockedSupply -= _mintAmount;
             }
         }
+        return true;
     } 
-
-
-
-    
 
     mapping( address => bool ) public acceptedToken;
     acceptedToken[ dai_address ] = true;
     // acceptedToken[ usdc ] = true;
     // acceptedToken[ ust ] = true;
-    // acceptedToken[ weth ] = true;
-    // acceptedToken[ eth ] = true;
     // acceptedToken[ mil ] = true;
 
     // -- State variables --
-    address public owner;
+    address public owner; // Multi-sig
     uint256 public depositId;
 
     uint constant YEAR_IN_SECONDS = 31536000;
@@ -149,83 +145,11 @@ contract TreasuryMILv4 {
         _;
     }
 
-    // -- Functions -- // v01
-    // function deposit(
-    //     address _token,
-    //     uint _lockerId,
-    //     uint _amount, 
-    //     uint _lockUpTime
-    // ) external {
-    //     require( acceptedToken[ _token ], "Token not accepted");
-        
-    //     ERC20(_token).transferFrom(msg.sender, owner, _amount);
-
-    //     depositId++;
-
-    //     // uint256 memory _depositId = depositId[ msg.sender ].increment()
-    //     // depositId[ _depositId ] = msg.sender
-        
-    //     tracker.push( Tracker({
-    //         depositId: depositId,
-    //         wallet: msg.sender,
-    //         lockerId: _lockerId,
-    //         token: _token,
-    //         amount: _amount,
-    //         depositDate: uint32(block.timestamp),
-    //         lockUpTime: uint32(_lockUpTime),
-    //         unlockDate: uint32(block.timestamp + _lockUpTime)
-    //     }));
-    // }
-
     // -- Transfer ownership functinons --
     // Line 149 and functions below it in Treausury.sol of wonderland
 
     // Now need to mint them our veMIL tokens to hold until they can redeem
-
-    // So when they redeem:
-    // 1. We use their wallet address
-    // 2. We make sure current timestamp is greater than endTime 
-    // 2. We get how many veMILs they have
-    // 3. Each week should be an epoch, and then every week we should update everyone's balance (gons)
-    // 4. keep how much rewards in a struct 
-
-    // mapping to total amount that user is is owed
-
-    // We have a storage contract that holds all of the depositId data with associated wallets
-    // Then that contracts points to a logic contract that implements changes in storage
-
-
-    function distribute(address _depositId) external returns (bool) {
-        for (let i = 0; i < tracker; i++) {
-            if( tracker.depositId == _depositId && tracker.unlockDate < block.timestamp ) {
-                
-                
-                _mint(msg.sender)
-                // the amount of MIL they get for that depositId
-            }    
-        }
-            
-            ( _depositId == tracker.depositId ) {
-            if( tracker.unlockDate > block.timestamp ) 
-
-
-            // Map of structs, depositId => Struct of that depositId
-
-            // When you want to redeem, we run a function that takes in your wallet address and loops over map to check:
-                // if theres a wallet address match, then we check if the current time is greater than endTime
-
-
-            // Of the total redemptions that are possible, this person owns what % of total?
-            // So maybe we keep % stake in a lockerId, and keep totals in lockerIds, with redemption. 
-
-            // 
-
-
-
+    // When they deposit, we need to mint them _amount is veMIL
         }
     }
-
-// Redemption must be to address calling the function. Make sure to change enum state prior to withdrawing funds. 
-
-
 }
