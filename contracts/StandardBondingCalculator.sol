@@ -315,10 +315,10 @@ contract MILBondingCalculator is IBondingCalculator {
         ( uint reserve0, uint reserve1, ) = IUniswapV2Pair( _pair ).getReserves();
 
         uint reserve;
-        if ( IUniswapV2Pair( _pair ).token0() == address(Time) ) {
+        if ( IUniswapV2Pair( _pair ).token0() == address(MIL) ) {
             reserve = reserve1;
         } else {
-            require(IUniswapV2Pair( _pair ).token1() == address(Time), "not a Time lp pair");
+            require(IUniswapV2Pair( _pair ).token1() == address(MIL), "not a MIL lp pair");
             reserve = reserve0;
         }
         return reserve.mul( 2 * ( 10 ** MIL.decimals() ) ).div( getTotalValue( _pair ) );

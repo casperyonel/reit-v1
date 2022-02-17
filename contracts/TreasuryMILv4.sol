@@ -146,7 +146,7 @@ contract TreasuryMILv4 {
     // Debt = deposits that haven't been paid out yet
     // Debt Ratio = totalDebt / treasury.baseSupply()
 
-    5 / 100
+    // 5 / 100
  
 
     // derive a new control variable from the target debt and current supply
@@ -172,8 +172,11 @@ contract TreasuryMILv4 {
     // 1) 50k DAI x 5k MIL = $10/MIL --> x * y = k or $50k = k
     // 2) 50k DAI x 7k MIL = $7.1/MIL --> x * y = k or $50k = k
         
+    function getTotalValue;
 
-
+    function marketPrice(uint256 _id) public view override returns (uint256) {
+        return (currentControlVariable(_id) * debtRatio(_id)) / (10**metadata[_id].quoteDecimals);
+    }
 
 
 
