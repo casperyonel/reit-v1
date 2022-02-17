@@ -179,6 +179,10 @@ contract TreasuryMILv4 {
     }
 
 
+    // 1) Get value from LP, check if it's above backing price, get incrmeental difference, 
+    // then take top 5% of premium difference, else, list it at NAV.
+
+
 
 
 
