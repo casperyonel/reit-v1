@@ -43,6 +43,7 @@ contract TreasuryMILv4 {
     uint256 public totalSupply;
     uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL // Need to define minting privelages
     uint256 public totalNAV;
+    uint256 public debtOutstanding; // *****
 
     address public owner; // Multi-sig
 
@@ -91,6 +92,8 @@ contract TreasuryMILv4 {
             }));
         totalveMIL += mintveMIL(msg.sender, _amount); // Mint veMIL and add to total veMIL
         totalNAV += _amount;
+
+        debtOutstanding += _amount; // ****
     }
 
     function mintveMIL(address _recipient, uint256 _amount) internal returns (uint) {
@@ -135,6 +138,49 @@ contract TreasuryMILv4 {
         // else display NAV as bonds price
 
     }
+
+    // Bond Price = Control Variable * Debt Ratio
+    // Debt Ratio = Total Debt / Total OHM Supply (treasury.baseSupply() is a function in treasury contract)
+    // Control Variable = Bond Price / Debt Ratio
+
+    // Debt = deposits that haven't been paid out yet
+    // Debt Ratio = totalDebt / treasury.baseSupply()
+
+    5 / 100
+ 
+
+    // derive a new control variable from the target debt and current supply
+    uint64 newControlVariable = uint64((price * treasury.baseSupply()) / targetDebt);
+
+
+    4.8 * 30000 tokens = market cap
+    
+    market cap / 10000
+
+    market cap / total debt = control variable
+
+
+
+        send_ = value.sub(_profit);
+        OHM.mint(msg.sender, send_);
+
+        totalReserves = totalReserves.add(value);
+
+
+    // I know the dollar value of the LP, so then I just need to know how many MIL i have paired in there to get market price?
+
+    // 1) 50k DAI x 5k MIL = $10/MIL --> x * y = k or $50k = k
+    // 2) 50k DAI x 7k MIL = $7.1/MIL --> x * y = k or $50k = k
+        
+
+
+
+
+
+
+
+
+
     
     
     
