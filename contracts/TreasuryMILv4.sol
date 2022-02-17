@@ -6,6 +6,7 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./StandardBondingCalculator.sol";
 
 contract TreasuryMILv4 {
 
@@ -13,10 +14,9 @@ contract TreasuryMILv4 {
     event Deposit( address indexed token, uint amount, uint value );
     event CreateDebt( address indexed debtor, address indexed token, uint amount, uint value );
 
-
-
     // -- Accepted tokens -- 
     ERC20 public constant dai = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); // Kovan
+    IERC20 public constant mil = IERC20(......); // IERC20 vs. ERC20?
 
     mapping( address => bool ) public acceptedToken;
     mapping( address => tracker[] ) public schedule; // Tracks deposit info
@@ -41,14 +41,14 @@ contract TreasuryMILv4 {
     }
 
     acceptedToken[ dai_address ] = true;
+    address public owner;
     uint public lockerId;
     uint public depositId;
     uint256 public totalSupply;
     uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL // Need to define minting privelages
-    uint256 public totalNAV;
-    uint256 public debtOutstanding; // *****
-
-    address public owner; // Multi-sig
+    uint256 public totalNAV; // Total deposits
+    uint public discountRate; // Set my mult-sig owner
+    uint public bondPrice; 
 
     uint constant YEAR_IN_SECONDS = 31536000;
     uint constant DAY_IN_SECONDS = 86400;   
@@ -79,10 +79,11 @@ contract TreasuryMILv4 {
         require( acceptedToken[ _token ], "Token not accepted");
         ERC20(_token).transferFrom(msg.sender, owner, _amount);
         depositId++ // Increment master tracker
-        totalSupply += _amount; // Increase total supply of MIL by deposit amount
-        totalLockedSupply += _amount;
+        // totalSupply += _amount; // Increase total supply of MIL by deposit amount
+        totalLockedSupply += _amount; // Increase total supply of veMIL by deposit amount
+        totalNAV += _amount; // Increase backing NAV by deposit amount
         lockerBalance[lockerId] += _amount; // Increase locker balance
-        balances[msg.sender] += _amount; // Increase user's MIL balance
+        balances[msg.sender] += _amount; // Increase user's MIL balance (veMIL or MIL?)
         schedule[msg.sender] = tracker.push( Tracker({
                 depositId: depositId,
                 lockerId: _lockerId,
@@ -94,9 +95,6 @@ contract TreasuryMILv4 {
                 isClaimed: false
             }));
         totalveMIL += mintveMIL(msg.sender, _amount); // Mint veMIL and add to total veMIL
-        totalNAV += _amount;
-
-        debtOutstanding += _amount; // ****
     }
 
     function mintveMIL(address _recipient, uint256 _amount) internal returns (uint) {
@@ -119,68 +117,13 @@ contract TreasuryMILv4 {
             }
         }
         return true;
-    } 
-
-    // -- Bonding at a discount --
-    uint public discountRate;
-
-    uint public bondPrice; // This will be oracle less discountRate. Frontend reads this state upon page load. 
-
-    // if market price from oracle is above totalNAV
-    // each time you send money to multi-sig you need to increase the NAV counter, 
-
-    function changeDiscountRate(uint _rate) external onlyOwner {
-        discountRate = _rate;
-    }
-    
-    
-    function getBondPrice() public view returns (uint bondPrice) {
-        // if market price per MIL is above NAV per MIL, set bondprice = market price less 5% 
-        
-        // get chainlink oracle market price of MIL, if 5% discount is grerater than NAV, display market price minus 5%
-        // else display NAV as bonds price
-
     }
 
-    // Bond Price = Control Variable * Debt Ratio
-    // Debt Ratio = Total Debt / Total OHM Supply (treasury.baseSupply() is a function in treasury contract)
-    // Control Variable = Bond Price / Debt Ratio
+    // Market price = total LP value / total circulating supply
+    // Backing price = total NAV / total circulating supply
+    // Bond price = market price - (market premium * (1 - discoutRate))
 
-    // Debt = deposits that haven't been paid out yet
-    // Debt Ratio = totalDebt / treasury.baseSupply()
-
-    // 5 / 100
- 
-
-    // derive a new control variable from the target debt and current supply
-    uint64 newControlVariable = uint64((price * treasury.baseSupply()) / targetDebt);
-
-
-    4.8 * 30000 tokens = market cap
-    
-    market cap / 10000
-
-    market cap / total debt = control variable
-
-
-
-        send_ = value.sub(_profit);
-        OHM.mint(msg.sender, send_);
-
-        totalReserves = totalReserves.add(value);
-    // 1) 50k DAI x 5k MIL = $10/MIL --> x * y = k or $50k = k
-    // 2) 50k DAI x 7k MIL = $7.1/MIL --> x * y = k or $50k = k
-        
-    MIL = IERC20(_MIL);
-    uint discountRate = 8%; // Initialized for testing, remove. 
-    uint currentBondPrice;
-
-    
-
-    function getDiscountRate() internal returns (uint) {
-        return discountRate;
-    }
-
+    // -- Bonding -- 
     function getTotalValue( address _pair ) public view returns ( uint _value ) {
         _value = getKValue( _pair ).sqrrt().mul(2);
     }
@@ -197,18 +140,16 @@ contract TreasuryMILv4 {
         }
     }
 
+    function getDiscountRate() internal returns (uint) {
+        return discountRate;
+    }
+
     function adjustDiscountRate(uint _discountRate) external onlyOwner {
         discountRate = _discountRate;
     }
     
-    // -- Transfer ownership functinons --
+
+
+    // -- Transfer ownership logic --
     // Line 149 and functions below it in Treausury.sol of wonderland
-
-    // Now need to mint them our veMIL tokens to hold until they can redeem
-    // When they deposit, we need to mint them _amount is veMIL
-    // Have a diff bonding discount rate for LP bonds than for MIL bonds
-
-
-
-
 }
