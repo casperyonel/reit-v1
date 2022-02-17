@@ -172,9 +172,7 @@ contract TreasuryMILv4 {
     uint discountRate = 8%; // Initialized for testing, remove. 
     uint currentBondPrice;
 
-    function adjustDiscountRate(uint _discountRate) external onlyOwner {
-        discountRate = _discountRate;
-    }
+    
 
     function getDiscountRate() internal returns (uint) {
         return discountRate;
@@ -194,6 +192,10 @@ contract TreasuryMILv4 {
         } else {
             return totalNAV / totalSupply; // Bond at backing
         }
+    }
+
+    function adjustDiscountRate(uint _discountRate) external onlyOwner {
+        discountRate = _discountRate;
     }
     
     // -- Transfer ownership functinons --
