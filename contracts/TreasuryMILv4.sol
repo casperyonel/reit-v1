@@ -165,32 +165,36 @@ contract TreasuryMILv4 {
         OHM.mint(msg.sender, send_);
 
         totalReserves = totalReserves.add(value);
-
-
-    // I know the dollar value of the LP, so then I just need to know how many MIL i have paired in there to get market price?
-
     // 1) 50k DAI x 5k MIL = $10/MIL --> x * y = k or $50k = k
     // 2) 50k DAI x 7k MIL = $7.1/MIL --> x * y = k or $50k = k
         
-    function getTotalValue;
+    MIL = IERC20(_MIL);
+    uint discountRate = 8%; // Initialized for testing, remove. 
+    uint currentBondPrice;
 
-    function marketPrice(uint256 _id) public view override returns (uint256) {
-        return (currentControlVariable(_id) * debtRatio(_id)) / (10**metadata[_id].quoteDecimals);
+    function adjustDiscountRate(uint _discountRate) external onlyOwner {
+        discountRate = _discountRate;
     }
 
+    function getDiscountRate() internal returns (uint) {
+        return discountRate;
+    }
 
-    // 1) Get value from LP, check if it's above backing price, get incrmeental difference, 
-    // then take top 5% of premium difference, else, list it at NAV.
+    function getTotalValue( address _pair ) public view returns ( uint _value ) {
+        _value = getKValue( _pair ).sqrrt().mul(2);
+    }
 
+    function updateBondPrice(address _pair, uint _amount) public returns (uint currentBondPrice) {
+        _value = valuation(_pair, _amount) / 2; // Check to make sure / 2 is correct?
+        _discountRate = getDiscountRate();
 
-
-
-
-
-
-    
-    
-    
+        if (_value > totalNAV / totalSupply) { // If market price > NAV price
+            uint marketPremium = _value - (totalNAV / totalSupply);
+            return _value - ( marketPremium * (1 - _discountRate) ); // Bond at discount on premium
+        } else {
+            return totalNAV / totalSupply; // Bond at backing
+        }
+    }
     
     // -- Transfer ownership functinons --
     // Line 149 and functions below it in Treausury.sol of wonderland
