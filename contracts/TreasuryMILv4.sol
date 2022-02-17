@@ -41,14 +41,13 @@ contract TreasuryMILv4 {
     uint public lockerId;
     uint public depositId;
     uint256 public totalSupply;
-    uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL
-    // Need to define minting privelages
+    uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL // Need to define minting privelages
+    uint256 public totalNAV;
 
     address public owner; // Multi-sig
 
     uint constant YEAR_IN_SECONDS = 31536000;
     uint constant DAY_IN_SECONDS = 86400;   
-    
     uint public oneWeek = 5 * DAY_IN_SECONDS;
     uint public oneMonth = 30 * DAY_IN_SECONDS;
     uint public oneYear = YEAR_IN_SECONDS;
@@ -91,7 +90,7 @@ contract TreasuryMILv4 {
                 isClaimed: false
             }));
         totalveMIL += mintveMIL(msg.sender, _amount); // Mint veMIL and add to total veMIL
-        _mint(msg.sender, _amount)  // ???
+        totalNAV += _amount;
     }
 
     function mintveMIL(address _recipient, uint256 _amount) internal returns (uint) {
@@ -110,16 +109,44 @@ contract TreasuryMILv4 {
                 claimedBalance[msg.sender] += amount;
                 schedule[msg.sender][i].amount = 0;
                 totalLockedSupply -= _mintAmount;
+                break;
             }
         }
         return true;
     } 
 
+    // -- Bonding at a discount --
+    uint public discountRate;
+
+    uint public bondPrice; // This will be oracle less discountRate. Frontend reads this state upon page load. 
+
+    // if market price from oracle is above totalNAV
+    // each time you send money to multi-sig you need to increase the NAV counter, 
+
+    function changeDiscountRate(uint _rate) external onlyOwner {
+        discountRate = _rate;
+    }
+    
+    
+    function getBondPrice() public view returns (uint bondPrice) {
+        // if market price per MIL is above NAV per MIL, set bondprice = market price less 5% 
+        
+        // get chainlink oracle market price of MIL, if 5% discount is grerater than NAV, display market price minus 5%
+        // else display NAV as bonds price
+
+    }
+    
+    
+    
+    
     // -- Transfer ownership functinons --
     // Line 149 and functions below it in Treausury.sol of wonderland
 
     // Now need to mint them our veMIL tokens to hold until they can redeem
     // When they deposit, we need to mint them _amount is veMIL
-        }
-    }
+    // Have a diff bonding discount rate for LP bonds than for MIL bonds
+
+
+
+
 }
