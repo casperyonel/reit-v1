@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+pragma solidity >=0.5.0;
 
 // TODO(zx): Replace all instances of SafeMath with OZ implementation
 library SafeMath {
