@@ -26,8 +26,8 @@ contract TreasuryMILv4 {
 
     mapping( address => bool ) public acceptedToken;
     mapping( address => tracker[] ) public schedule; // Tracks deposit info
-    mapping( address => uint256 ) public balances; // Total MIL per user
-    mapping( uint => uint256 ) public lockerBalance; // Keeps track of MIL in each locker
+    mapping( address => uint256 ) public balances; // Total MIL per user (includes veMIL locked per user, so outstanding amount)
+    mapping( uint => uint256 ) public lockerNAV; // Keeps track of MIL in each locker
 
     // -- Arrays --
     Tracker[] public tracker; 
@@ -46,18 +46,15 @@ contract TreasuryMILv4 {
     }
 
     // acceptedToken[ dai_address ] = true;
-    address public owner;
+    address public owner; // Mult-sig owner
     uint public lockerId;
     uint public depositId;
 
-    uint256 public totalSupply; // This is total, use for price calculation MIL supply 
-    uint256 public circulatingMIL; // Claim function increase by mintAmount; Deposit function IF they deposited MIL, decrease by _amount;
-    uint256 public circulatingveMIL; // Aka locked MIL at any point in time
-    // increase veMIL by mintAmount in deposit function
-    // decrease veMIL by mintAmount in claim function
+    uint256 public totalSupply; 
+    uint256 public circulatingMIL; 
+    uint256 public circulatingveMIL;
 
-    uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL // Need to define minting privelages
-    uint256 public totalNAV; // Increase on deposit function, don't touch for claim function
+    uint256 public totalNAV;
 
     uint public discountRate; // Controlled by mult-sig owner
     uint public bondPrice; 
@@ -66,11 +63,9 @@ contract TreasuryMILv4 {
     IMIL public immutable MIL; // Use IMIL since we're just doing mint / burnFrom functions
     IMIL public immutable veMIL; // Use IMIL since we're just doing mint / burnFrom functions
 
-    
-
     TwapGetter public twapGetter;
     uint32 twapInterval; // CHANGE UPON DEPLOYMENT
-
+    
     uint constant YEAR_IN_SECONDS = 31536000;
     uint constant DAY_IN_SECONDS = 86400;   
     uint public oneWeek = 7 * DAY_IN_SECONDS;
@@ -106,20 +101,18 @@ contract TreasuryMILv4 {
         
         uint mintAmount; 
 
-        when they bond, mintAmount increases totalSupply. 
-        Then when they redeem, totalSupply doesn't change. If they deposit MIL, no change in totalSupply
-
         IERC20(_token).transferFrom(msg.sender, owner, _amount);
-
-        // totalSupply - outstandingveMIL = circulatingMIL
         
         if( _token != MIL ) {  // DAI / USDC / MIM / ETC
             mintAmount = _amount * (1 + discountRate);
+            balances[msg.sender] += mintAmount; // Update user balance with newly minted MIL (includes locked balance)
 
+            totalNAV += _amount;
             circulatingveMIL += mintAmount;
             totalSupply += mintAmount; // This is main MIL supply
+            
         } else { // MIL
-            mintAmount = _amount; 
+            mintAmount = _amount;
 
             circulatingveMIL += mintAmount;
             circulatingMIL -= mintAmount;
@@ -138,79 +131,83 @@ contract TreasuryMILv4 {
             isClaimed: false
         }));  
         }
-        depositId++; // Increment master tracker
 
+        depositId++;
+        lockerNAV[lockerId] += _amount; // Update lockerBalance NAV
 
-uint256 public totalSupply; // veMIL + MIL. Increase by mintAmount for deposit, DONT TOUCH for claim 
-uint256 public circulatingMIL; // Claim function increase by mintAmount; Deposit function IF they deposited MIL, decrease by _amount;
-uint256 public circulatingveMIL; // Aka locked MIL at any point in time
-// increase veMIL by mintAmount in deposit function
-// decrease veMIL by mintAmount in claim function
-
-uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL // Need to define minting privelages
-uint256 public totalNAV; // Increase on deposit function, don't touch for claim function
-
-
-
-        totalveMIL += _amount; // Increase total supply of veMIL by deposit amount
-        totalNAV += _amount; // Increase backing NAV by deposit amount
-        lockerBalance[lockerId] += _amount; // Increase locker balance
-        balances[msg.sender] += _amount; // Increase user's MIL balance (veMIL or MIL?)
     }
 
     function claim() external nonReentrant returns(bool) {
-        require(balances[msg.sender] > 0, "Wallet does not have MIL balance");
+        require(balances[msg.sender] > 0, "Wallet does not have MIL balance"); // Should also check wallet.balanceOf(MIL) > 0
         uint256 _index = schedule[msg.sender].length;
 
         for (i = 0; i < _index; i++) {
+            
             if ( schedule[msg.sender][i].isClaimed == false && schedule[msg.sender][i].unlockDate < uint32(block.timestamp) ) { // If they haven't claimed yet, and now is greater than unlockDate, mint
-                schedule[msg.sender][i].isClaimed = true; // Change first to protect against reentrency
+                
+                schedule[msg.sender][i].isClaimed = true; // First change to True to protect against reentrency attacks
 
                 veMIL.burnFrom( msg.sender, schedule[msg.sender][i].amount ) // Burn their veMIL
+                circulatingveMIL -= schedule[msg.sender][i].amount;
+                
                 MIL.mint( msg.sender, schedule[msg.sender][i].amount ) // Mint them 1-to-1 MIL
+                circulatingMIL += schedule[msg.sender][i].amount;
             
-                totalveMIL -= _mintAmount;
-
-                // Adjust totalveMIL
-                // Adjust totalMIL
                 return true
             } else {
                 return false
             }
         }
     }
+
     // Market price = total LP value / total circulating supply
     // Backing price = total NAV / total circulating supply
     // Bond price = market price - (market premium * (1 - discoutRate))
 
-    function getBacking() external view returns ( uint MILtoNAV ) {
-            return totalSupply / totalNAV;
-        } // Includes locked / unlcaimed tokens
+    function updateBondPrice(address _pair) public returns (uint currentBondPrice) { 
+        _value = twapGetter.getSqrtTwapX96( address uniswapV3Pool, uint32 twapInterval ); // CHANGE ARGUMENTS ****
 
-    function getNonLockedMILBacking external view returns ( uint NonLockedMILtoNAV ) {
-        return (totalSupply - circulatingveMIL) / totalNAV;
-    }
+        if ( ( _value * totalSupply ) > ( 1 * totalNAV ) ) { // NEED TO CHANGE TO MARKET VALUE OF MULTI - SIG (land, or backing value)
+            uint marketPremium = ( _value * totalSupply ) - ( 1 * totalNAV ) / totalSupply;
+            return _value - ( marketPremium * (1 - discountRate) ); 
+        } 
 
-    function getPercentOfMILLocked external view returns ( uint LockedveMILtoTotalSupply ) {
-        return ( circulatingveMIL / totalSupply ); // We want as high as possible
-    }
-
-    function updateBondPrice(address _pair, uint _amount) public returns (uint currentBondPrice) {
-        // _value = valuation(_pair, _amount) / 2; // Check to make sure / 2 is correct?
-        _value = twapGetter.getSqrtTwapX96( address uniswapV3Pool, uint32 twapInterval ) // CHANGE ARGUMENTS
-
-        if (_value > totalNAV / totalSupply) { // If market price > NAV price
+        if (_value > totalNAV / totalSupply) { // If market price > NAV backing price ???
             uint marketPremium = _value - (totalNAV / totalSupply);
             return _value - ( marketPremium * (1 - discountRate) ); // Bond at discount on premium
         } else {
             return totalNAV / totalSupply; // Bond at backing
         }
-
-        
     }
 
     function adjustDiscountRate(uint _discountRate) external onlyOwner {
         discountRate = _discountRate;
+    }
+
+    function getBackingPerMILSupply() external view returns ( uint MILtoNANSupply ) {
+            return totalSupply / totalNAV;
+        } // Doesn't account for market price of MIL though, right?
+
+    function getBackingPerMILMarketPrice() external view returns ( uint MILtoNAV ) {
+            // find market price of MIL
+
+
+            
+            
+            return totalSupply / totalNAV;
+        } // Doesn't account for market price of MIL though, right?
+
+    function getNonLockedMILBacking external view returns ( uint NonLockedMILtoNAV ) {
+        return ( totalSupply - circulatingveMIL ) / totalNAV;
+    }
+
+    function getPercentOfMILLocked external view returns ( uint LockedMILtoTotalSupply ) {
+        require( totalSupply = circulatingMIL +  circulatingveMIL, "Error: Total Supply does not equal circulatingveMIL + circulatingMIL" )
+        return ( circulatingveMIL / totalSupply );
+    }
+    
+    function checkCalcs external view returns (uint shouldBeZero) {
+        return totalSupply - circulatingveMIL - circulatingMIL;
     }
     
 
