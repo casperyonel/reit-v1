@@ -6,10 +6,13 @@ import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "./Interfaces/IERC20.sol";
+import "./Interfaces/IERC20Permit.sol";
+import "./Interfaces/IMIL.sol";
 import "./StandardBondingCalculator.sol";
+import "./TwapGetter.sol";
 import "./MILERC20.sol";
 import "./veMILERC20.sol";
-import "./TwapGetter.sol";
 
 contract TreasuryMILv4 {
 
@@ -42,7 +45,7 @@ contract TreasuryMILv4 {
         uint unlockDate;
         bool isClaimed;
     }
-
+    
     // acceptedToken[ dai_address ] = true;
     address public owner;
     uint public lockerId;
@@ -50,16 +53,17 @@ contract TreasuryMILv4 {
     uint256 public totalSupply;
     uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL // Need to define minting privelages
     uint256 public totalNAV; // Total deposits
-    uint public discountRate; // Set my mult-sig owner
+    uint public discountRate; // Controlled by mult-sig owner
     uint public bondPrice; 
-    IMIL public MIL;
+    IMIL public immutable MIL; // Use IMIL since we're just doing mint / burnFrom functions
+    IMIL public immutable veMIL; // Use IMIL since we're just doing mint / burnFrom functions
 
-    TwapGetter public joe;
+    TwapGetter public twapGetter;
     uint32 twapInterval; // CHANGE UPON DEPLOYMENT
 
     uint constant YEAR_IN_SECONDS = 31536000;
     uint constant DAY_IN_SECONDS = 86400;   
-    uint public oneWeek = 5 * DAY_IN_SECONDS;
+    uint public oneWeek = 7 * DAY_IN_SECONDS;
     uint public oneMonth = 30 * DAY_IN_SECONDS;
     uint public oneYear = YEAR_IN_SECONDS;
     uint public twoYears = 2 * YEAR_IN_SECONDS;
@@ -69,9 +73,9 @@ contract TreasuryMILv4 {
     constructor(address _MIL, address _veMIL) {
         owner = msg.sender;
         // emit OwnershipTransferred(address(0), msg.sender);
-        joe = new TwapGetter();
+        twapGetter = new TwapGetter();
 
-        MIL = MILERC20( _MIL ); // Deploy MIL contract before, pass in as _MIL. 
+        MIL = MILERC20( _MIL ); // Deploy MIL contract before, pass in as _MIL, immutable keyword so read-only but constructor. 
         veMIL = veMILERC20( _veMIL ); // Deploy veMIL contract before, pass in as _veMIL. 
     }
 
@@ -87,10 +91,32 @@ contract TreasuryMILv4 {
         uint _amount,
         uint _lockUpTime
     ) external {
-        // require( acceptedToken[ _token ], "Token not accepted");
-        _bondPrice = updateBondPrice();
+        require( acceptedToken[ _token ], "Token not accepted");
+        reqiure( _amount > 0, "Purchase amount is 0" );
+        uint mintAmount;
+        
         ERC20(_token).transferFrom(msg.sender, owner, _bondPrice);
-        veMIL.mint(msg.sender, _amount);
+        
+        if( _token != MIL ) { 
+            mintAmount = _amount * (1 + discountRate);
+        else {
+            mintAmount = _amount;
+        }
+        
+        veMIL.mint(msg.sender, mintAmount);
+
+        schedule[msg.sender] = tracker.push( Tracker({
+            depositId: depositId,
+            lockerId: _lockerId,
+            token: _token,
+            amount: mintAmount,
+            depositDate: uint32(block.timestamp),
+            lockUpTime: uint32(_lockUpTime),
+            unlockDate: uint32(block.timestamp + _lockUpTime), 
+            isClaimed: false
+        }));
+            
+        }
 
         depositId++; // Increment master tracker
         // totalSupply += _amount; // Increase total supply of MIL by deposit amount
@@ -98,21 +124,8 @@ contract TreasuryMILv4 {
         totalNAV += _amount; // Increase backing NAV by deposit amount
         lockerBalance[lockerId] += _amount; // Increase locker balance
         balances[msg.sender] += _amount; // Increase user's MIL balance (veMIL or MIL?)
-        schedule[msg.sender] = tracker.push( Tracker({
-                depositId: depositId,
-                lockerId: _lockerId,
-                token: _token,
-                amount: _amount,
-                depositDate: uint32(block.timestamp),
-                lockUpTime: uint32(_lockUpTime),
-                unlockDate: uint32(block.timestamp + _lockUpTime), 
-                isClaimed: false
-            }));
-        mintveMIL(msg.sender, _amount); // Mint veMIL and add to total veMIL
-    }
-
-    function mintveMIL(address _recipient, uint256 _amount) internal returns (uint) {
-        veMIL.mint(_recipient, _amount); // Need to import veMIL ERC20
+        
+        veMIL.mint(msg.sender, _amount); // Mint veMIL and add to total veMIL
     }
 
     function claim() external nonReentrant returns(bool) {
@@ -145,7 +158,7 @@ contract TreasuryMILv4 {
 
     function updateBondPrice(address _pair, uint _amount) public returns (uint currentBondPrice) {
         // _value = valuation(_pair, _amount) / 2; // Check to make sure / 2 is correct?
-        _value = joe.getSqrtTwapX96( address uniswapV3Pool, uint32 twapInterval ) // CHANGE ARGUMENTS
+        _value = twapGetter.getSqrtTwapX96( address uniswapV3Pool, uint32 twapInterval ) // CHANGE ARGUMENTS
 
         if (_value > totalNAV / totalSupply) { // If market price > NAV price
             uint marketPremium = _value - (totalNAV / totalSupply);
