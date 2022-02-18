@@ -17,10 +17,9 @@ contract MILERC20 is ERC20Permit, IMIL, OlympusAccessControlled {
     address public treasury;
     address public owner;
 
-    // Could change below to be _owner and _treasury addresses and deploy first
-    constructor(address _initializer) 
-        ERC20("Magic Internet Land", "MIL", 9)
-        ERC20Permit("MagicInternetLand")
+    constructor(address _initializer)
+        ERC20("Voting Escrow Magic Internet Land", "veMIL", 9)
+        ERC20Permit("LockedEscrowMagicInternetLand")
         OlympusAccessControlled(IOlympusAuthority(_authority))
     {
         initializer = msg.sender; // Only multi-sig or treasury contract can mint. 

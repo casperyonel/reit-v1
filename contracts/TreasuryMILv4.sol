@@ -7,7 +7,8 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./StandardBondingCalculator.sol";
-import "./interfaces/IMIL.sol";
+import "./MILERC20.sol";
+import "./veMILERC20.sol";
 import "./TwapGetter.sol";
 
 contract TreasuryMILv4 {
@@ -51,6 +52,7 @@ contract TreasuryMILv4 {
     uint256 public totalNAV; // Total deposits
     uint public discountRate; // Set my mult-sig owner
     uint public bondPrice; 
+    IMIL public MIL;
 
     TwapGetter public joe;
     uint32 twapInterval; // CHANGE UPON DEPLOYMENT
@@ -64,10 +66,13 @@ contract TreasuryMILv4 {
     uint public threeYears = 3 * YEAR_IN_SECONDS;
     uint public fourYears = 4 * YEAR_IN_SECONDS;
 
-    constructor() {
+    constructor(address _MIL, address _veMIL) {
         owner = msg.sender;
         // emit OwnershipTransferred(address(0), msg.sender);
         joe = new TwapGetter();
+
+        MIL = MILERC20( _MIL ); // Deploy MIL contract before, pass in as _MIL. 
+        veMIL = veMILERC20( _veMIL ); // Deploy veMIL contract before, pass in as _veMIL. 
     }
 
     /// @notice Only allows the `owner` to execute the function.
@@ -79,14 +84,14 @@ contract TreasuryMILv4 {
     function deposit(
         address _token,
         uint _lockerId,
-        uint _amount, 
+        uint _amount,
         uint _lockUpTime
     ) external {
         // require( acceptedToken[ _token ], "Token not accepted");
         _bondPrice = updateBondPrice();
+        ERC20(_token).transferFrom(msg.sender, owner, _bondPrice);
+        veMIL.mint(msg.sender, _amount);
 
-        ERC20(_token).transferFrom(msg.sender, owner, _bondPrice); // Transfers discounted amount
-        MIL.mint(msg.sender, owner, _amount); // Mints total
         depositId++; // Increment master tracker
         // totalSupply += _amount; // Increase total supply of MIL by deposit amount
         totalveMIL += _amount; // Increase total supply of veMIL by deposit amount
@@ -103,7 +108,7 @@ contract TreasuryMILv4 {
                 unlockDate: uint32(block.timestamp + _lockUpTime), 
                 isClaimed: false
             }));
-        totalveMIL += mintveMIL(msg.sender, _amount); // Mint veMIL and add to total veMIL
+        mintveMIL(msg.sender, _amount); // Mint veMIL and add to total veMIL
     }
 
     function mintveMIL(address _recipient, uint256 _amount) internal returns (uint) {
