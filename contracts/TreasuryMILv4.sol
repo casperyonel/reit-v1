@@ -16,7 +16,7 @@ contract TreasuryMILv4 {
 
     // -- Accepted tokens -- 
     ERC20 public constant dai = ERC20(0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa); // Kovan
-    IERC20 public constant mil = IERC20(......); // IERC20 vs. ERC20?
+    // IERC20 public constant mil = IERC20(......); // IERC20 vs. ERC20?
 
     mapping( address => bool ) public acceptedToken;
     mapping( address => tracker[] ) public schedule; // Tracks deposit info
@@ -40,7 +40,7 @@ contract TreasuryMILv4 {
         bool isClaimed;
     }
 
-    acceptedToken[ dai_address ] = true;
+    // acceptedToken[ dai_address ] = true;
     address public owner;
     uint public lockerId;
     uint public depositId;
@@ -76,11 +76,11 @@ contract TreasuryMILv4 {
         uint _amount, 
         uint _lockUpTime
     ) external {
-        require( acceptedToken[ _token ], "Token not accepted");
+        // require( acceptedToken[ _token ], "Token not accepted");
         ERC20(_token).transferFrom(msg.sender, owner, _amount);
-        depositId++ // Increment master tracker
+        depositId++; // Increment master tracker
         // totalSupply += _amount; // Increase total supply of MIL by deposit amount
-        totalLockedSupply += _amount; // Increase total supply of veMIL by deposit amount
+        totalveMIL += _amount; // Increase total supply of veMIL by deposit amount
         totalNAV += _amount; // Increase backing NAV by deposit amount
         lockerBalance[lockerId] += _amount; // Increase locker balance
         balances[msg.sender] += _amount; // Increase user's MIL balance (veMIL or MIL?)
@@ -105,14 +105,15 @@ contract TreasuryMILv4 {
         require(balances[msg.sender] > 0, "Wallet does not have MIL balance");
         uint256 memory _index = schedule[msg.sender].length;
 
-        for (let i = 0; i < _index; i++) {
+        for (i = 0; i < _index; i++) {
             if (schedule[msg.sender][i].isClaimed == false && schedule[msg.sender][i].unlockDate < uint32(block.timestamp)) { // If they haven't claimed yet, and now is greater than unlockDate, mint
                 schedule[msg.sender][i].isClaimed == true; // Change first to protect reentrency. ** REECENTRENCY GAURD OPEN ZEPPELIN MODIFIER
                 uint memory _mintAmount = schedule[msg.sender][i].amount;
-                ERC20(MIL).transferFrom(owner, msg.sender, _mintAmount) // *** Replace owner with contract that holds veMIL ***
+                ERC20(MIL).transferFrom(owner, msg.sender, _mintAmount); // *** Replace owner with contract that holds veMIL ***
                 claimedBalance[msg.sender] += amount;
                 schedule[msg.sender][i].amount = 0;
-                totalLockedSupply -= _mintAmount;
+                totalveMIL -= _mintAmount;
+                // Need to burn veMIL
                 break;
             }
         }
