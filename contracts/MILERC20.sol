@@ -13,21 +13,38 @@ import "./types/OlympusAccessControlled.sol"; // ???
 contract MILERC20 is ERC20Permit, IMIL, OlympusAccessControlled {
     using SafeMath for uint256;
 
-    address public owner;
+    address public initializer;
     address public treasury;
+    address public owner;
 
     constructor(address _owner)
         ERC20("Magic Internet Land", "MIL", 9)
         ERC20Permit("MagicInternetLand")
         OlympusAccessControlled(IOlympusAuthority(_authority))
     {
-        owner = msg.sender; // Only multi-sig or treasury contract can mint. 
+        initializer = msg.sender; // Only multi-sig or treasury contract can mint. 
     }
 
      /// @notice Only allows the `owner and Treasury contract` to execute mint burn functions.
     modifier onlyOwner_or_Treasury() {
         require(msg.sender == owner || msg.sender == treasury, "Owner or Treasury: caller is not the owner or treasury");
         _;
+    }
+
+    // do this last
+    function initializeOwner_Treasury(address _owner, address _treasury) external {
+        require(msg.sender == initializer, "Initializer:  caller is not initializer");
+
+        require(_owner != address(0), "Staking");
+        owner = _owner;
+
+        require(_treasury != address(0), "Zero address: Treasury");
+        treasury = _treasury;
+
+        emit Transfer(address(0x0), stakingContract, _totalSupply);
+        emit LogStakingContractUpdated(stakingContract);
+
+        initializer = address(0);
     }
 
     function mint(address account_, uint256 amount_) external override onlyOwner_or_Treasury {
