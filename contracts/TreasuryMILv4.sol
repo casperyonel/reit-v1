@@ -49,13 +49,24 @@ contract TreasuryMILv4 {
     address public owner;
     uint public lockerId;
     uint public depositId;
-    uint256 public totalSupply;
+
+    uint256 public totalSupply; // This is total, use for price calculation MIL supply 
+    uint256 public circulatingMIL; // Claim function increase by mintAmount; Deposit function IF they deposited MIL, decrease by _amount;
+    uint256 public circulatingveMIL; // Aka locked MIL at any point in time
+    // increase veMIL by mintAmount in deposit function
+    // decrease veMIL by mintAmount in claim function
+
     uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL // Need to define minting privelages
-    uint256 public totalNAV; // Total deposits
+    uint256 public totalNAV; // Increase on deposit function, don't touch for claim function
+
     uint public discountRate; // Controlled by mult-sig owner
     uint public bondPrice; 
+
+    // -- Tokens --
     IMIL public immutable MIL; // Use IMIL since we're just doing mint / burnFrom functions
     IMIL public immutable veMIL; // Use IMIL since we're just doing mint / burnFrom functions
+
+    
 
     TwapGetter public twapGetter;
     uint32 twapInterval; // CHANGE UPON DEPLOYMENT
@@ -95,12 +106,23 @@ contract TreasuryMILv4 {
         
         uint mintAmount; 
 
+        when they bond, mintAmount increases totalSupply. 
+        Then when they redeem, totalSupply doesn't change. If they deposit MIL, no change in totalSupply
+
         IERC20(_token).transferFrom(msg.sender, owner, _amount);
+
+        // totalSupply - outstandingveMIL = circulatingMIL
         
-        if( _token != MIL ) { 
+        if( _token != MIL ) {  // DAI / USDC / MIM / ETC
             mintAmount = _amount * (1 + discountRate);
-        else {
-            mintAmount = _amount;
+
+            circulatingveMIL += mintAmount;
+            totalSupply += mintAmount; // This is main MIL supply
+        } else { // MIL
+            mintAmount = _amount; 
+
+            circulatingveMIL += mintAmount;
+            circulatingMIL -= mintAmount;
         }
         
         veMIL.mint(msg.sender, mintAmount);
@@ -116,15 +138,24 @@ contract TreasuryMILv4 {
             isClaimed: false
         }));  
         }
-
         depositId++; // Increment master tracker
-        // totalSupply += _amount; // Increase total supply of MIL by deposit amount
+
+
+uint256 public totalSupply; // veMIL + MIL. Increase by mintAmount for deposit, DONT TOUCH for claim 
+uint256 public circulatingMIL; // Claim function increase by mintAmount; Deposit function IF they deposited MIL, decrease by _amount;
+uint256 public circulatingveMIL; // Aka locked MIL at any point in time
+// increase veMIL by mintAmount in deposit function
+// decrease veMIL by mintAmount in claim function
+
+uint256 public totalveMIL; // Deposit function mints veMIL, claim function burns veMIL // Need to define minting privelages
+uint256 public totalNAV; // Increase on deposit function, don't touch for claim function
+
+
+
         totalveMIL += _amount; // Increase total supply of veMIL by deposit amount
         totalNAV += _amount; // Increase backing NAV by deposit amount
         lockerBalance[lockerId] += _amount; // Increase locker balance
         balances[msg.sender] += _amount; // Increase user's MIL balance (veMIL or MIL?)
-        
-        veMIL.mint(msg.sender, _amount); // Mint veMIL and add to total veMIL
     }
 
     function claim() external nonReentrant returns(bool) {
@@ -152,10 +183,17 @@ contract TreasuryMILv4 {
     // Backing price = total NAV / total circulating supply
     // Bond price = market price - (market premium * (1 - discoutRate))
 
-    // -- Bonding -- 
-    // function getTotalValue( address _pair ) public view returns ( uint _value ) {
-    //     _value = getKValue( _pair ).sqrrt().mul(2);
-    // }
+    function getBacking() external view returns ( uint MILtoNAV ) {
+            return totalSupply / totalNAV;
+        } // Includes locked / unlcaimed tokens
+
+    function getNonLockedMILBacking external view returns ( uint NonLockedMILtoNAV ) {
+        return (totalSupply - circulatingveMIL) / totalNAV;
+    }
+
+    function getPercentOfMILLocked external view returns ( uint LockedveMILtoTotalSupply ) {
+        return ( circulatingveMIL / totalSupply ); // We want as high as possible
+    }
 
     function updateBondPrice(address _pair, uint _amount) public returns (uint currentBondPrice) {
         // _value = valuation(_pair, _amount) / 2; // Check to make sure / 2 is correct?
@@ -167,6 +205,8 @@ contract TreasuryMILv4 {
         } else {
             return totalNAV / totalSupply; // Bond at backing
         }
+
+        
     }
 
     function adjustDiscountRate(uint _discountRate) external onlyOwner {
