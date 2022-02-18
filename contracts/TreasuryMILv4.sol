@@ -8,6 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./StandardBondingCalculator.sol";
 import "./interfaces/IMIL.sol";
+import "./TwapGetter.sol";
 
 contract TreasuryMILv4 {
 
@@ -51,6 +52,9 @@ contract TreasuryMILv4 {
     uint public discountRate; // Set my mult-sig owner
     uint public bondPrice; 
 
+    TwapGetter public joe;
+    uint32 twapInterval; // CHANGE UPON DEPLOYMENT
+
     uint constant YEAR_IN_SECONDS = 31536000;
     uint constant DAY_IN_SECONDS = 86400;   
     uint public oneWeek = 5 * DAY_IN_SECONDS;
@@ -63,6 +67,7 @@ contract TreasuryMILv4 {
     constructor() {
         owner = msg.sender;
         // emit OwnershipTransferred(address(0), msg.sender);
+        joe = new TwapGetter();
     }
 
     /// @notice Only allows the `owner` to execute the function.
@@ -78,8 +83,10 @@ contract TreasuryMILv4 {
         uint _lockUpTime
     ) external {
         // require( acceptedToken[ _token ], "Token not accepted");
-        ERC20(_token).transferFrom(msg.sender, owner, _amount);
-        MIL.mint(msg.sender, owner, _amount);
+        _bondPrice = updateBondPrice();
+
+        ERC20(_token).transferFrom(msg.sender, owner, _bondPrice); // Transfers discounted amount
+        MIL.mint(msg.sender, owner, _amount); // Mints total
         depositId++; // Increment master tracker
         // totalSupply += _amount; // Increase total supply of MIL by deposit amount
         totalveMIL += _amount; // Increase total supply of veMIL by deposit amount
@@ -127,24 +134,20 @@ contract TreasuryMILv4 {
     // Bond price = market price - (market premium * (1 - discoutRate))
 
     // -- Bonding -- 
-    function getTotalValue( address _pair ) public view returns ( uint _value ) {
-        _value = getKValue( _pair ).sqrrt().mul(2);
-    }
+    // function getTotalValue( address _pair ) public view returns ( uint _value ) {
+    //     _value = getKValue( _pair ).sqrrt().mul(2);
+    // }
 
     function updateBondPrice(address _pair, uint _amount) public returns (uint currentBondPrice) {
-        _value = valuation(_pair, _amount) / 2; // Check to make sure / 2 is correct?
-        _discountRate = getDiscountRate();
+        // _value = valuation(_pair, _amount) / 2; // Check to make sure / 2 is correct?
+        _value = joe.getSqrtTwapX96( address uniswapV3Pool, uint32 twapInterval ) // CHANGE ARGUMENTS
 
         if (_value > totalNAV / totalSupply) { // If market price > NAV price
             uint marketPremium = _value - (totalNAV / totalSupply);
-            return _value - ( marketPremium * (1 - _discountRate) ); // Bond at discount on premium
+            return _value - ( marketPremium * (1 - discountRate) ); // Bond at discount on premium
         } else {
             return totalNAV / totalSupply; // Bond at backing
         }
-    }
-
-    function getDiscountRate() internal returns (uint) {
-        return discountRate;
     }
 
     function adjustDiscountRate(uint _discountRate) external onlyOwner {
