@@ -55,6 +55,7 @@ contract TreasuryMILv4 {
     uint256 public circulatingveMIL;
 
     uint256 public totalNAV;
+    uint256 public marketValueOfNAV;
 
     uint public discountRate; // Controlled by mult-sig owner
     uint public bondPrice; 
@@ -65,6 +66,8 @@ contract TreasuryMILv4 {
 
     TwapGetter public twapGetter;
     uint32 twapInterval; // CHANGE UPON DEPLOYMENT
+    address MILpair; // CHANGE UPON DEPLOYMENT OF UNIPOOL
+    address NAVpair; // CHANGE UPON DEPLOYMENT OF LAND PURCHASES
     
     uint constant YEAR_IN_SECONDS = 31536000;
     uint constant DAY_IN_SECONDS = 86400;   
@@ -160,23 +163,16 @@ contract TreasuryMILv4 {
         }
     }
 
-    // Market price = total LP value / total circulating supply
-    // Backing price = total NAV / total circulating supply
-    // Bond price = market price - (market premium * (1 - discoutRate))
-
     function updateBondPrice(address _pair) public returns (uint currentBondPrice) { 
         _value = twapGetter.getSqrtTwapX96( address uniswapV3Pool, uint32 twapInterval ); // CHANGE ARGUMENTS ****
 
-        if ( ( _value * totalSupply ) > ( 1 * totalNAV ) ) { // NEED TO CHANGE TO MARKET VALUE OF MULTI - SIG (land, or backing value)
+        // if (_value > totalNAV / totalSupply) { // If market price > NAV backing price ???
+        if ( ( _value * totalSupply ) > ( 1 * totalNAV ) ) { // NEED TO CHANGE TO MARKET VALUE OF NAV from multi-sig valuation
             uint marketPremium = ( _value * totalSupply ) - ( 1 * totalNAV ) / totalSupply;
             return _value - ( marketPremium * (1 - discountRate) ); 
-        } 
-
-        if (_value > totalNAV / totalSupply) { // If market price > NAV backing price ???
-            uint marketPremium = _value - (totalNAV / totalSupply);
-            return _value - ( marketPremium * (1 - discountRate) ); // Bond at discount on premium
         } else {
-            return totalNAV / totalSupply; // Bond at backing
+            // return marketValueOfNAV // Bond at Backing
+            return totalNAV / totalSupply; // Bond at backing ??? CHECK    
         }
     }
 
@@ -184,18 +180,24 @@ contract TreasuryMILv4 {
         discountRate = _discountRate;
     }
 
+    function getMILMarketPrice(address _pair) public view returns (uint currentMILMarketPrice) { 
+        _value = twapGetter.getSqrtTwapX96( address uniswapV3Pool, uint32 twapInterval ); // CHANGE ARGUMENTS **** 
+    }
+
+    function getNAVMarketPrice(address _nav) public view returns (uint currentNAVMarketPrice) {
+        _NAVvalue = // CHANGE FOR VALUATION OF MULTI-SIG
+    }
+
+
     function getBackingPerMILSupply() external view returns ( uint MILtoNANSupply ) {
             return totalSupply / totalNAV;
         } // Doesn't account for market price of MIL though, right?
 
     function getBackingPerMILMarketPrice() external view returns ( uint MILtoNAV ) {
-            // find market price of MIL
-
-
-            
-            
-            return totalSupply / totalNAV;
-        } // Doesn't account for market price of MIL though, right?
+            _marketPrice = getMILMarketPrice( MILpair ) // CHANGE
+            _NAVmarketPrice = getNAVMarketPrice( NAVpair ) // CHANGE
+            return _marketPrice / _NAVmarketPrice;
+        } 
 
     function getNonLockedMILBacking external view returns ( uint NonLockedMILtoNAV ) {
         return ( totalSupply - circulatingveMIL ) / totalNAV;
