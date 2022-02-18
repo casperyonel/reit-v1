@@ -104,6 +104,7 @@ contract TreasuryMILv4 {
         
         uint mintAmount; 
 
+        // IERC20(_token).transferFrom(msg.sender, owner, _amount);
         IERC20(_token).transferFrom(msg.sender, owner, _amount);
         
         if( _token != MIL ) {  // DAI / USDC / MIM / ETC

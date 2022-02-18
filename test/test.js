@@ -7,21 +7,23 @@ describe("Our Demo Token", function () {
   let owner;
   let addr1;
   let addr2;
+  let treasuryMILv4;
 
   beforeEach(async function() {
     const DemoToken = await hre.ethers.getContractFactory("DemoToken");
     demoToken = await DemoToken.deploy();
     await demoToken.deployed();
 
-    const TreasuryMILv4 = await ethers.getContractFactory("TreasuryMILv4");
+    TreasuryMILv4 = await ethers.getContractFactory("TreasuryMILv4");
     const treasuryMILv4 = await TreasuryMILv4.deploy();
     await treasuryMILv4.deployed();
 
     [owner, addr1, addr2] = await ethers.getSigners();
+    demoToken.approve(treasuryMILv4.address, 1000000000, { from: addr1 })
   });
 
   it("Should should successfully deploy", async function () {
-    console.log("success!");
+    console.log(treasuryMILv4.address);
   });
 
   it("Should deploy with 1m of supply for the owner of the contract", async function() {
@@ -41,10 +43,10 @@ describe("Our Demo Token", function () {
     expect(await demoToken.balanceOf(addr2.address)).to.equal(ethers.utils.parseEther("1000"));
   })
 
-it("Should let you deposit to addr2", async function() {
-    await demoToken.connect(addr1).approve(owner.address, ethers.utils.parseEther("1000"));
-    await treasuryMILv4.deposit(demoToken, 12, ethers.utils.parseEther("100"), 1000);
-    expect(await demoToken.balanceOf(addr1.address)).to.equal(ethers.utils.parseEther("100"));
+it.only("Should let you deposit to addr2", async function() {
+    // await demoToken.connect(addr1).approve(owner.address, ethers.utils.parseEther("1000"));
+    await treasuryMILv4.deposit(demoToken, 12, ethers.utils.parseEther("100"), 1000, { from: addr1 }); // Confirm?
+    expect(await demoToken.balanceOf(owner.address)).to.equal(ethers.utils.parseEther("100"));
   });
 //   });
 });

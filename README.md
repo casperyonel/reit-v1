@@ -25,6 +25,7 @@ ethers
 ethereum-waffle
 chai
 @openzeppelin/contracts
+@uniswap/v3-core
 
 
 

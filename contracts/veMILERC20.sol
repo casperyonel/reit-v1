@@ -1,14 +1,14 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "./libraries/SafeMath.sol";
+import "./Libraries/SafeMath.sol";
 
-import "./interfaces/IERC20.sol";
-import "./interfaces/IMIL.sol";
-import "./interfaces/IERC20Permit.sol";
+import "./Interfaces/IERC20.sol";
+import "./Interfaces/IMIL.sol";
+import "./Interfaces/IERC20Permit.sol";
 
-import "./types/ERC20Permit.sol";
-import "./types/OlympusAccessControlled.sol"; // ???
+import "./Types/ERC20Permit.sol";
+import "./Types/OlympusAccessControlled.sol";
 
 contract MILERC20 is ERC20Permit, IMIL, OlympusAccessControlled {
     using SafeMath for uint256;
