@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./StandardBondingCalculator.sol";
+import "./interfaces/IMIL.sol";
 
 contract TreasuryMILv4 {
 
@@ -78,6 +79,7 @@ contract TreasuryMILv4 {
     ) external {
         // require( acceptedToken[ _token ], "Token not accepted");
         ERC20(_token).transferFrom(msg.sender, owner, _amount);
+        MIL.mint(msg.sender, owner, _amount);
         depositId++; // Increment master tracker
         // totalSupply += _amount; // Increase total supply of MIL by deposit amount
         totalveMIL += _amount; // Increase total supply of veMIL by deposit amount

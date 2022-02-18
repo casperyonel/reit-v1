@@ -10,7 +10,7 @@ import Leaderboards from "./Leaderboards";
 import MIMlogo from '../../../assets/tokens/MIM.svg'
 
 import PreSaleKovan from "../../../../src/artifacts/contracts/PreSaleKovan.sol/PreSaleKovan.json"
-import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
+// import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
 const PreSaleKovanAddress = "0x8dA4973175c2c700Cd91e9ac9A29b5431926D592";
 const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa"; 
 
@@ -104,11 +104,11 @@ const IDOWhitelist = () => {
                                 const signer = provider.getSigner()
 
                                 const contract = new ethers.Contract(PreSaleKovanAddress, PreSaleKovan.abi, signer)
-                                const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
+                                // const dai = new ethers.Contract(DAIAddress, DAIAbi, signer)
 
                                 const getTotalAmount = await contract.getTotalAmount()
                                 console.log(getTotalAmount)
-                                await dai.approve(PreSaleKovanAddress, order === 'A' ? classAOrder : classBOrder).then(() => console.log("APPROVED!")).catch(err => console.log(err))
+                                // await dai.approve(PreSaleKovanAddress, order === 'A' ? classAOrder : classBOrder).then(() => console.log("APPROVED!")).catch(err => console.log(err))
                                 const transaction = await contract.purchaseIDO(order === 'A' ? classAOrder : classBOrder)
                                 await transaction.wait()
                                 console.log(`${order === 'A' ? classAOrder : classBOrder} DAI successfully deposited to contract`)                                 
