@@ -4,22 +4,33 @@ pragma solidity ^0.8.0;
 import "./libraries/SafeMath.sol";
 
 import "./interfaces/IERC20.sol";
-import "./interfaces/IOHM.sol";
+import "./interfaces/IMIL.sol";
 import "./interfaces/IERC20Permit.sol";
 
 import "./types/ERC20Permit.sol";
 import "./types/OlympusAccessControlled.sol"; // ???
 
-contract OlympusERC20Token is ERC20Permit, IOHM, OlympusAccessControlled {
+contract MILERC20 is ERC20Permit, IMIL, OlympusAccessControlled {
     using SafeMath for uint256;
 
-    constructor(address _authority)
-        ERC20("Olympus", "OHM", 9)
-        ERC20Permit("Olympus")
-        OlympusAccessControlled(IOlympusAuthority(_authority))
-    {}
+    address public owner;
+    address public treasury;
 
-    function mint(address account_, uint256 amount_) external override onlyVault {
+    constructor(address _owner)
+        ERC20("Magic Internet Land", "MIL", 9)
+        ERC20Permit("MagicInternetLand")
+        OlympusAccessControlled(IOlympusAuthority(_authority))
+    {
+        owner = msg.sender; // Only multi-sig or treasury contract can mint. 
+    }
+
+     /// @notice Only allows the `owner and Treasury contract` to execute mint burn functions.
+    modifier onlyOwner_or_Treasury() {
+        require(msg.sender == owner || msg.sender == treasury, "Owner or Treasury: caller is not the owner or treasury");
+        _;
+    }
+
+    function mint(address account_, uint256 amount_) external override onlyOwner_or_Treasury {
         _mint(account_, amount_);
     }
 
