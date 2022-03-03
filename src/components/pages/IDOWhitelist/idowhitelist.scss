@@ -1,8 +1,8 @@
 @import "../../../assets/fonts/fonts.scss";
-$primaryColor: rgb(28, 28, 39);
-$secondaryColor: rgb(23, 23, 33);
-$classBtnColor: rgb(48, 48, 66);
-$buttonColor: rgb(94, 114, 245);
+$primaryColor: rgb(95, 91, 45);
+$secondaryColor: rgb(95, 91, 13);
+$classBtnColor: rgb(100, 48, 66);
+$buttonColor: white;
 $primaryFontColor: rgb(247, 247, 247);
 $secondaryFontColor: rgb(111, 110, 130);
 $primaryBtnColor: rgb(195, 194, 210);
@@ -32,7 +32,7 @@ $marginPricing: 8px;
 }
 
 .box-left-1 {
-    height: 500px;
+    height: 900px;
     position: relative;
     display: flex;
 } 
@@ -119,7 +119,7 @@ $marginPricing: 8px;
     font-family: Montserrat SemiBold;
     cursor: pointer;
     height: 61px; // Confirmed
-    width: 420px;
+    width: 380px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -133,7 +133,7 @@ $marginPricing: 8px;
 }
 
 .clicked-outlined {
-    outline: 1.5px solid $buttonColor;
+    outline: 1px solid $buttonColor;
 } 
 
 .class-label {
