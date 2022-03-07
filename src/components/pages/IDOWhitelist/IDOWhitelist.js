@@ -12,7 +12,7 @@ import MIMlogo from '../../../assets/tokens/MIM.svg'
 import PreSaleKovan from "../../../../src/artifacts/contracts/PreSaleKovan.sol/PreSaleKovan.json"
 // import DAIAbi from "../../../../src/artifacts/contracts/DAI.sol/DAI.json";
 const PreSaleKovanAddress = "0x8dA4973175c2c700Cd91e9ac9A29b5431926D592";
-const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa"; //.
+const DAIAddress = "0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa";
 
 const classAOrder = String(500 * Math.pow(10, 18))
 const classBOrder = String(1000 * Math.pow(10, 18))
