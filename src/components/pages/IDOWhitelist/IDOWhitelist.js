@@ -32,7 +32,7 @@ const IDOWhitelist = () => {
         if (typeof window.ethereum !== 'undefined') {
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' }) // User sign in
             setWalletConnected(true)
-            return account[0] // .
+            return account[0]
         }
     }
 
