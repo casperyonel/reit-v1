@@ -69,3 +69,18 @@ contract MILERC20 is ERC20Permit, IMIL, OlympusAccessControlled {
         _burn(account_, amount_);
     }
 }
+
+
+
+
+import @identdefi/contracts/KYCCompliant.sol;
+
+contract LiquidityPool is KYCCompliant {
+   function deposit(
+      uint _amount, 
+      uint _token, 
+      address _user
+      ) external checkKYC(_user) {
+         ...
+      }
+}
