@@ -8,7 +8,7 @@ library EnumerableSet {
   // bytes32 values.
   // The Set implementation uses private functions, and user-facing
   // implementations (such as AddressSet) are just wrappers around the
-  // underlying Set.
+  // underlying Set...
   // This means that we can only create new EnumerableSets for types that fit
   struct Set {
     // Storage of set values
